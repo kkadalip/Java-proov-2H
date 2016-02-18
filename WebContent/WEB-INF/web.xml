@@ -8,5 +8,39 @@
     <welcome-file>default.html</welcome-file>
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
+    
+    <welcome-file>register.jsp</welcome-file>
   </welcome-file-list>
+<!--  
+  <servlet>
+    <description></description>
+    <display-name>Hello</display-name>
+    <servlet-name>Hello</servlet-name>
+    <servlet-class>controllers.Hello</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Hello</servlet-name>
+    <url-pattern>/Hello</url-pattern>
+  </servlet-mapping>
+  -->
+  
+    <servlet>
+        <display-name>User</display-name>
+        <servlet-name>User</servlet-name>
+        <servlet-class>controller.UserControllerServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <display-name>Success</display-name>
+        <servlet-name>Success</servlet-name>
+        <servlet-class>controller.Success</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>User</servlet-name>
+        <url-pattern>/save</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Success</servlet-name>
+        <url-pattern>/Success</url-pattern>
+    </servlet-mapping>
+
 </web-app>
