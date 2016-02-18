@@ -2,6 +2,7 @@
     <wb-module deploy-name="Java-proov-2H">
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/lib"/>
         <property name="context-root" value="Java-proov-2H"/>
         <property name="java-output-path" value="/Java-proov-2H/build/classes"/>
     </wb-module>
