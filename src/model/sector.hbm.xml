@@ -5,5 +5,6 @@
     <class name="model.Sector" table="SECTOR">
         <id column="ID" name="id" type="java.lang.Integer" />
         <property column="SECTOR_NAME" name="sectorName" type="java.lang.String" />
+        <property column="PARENT_SECTOR_ID" name="parentSectorID" type="java.lang.Integer" />
     </class>
 </hibernate-mapping>

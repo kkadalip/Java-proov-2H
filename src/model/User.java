@@ -3,6 +3,8 @@ package model;
 public class User {
     private int id;
     private String userName;
+    //private Boolean termsAccepted;
+    
     //private String password1;
     //private String email;
     //private String phone;

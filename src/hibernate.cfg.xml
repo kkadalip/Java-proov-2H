@@ -8,14 +8,18 @@
 		<!-- http://www.tutorialspoint.com/hibernate/hibernate_configuration.htm -->
 		<!-- Database connection settings: -->
 		<!-- SQL dialect. (I'm using HSQLDB) -->
-		<property name="dialect">org.hibernate.dialect.HSQLDialect</property>
+		<property name="hibernate.dialect">org.hibernate.dialect.HSQLDialect</property>
+		<!-- org.hibernate.dialect.H2Dialect http://www.h2database.com/html/cheatSheet.html-->
 		<!-- The JDBC driver class. -->
 		<property name="hibernate.connection.driver_class">org.hsqldb.jdbcDriver</property>
 		<!-- The JDBC URL to the database instance. -->
+		<!-- http://hsqldb.org/doc/guide/running-chapt.html -->
 		<!--<property name="hibernate.connection.url">jdbc:hsqldb:hsql://localhost:9001;databaseName=mydb;</property>-->
-		<property name="hibernate.connection.url">jdbc:hsqldb:hsql://localhost:9001/mydb</property>
+		<!--<property name="hibernate.connection.url">jdbc:hsqldb:hsql://localhost/xdb</property>-->
+		<!-- jdbc:sqlserver://localhost\ServerInstanceOrServerName:1433;databaseName=DATABASE_NAME  -->
+		<property name="hibernate.connection.url">jdbc:hsqldb:hsql://localhost:9001/mydb</property>		
 		<!-- The database username. -->
-		<property name="hibernate.connection.username">sa</property>
+		<property name="hibernate.connection.username">SA</property>
 		<!-- The database password. -->
 		<property name="hibernate.connection.password"></property>
 		<!-- JDBC connection pool. Limits the number of connections waiting in the Hibernate database connection pool. (Default 20)-->
@@ -29,14 +33,18 @@
 		<!-- <property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property> -->
 		<!-- Echo all executed SQL to stdout -->
 		<property name="hibernate.show_sql">true</property>
+		<property name="hibernate.format_sql">true</property>
+		<property name="hibernate.use_sql_comments">true</property>
 		<!-- Drop and re-create the database schema on startup -->
-		<property name="hbm2ddl.auto">update</property>
-		<property name="format_sql">true</property>
+		<property name="hibernate.hbm2ddl.auto">update</property>
 
 		<!-- 
 		<property name="transaction.factory_class">org.hibernate.transaction.JDBCTransactionFactory</property>
         <property name="current_session_context_class">thread</property>-->    <!-- this will show us all sql statements -->
+        
+        <!-- <session-factory name="java:hibernate/SessionFactory"> --> <!-- Name is Optional -->
 		 
+		 <!-- <property name="hibernate.default_schema">theSchemaNameUsuallydbo</property> -->
 		<mapping resource="model/user.hbm.xml" />
 	</session-factory>
 </hibernate-configuration>
