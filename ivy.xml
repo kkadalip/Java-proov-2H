@@ -3,7 +3,8 @@
 	<configurations defaultconf="default" />
 	<dependencies>
 		<dependency org="org.apache.ant" name="ant" rev="1.9.6" />
-		<dependency org="org.hsqldb" name="hsqldb" rev="2.3.3" />
+		<!--<dependency org="org.hsqldb" name="hsqldb" rev="2.3.3" />-->
+		<dependency org="com.h2database" name="h2" rev="1.4.191" />
 		
 		<!-- http://hibernate.org/orm/downloads/ for JPA, use hibernate-entitymanager instead of hibernate-core -->
 		<dependency org="org.hibernate" name="hibernate-entitymanager" rev="5.1.0.Final" />

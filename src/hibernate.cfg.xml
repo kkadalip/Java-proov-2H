@@ -7,17 +7,20 @@
 	<session-factory>
 		<!-- http://www.tutorialspoint.com/hibernate/hibernate_configuration.htm -->
 		<!-- Database connection settings: -->
-		<!-- SQL dialect. (I'm using HSQLDB) -->
-		<property name="hibernate.dialect">org.hibernate.dialect.HSQLDialect</property>
+		<!-- SQL dialect. (I'm using H2) -->
+		<property name="hibernate.dialect">org.hibernate.dialect.H2Dialect</property>
 		<!-- org.hibernate.dialect.H2Dialect http://www.h2database.com/html/cheatSheet.html-->
+		<!-- <property name="hibernate.dialect">org.hibernate.dialect.HSQLDialect</property> -->
 		<!-- The JDBC driver class. -->
-		<property name="hibernate.connection.driver_class">org.hsqldb.jdbcDriver</property>
+		<property name="hibernate.connection.driver_class">org.h2.Driver</property>
+		<!-- <property name="hibernate.connection.driver_class">org.hsqldb.jdbcDriver</property> -->
 		<!-- The JDBC URL to the database instance. -->
 		<!-- http://hsqldb.org/doc/guide/running-chapt.html -->
 		<!--<property name="hibernate.connection.url">jdbc:hsqldb:hsql://localhost:9001;databaseName=mydb;</property>-->
 		<!--<property name="hibernate.connection.url">jdbc:hsqldb:hsql://localhost/xdb</property>-->
 		<!-- jdbc:sqlserver://localhost\ServerInstanceOrServerName:1433;databaseName=DATABASE_NAME  -->
-		<property name="hibernate.connection.url">jdbc:hsqldb:hsql://localhost:9001/mydb</property>		
+		<!--<property name="hibernate.connection.url">jdbc:hsqldb:hsql://localhost:9001/mydb</property>-->
+		<property name="hibernate.connection.url">jdbc:h2://localhost:9001/mydb</property>	
 		<!-- The database username. -->
 		<property name="hibernate.connection.username">SA</property>
 		<!-- The database password. -->

@@ -2,8 +2,8 @@ package model;
 
 public class User {
     private int id;
-    private String userName;
-    //private Boolean termsAccepted;
+    private String name;
+    //private Boolean termsAccepted; // just validate, no need for this in db
     
     //private String password1;
     //private String email;
@@ -18,12 +18,12 @@ public class User {
         this.id = id;
     }
  
-    public String getUserName() {
-        return userName;
+    public String getName() {
+        return name;
     }
  
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setName(String name) {
+        this.name = name;
     }
  
     /*

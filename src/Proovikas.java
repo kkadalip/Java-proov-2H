@@ -11,16 +11,16 @@ public class Proovikas {
 	public static void main(String[] args) {  
 
 		Configuration conf = new Configuration();  
-		conf.configure();
+		conf.configure(); // conf.configure("/resources/hibernate.cfg.xml");
 		ServiceRegistry sr = new StandardServiceRegistryBuilder().applySettings(conf.getProperties()).build();
 		SessionFactory sf = conf.buildSessionFactory(sr);  
 
 		User user1 = new User();  
-		user1.setUserName("Alala");  
+		user1.setName("Alala");  
 		//user1.setUserMessage("Hello world");  
 
 		User user2 = new User();  
-		user2.setUserName("Ololo");  
+		user2.setName("Ololo");  
 		//user2.setUserMessage("Hello world2");  
 
 		Session session = sf.openSession();  
