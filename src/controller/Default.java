@@ -62,11 +62,11 @@ public class Default extends HttpServlet {
 	private List<User> getAllUsers(HttpServletRequest request){
 		List<User> allUsers = new ArrayList<User>();
 		dao.UserDAO userDao = new dao.UserDAO();
-		try {
+		//try {
 			allUsers = userDao.findAll();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		//} catch (SQLException e) {
+		//	e.printStackTrace();
+		//}
 		return allUsers;
 	}
 	

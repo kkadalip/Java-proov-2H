@@ -3,8 +3,19 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
     <class name="model.Sector" table="SECTOR">
-        <id column="ID" name="id" type="java.lang.Integer" />
+		<meta attribute="class-description">
+		     This class contains the sector detail. 
+		</meta>
+        <!-- <id column="ID" name="id" type="java.lang.Integer" /> -->
+		<id name="id" type="int" column="id">
+			<generator class="native"/>
+		</id>
+		<property name="name" column="name" type="string"/>
+		<property name="parent_id" column="parentID" type="int"/>
+		<!-- 
         <property column="SECTOR_NAME" name="sectorName" type="java.lang.String" />
         <property column="PARENT_SECTOR_ID" name="parentSectorID" type="java.lang.Integer" />
+         -->
     </class>
 </hibernate-mapping>
+

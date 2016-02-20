@@ -1,6 +1,24 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
-"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN"
+ "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd"> 
+
+<hibernate-mapping>
+   <class name="User" table="USER">
+      <meta attribute="class-description">
+         This class contains the user detail. 
+      </meta>
+      <id name="id" type="int" column="id">
+         <generator class="native"/>
+      </id>
+      <property name="name" column="name" type="string"/>
+      <!-- 
+      <property name="lastName" column="last_name" type="string"/>      
+      <property name="salary" column="salary" type="int"/>
+      -->
+   </class>
+</hibernate-mapping>
+
+<!-- 
 <hibernate-mapping>
     <class name="model.User" table="USER">
         <id column="ID" name="id" type="java.lang.Integer" />
@@ -8,3 +26,4 @@
         <property column="TERMS_AGREED" name="termsAgreed" type="java.lang.Boolean" />        
     </class>
 </hibernate-mapping>
+ -->

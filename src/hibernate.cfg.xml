@@ -49,5 +49,6 @@
 		 
 		 <!-- <property name="hibernate.default_schema">theSchemaNameUsuallydbo</property> -->
 		<mapping resource="model/user.hbm.xml" />
+		<mapping resource="model/sector.hbm.xml" />
 	</session-factory>
 </hibernate-configuration>

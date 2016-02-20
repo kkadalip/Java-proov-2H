@@ -1,7 +1,8 @@
 package dao;
- 
+
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.hibernate.HibernateException;
@@ -12,42 +13,73 @@ import org.hibernate.cfg.Configuration;
 
 import dao.AbstractDao;
 import model.User; // bean
- 
+
 public class UserDAO extends AbstractDao {
- 
-    public void addUserDetails(String userName) { //, String password, String email, String phone, String city) {
-        try {
-            // 1. configuring hibernate
-            Configuration configuration = new Configuration().configure();
- 
-            // 2. create sessionfactory
-            SessionFactory sessionFactory = configuration.buildSessionFactory();
- 
-            // 3. Get Session object
-            Session session = sessionFactory.openSession();
- 
-            // 4. Starting Transaction
-            Transaction transaction = session.beginTransaction();
-            User user = new User();
-            user.setName(userName);
-            //user.setPassword1(password);
-            //user.setEmail(email);
-            //user.setCity(city);
-            //user.setPhone(phone);
-            session.save(user);
-            transaction.commit();
-            System.out.println("\n\n Details Added \n");
- 
-        } catch (HibernateException e) {
-            System.out.println(e.getMessage());
-            System.out.println("error");
-        }
- 
-    }
- 
-    
-    
-	public List<User> findAll() throws SQLException{
+
+	// HIBERNATE WAY:
+	public void addUserDetails(String userName) { //, String password, String email, String phone, String city) {
+		try {
+			// 1. configuring hibernate
+			Configuration configuration = new Configuration().configure();
+
+			// 2. create sessionfactory
+			SessionFactory sessionFactory = configuration.buildSessionFactory();
+
+			// 3. Get Session object
+			Session session = sessionFactory.openSession();
+
+			// 4. Starting Transaction
+			Transaction transaction = session.beginTransaction();
+			User user = new User();
+			user.setName(userName);
+			//user.setPassword1(password);
+			//user.setEmail(email);
+			//user.setCity(city);
+			//user.setPhone(phone);
+			session.save(user);
+			transaction.commit();
+			System.out.println("\n\n Details Added \n");
+
+		} catch (HibernateException e) {
+			System.out.println(e.getMessage());
+			System.out.println("error");
+		}
+
+	}
+
+	public List<User> findAll(){
+		// 1. configuring hibernate
+		Configuration configuration = new Configuration().configure();
+		// 2. create sessionfactory
+		SessionFactory sessionFactory = configuration.buildSessionFactory();
+		// 3. Get Session object
+		Session session = sessionFactory.openSession();
+		// 4. Starting Transaction
+		Transaction transaction = session.beginTransaction();
+
+		List<User> users = new ArrayList<User>();
+		//return users;
+		//session.save(user);
+		transaction.commit();
+		List queryResult = session.createQuery("FROM Employee").list(); 
+		for (Iterator iterator = queryResult.iterator(); iterator.hasNext();){
+			User user = (User) iterator.next(); 
+			System.out.print("User ID: " + user.getId() + " Name: " + user.getName());
+			//System.out.print("First Name: " + employee.getFirstName()); 
+			//System.out.print("  Last Name: " + employee.getLastName()); 
+			//System.out.println("  Salary: " + employee.getSalary()); 
+			users.add(user);
+		}
+
+		//users = session.createCriteria(User.class).list();
+		return users;
+
+	}
+
+
+
+	// NON HIBERNATE STUFF:
+	public List<User> findAll2() throws SQLException{
 		List<User> users = new ArrayList<User>();
 		try {
 			st = getConnection().createStatement();
@@ -115,6 +147,6 @@ public class UserDAO extends AbstractDao {
 			closeResources();
 		}
 	}
-    
-    
+
+
 }
