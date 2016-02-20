@@ -5,7 +5,10 @@ import java.sql.*;
 import org.apache.commons.dbutils.DbUtils;
 
 public abstract class AbstractDao {
-	public static final String DB_URL = "jdbc:h2:file:${user.home}/data/kkadalip/db;shutdown=true;h2.lock_file=false";
+	// http://www.h2database.com/html/faq.html
+	public static final String DB_URL = "jdbc:h2:~/test";
+	//public static final String DB_URL = "jdbc:h2:file:${user.home}/data/kkadalip/db;"; // A file path that is implicitly relative to the current working directory is not allowed in the database URL "jdbc:h2:file:${user.home}/data/kkadalip/db;". Use an absolute path, ~/name, ./name, or the baseDir setting instead. [90011-191]
+	//public static final String DB_URL = "jdbc:h2:file:${user.home}/data/kkadalip/db;shutdown=true;h2.lock_file=false"; // org.h2.jdbc.JdbcSQLException: Unsupported connection setting "SHUTDOWN" [90113-191]
     //public static final String DB_URL = "jdbc:hsqldb:file:${user.home}/data/kkadalip/db;shutdown=true;hsqldb.lock_file=false";
     ////"jdbc:hsqldb:file:${user.home}/data/kkadalip/db;shutdown=true";
     

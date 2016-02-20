@@ -15,15 +15,21 @@ import org.apache.tools.ant.taskdefs.SQLExec;
 public class SetupDao extends AbstractDao {
 
 	public void createSchema() {
+		System.out.println("[SetupDao] createSchema");
 		executeSqlFromFile(getClassPathFile("schema.sql"));
 	}
 
-	public void createDefaultValues() {
-		executeSqlFromFile(getClassPathFile("defaultValues.sql"));
+	public void insertSampleData() {
+		System.out.println("[SetupDao] insertSampleData");
+		executeSqlFromFile(getClassPathFile("sample_data.sql"));
 	}
 
 	public void destroy() {
-		executeQuery("DROP SCHEMA PUBLIC CASCADE;");
+		System.out.println("[SetupDao] destroy");
+		//http://h2database.com/html/grammar.html#drop_all_objects
+		executeQuery("DROP ALL OBJECTS DELETE FILES;"); // without dropping tables use TRUNCATE TABLE, doesn't reset AUTO_INCREMENT counters to zero
+		// ? The command: SHUTDOWN You can execute it using RunScript.execute(jdbc_url, user, password, "classpath:shutdown.sql", "UTF8", false);
+		//executeQuery("DROP SCHEMA PUBLIC CASCADE;");
 	}
 
 	private String getClassPathFile(String fileName) {

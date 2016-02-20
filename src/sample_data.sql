@@ -1,14 +1,16 @@
-INSERT INTO user (id, username, password, enabled)
-    VALUES (1, 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', TRUE);
+INSERT INTO user (id, name)
+    VALUES (1, 'john');
 
-INSERT INTO user (id, username, password, enabled)
-    VALUES (2, 'user', '12dea96fec20593566ab75692c9949596833adc9', TRUE);
+INSERT INTO user (id, name)
+    VALUES (2, 'someone');
 
-INSERT INTO role VALUES (1, 'ROLE_ADMIN');
-INSERT INTO role VALUES (2, 'ROLE_USER');
-
-INSERT INTO user_role (user_id, role_id) VALUES (1, 1);
-INSERT INTO user_role (user_id, role_id) VALUES (2, 2);
+/*
+ * comment
+ */
+-- single line comment
+    
+INSERT INTO user_sector (user_id, sector_id) VALUES (1, 1);
+INSERT INTO user_sector (user_id, sector_id) VALUES (2, 2);
 
 
 INSERT INTO sector (id, name) VALUES (1, 'Manufacturing');
