@@ -10,7 +10,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
-import controller.AbstractDao;
+import dao.AbstractDao;
 import model.User; // bean
  
 public class UserDAO extends AbstractDao {

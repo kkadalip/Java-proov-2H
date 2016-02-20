@@ -26,7 +26,8 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>User</servlet-name>
-		<url-pattern>/save</url-pattern>
+		<!--<url-pattern>/save</url-pattern>-->
+		<url-pattern>/User</url-pattern>
 	</servlet-mapping>
 
 	<servlet>
