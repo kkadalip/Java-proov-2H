@@ -201,19 +201,17 @@
 			<thead>
 				<tr>
 					<th scope="col">Name</th>
-					<th scope="col">Whatever</th>
-					<th scope="col"></th>
+					<th scope="col">Whatever1</th>
+					<th scope="col">Whatever2</th>
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach items="${requestScope['displayedUnits']}" var="item">
+				<c:forEach items="${requestScope['displayedUsers']}" var="item">
 					<tr>
 						<td>
-							<div id="row_${item.code}">${item.name}</div>
+						<div id="row_${item.id}">ID: ${item.id}</div>
 						</td>
-						<td>${item.code}</td>
-						<td><a href="Search?do=delete&id=${item.id}"
-							id="delete_${item.code}">Kustuta</a></td>
+						<td>Name: ${item.name}</td>
 					</tr>
 				</c:forEach>
 			</tbody>

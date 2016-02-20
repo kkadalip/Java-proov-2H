@@ -51,7 +51,7 @@ public class UserDAO extends AbstractDao {
 		List<User> users = new ArrayList<User>();
 		try {
 			st = getConnection().createStatement();
-			rs = st.executeQuery("SELECT * FROM unit");
+			rs = st.executeQuery("SELECT * FROM user");
 			while(rs.next()){
 				User user = new User();
 				user.setId(rs.getInt(1)); // id
