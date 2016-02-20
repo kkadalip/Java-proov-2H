@@ -26,8 +26,18 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>User</servlet-name>
-		<!--<url-pattern>/save</url-pattern>-->
-		<url-pattern>/User</url-pattern>
+		<!--<url-pattern>/save</url-pattern> -->
+		<url-pattern>/save</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<display-name>Default</display-name>
+		<servlet-name>Default</servlet-name>
+		<servlet-class>controller.Default</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Default</servlet-name>
+		<url-pattern>/Default</url-pattern>
 	</servlet-mapping>
 
 	<servlet>
