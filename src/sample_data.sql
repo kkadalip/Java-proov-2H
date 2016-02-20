@@ -9,8 +9,8 @@ INSERT INTO user (id, name)
  */
 -- single line comment
     
-INSERT INTO user_sector (user_id, sector_id) VALUES (1, 1);
-INSERT INTO user_sector (user_id, sector_id) VALUES (2, 2);
+--INSERT INTO user_sector (user_id, sector_id) VALUES (1, 3);
+--INSERT INTO user_sector (user_id, sector_id) VALUES (2, 4);
 
 
 INSERT INTO sector (id, name) VALUES (1, 'Manufacturing');
@@ -71,53 +71,53 @@ INSERT INTO sector (id, name, parent_sector_id) VALUES (43, 'Plastic and Rubber'
 
 INSERT INTO sector (id, name, parent_sector_id) VALUES (44, 'Packaging',43);
 INSERT INTO sector (id, name, parent_sector_id) VALUES (45, 'Plastic goods',43);
-INSERT INTO sector (id, name, parent_sector_id) VALUES (45, 'Plastic processing technology',43);
+INSERT INTO sector (id, name, parent_sector_id) VALUES (46, 'Plastic processing technology',43);
 
-INSERT INTO sector (id, name, parent_sector_id) VALUES (46, 'Blowing',45);
-INSERT INTO sector (id, name, parent_sector_id) VALUES (47, 'Moulding',45);
-INSERT INTO sector (id, name, parent_sector_id) VALUES (48, 'Plastics welding and processing',45);
+INSERT INTO sector (id, name, parent_sector_id) VALUES (47, 'Blowing',46);
+INSERT INTO sector (id, name, parent_sector_id) VALUES (48, 'Moulding',46);
+INSERT INTO sector (id, name, parent_sector_id) VALUES (49, 'Plastics welding and processing',46);
 
-INSERT INTO sector (id, name, parent_sector_id) VALUES (49, 'Plastic profiles',43);
+INSERT INTO sector (id, name, parent_sector_id) VALUES (50, 'Plastic profiles',43);
 
-INSERT INTO sector (id, name, parent_sector_id) VALUES (50, 'Printing',1);
+INSERT INTO sector (id, name, parent_sector_id) VALUES (51, 'Printing',1);
 
-INSERT INTO sector (id, name, parent_sector_id) VALUES (51, 'Advertising',50);
-INSERT INTO sector (id, name, parent_sector_id) VALUES (52, 'Book/Periodicals printing',50);
-INSERT INTO sector (id, name, parent_sector_id) VALUES (53, 'Labelling and packaging printing',50);
+INSERT INTO sector (id, name, parent_sector_id) VALUES (52, 'Advertising',51);
+INSERT INTO sector (id, name, parent_sector_id) VALUES (53, 'Book/Periodicals printing',51);
+INSERT INTO sector (id, name, parent_sector_id) VALUES (54, 'Labelling and packaging printing',51);
 
-INSERT INTO sector (id, name, parent_sector_id) VALUES (54, 'Textile and Clothing',1);
+INSERT INTO sector (id, name, parent_sector_id) VALUES (55, 'Textile and Clothing',1);
 
-INSERT INTO sector (id, name, parent_sector_id) VALUES (55, 'Clothing',54);
-INSERT INTO sector (id, name, parent_sector_id) VALUES (56, 'Textile',54);
+INSERT INTO sector (id, name, parent_sector_id) VALUES (56, 'Clothing',55);
+INSERT INTO sector (id, name, parent_sector_id) VALUES (57, 'Textile',55);
 
-INSERT INTO sector (id, name, parent_sector_id) VALUES (57, 'Wood',1);
+INSERT INTO sector (id, name, parent_sector_id) VALUES (58, 'Wood',1);
 
-INSERT INTO sector (id, name, parent_sector_id) VALUES (58, 'Other (Wood)',57);
-INSERT INTO sector (id, name, parent_sector_id) VALUES (59, 'Wooden building materials',57);
-INSERT INTO sector (id, name, parent_sector_id) VALUES (60, 'Wooden houses',57);
+INSERT INTO sector (id, name, parent_sector_id) VALUES (59, 'Other (Wood)',58);
+INSERT INTO sector (id, name, parent_sector_id) VALUES (60, 'Wooden building materials',58);
+INSERT INTO sector (id, name, parent_sector_id) VALUES (61, 'Wooden houses',58);
 
-INSERT INTO sector (id, name) VALUES (61, 'Other');
+INSERT INTO sector (id, name) VALUES (62, 'Other');
 
-INSERT INTO sector (id, name, parent_sector_id) VALUES (62, 'Creative industries',61);
-INSERT INTO sector (id, name, parent_sector_id) VALUES (63, 'Energy technology',61);
-INSERT INTO sector (id, name, parent_sector_id) VALUES (64, 'Environment',61);
+INSERT INTO sector (id, name, parent_sector_id) VALUES (63, 'Creative industries',62);
+INSERT INTO sector (id, name, parent_sector_id) VALUES (64, 'Energy technology',62);
+INSERT INTO sector (id, name, parent_sector_id) VALUES (65, 'Environment',62);
 
-INSERT INTO sector (id, name) VALUES (61, 'Service');
+INSERT INTO sector (id, name) VALUES (66, 'Service');
 
-INSERT INTO sector (id, name, parent_sector_id) VALUES (62, 'Business services', 61);
-INSERT INTO sector (id, name, parent_sector_id) VALUES (63, 'Engineering', 61);
-INSERT INTO sector (id, name, parent_sector_id) VALUES (64, 'Information Technology and Telecommunications', 61);
+INSERT INTO sector (id, name, parent_sector_id) VALUES (67, 'Business services', 62);
+INSERT INTO sector (id, name, parent_sector_id) VALUES (68, 'Engineering', 62);
+INSERT INTO sector (id, name, parent_sector_id) VALUES (69, 'Information Technology and Telecommunications', 62);
 
-INSERT INTO sector (id, name, parent_sector_id) VALUES (65, 'Data processing\, Web portals\, E-marketing', 64);
-INSERT INTO sector (id, name, parent_sector_id) VALUES (66, 'Programming\, Consultancy', 64);
-INSERT INTO sector (id, name, parent_sector_id) VALUES (67, 'Software\, Hardware', 64);
-INSERT INTO sector (id, name, parent_sector_id) VALUES (68, 'Telecommunications', 64);
+INSERT INTO sector (id, name, parent_sector_id) VALUES (70, 'Data processing\, Web portals\, E-marketing', 69);
+INSERT INTO sector (id, name, parent_sector_id) VALUES (71, 'Programming\, Consultancy', 69);
+INSERT INTO sector (id, name, parent_sector_id) VALUES (72, 'Software\, Hardware', 69);
+INSERT INTO sector (id, name, parent_sector_id) VALUES (73, 'Telecommunications', 69);
 
-INSERT INTO sector (id, name, parent_sector_id) VALUES (69, 'Tourism', 61);
-INSERT INTO sector (id, name, parent_sector_id) VALUES (70, 'Translation services', 61);
-INSERT INTO sector (id, name, parent_sector_id) VALUES (71, 'Transport and Logistics', 61);
+INSERT INTO sector (id, name, parent_sector_id) VALUES (74, 'Tourism', 66);
+INSERT INTO sector (id, name, parent_sector_id) VALUES (75, 'Translation services', 66);
+INSERT INTO sector (id, name, parent_sector_id) VALUES (76, 'Transport and Logistics', 66);
 
-INSERT INTO sector (id, name, parent_sector_id) VALUES (72, 'Air', 71);
-INSERT INTO sector (id, name, parent_sector_id) VALUES (73, 'Rail', 71);
-INSERT INTO sector (id, name, parent_sector_id) VALUES (74, 'Road', 71);
-INSERT INTO sector (id, name, parent_sector_id) VALUES (75, 'Water', 71);
+INSERT INTO sector (id, name, parent_sector_id) VALUES (77, 'Air', 76);
+INSERT INTO sector (id, name, parent_sector_id) VALUES (78, 'Rail', 76);
+INSERT INTO sector (id, name, parent_sector_id) VALUES (79, 'Road', 76);
+INSERT INTO sector (id, name, parent_sector_id) VALUES (80, 'Water', 76);
