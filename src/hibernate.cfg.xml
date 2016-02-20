@@ -20,7 +20,10 @@
 		<!--<property name="hibernate.connection.url">jdbc:hsqldb:hsql://localhost/xdb</property>-->
 		<!-- jdbc:sqlserver://localhost\ServerInstanceOrServerName:1433;databaseName=DATABASE_NAME  -->
 		<!--<property name="hibernate.connection.url">jdbc:hsqldb:hsql://localhost:9001/mydb</property>-->
-		<property name="hibernate.connection.url">jdbc:h2://localhost:9001/mydb</property>	
+		<!-- <property name="hibernate.connection.url">jdbc:h2://localhost:9001/mydb</property>	 -->
+		<!-- <property name="hibernate.connection.url">jdbc:h2:~/test2</property> -->
+		<!-- http://stackoverflow.com/questions/8158969/h2-database-error-database-may-be-already-in-use-locked-by-another-process -->	
+		<property name="hibernate.connection.url">jdbc:h2:tcp:~/test2</property>
 		<!-- The database username. -->
 		<property name="hibernate.connection.username">SA</property>
 		<!-- The database password. -->

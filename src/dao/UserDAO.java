@@ -61,7 +61,7 @@ public class UserDAO extends AbstractDao {
 		//return users;
 		//session.save(user);
 		transaction.commit();
-		List queryResult = session.createQuery("FROM Employee").list(); 
+		List queryResult = session.createQuery("FROM User").list(); 
 		for (Iterator iterator = queryResult.iterator(); iterator.hasNext();){
 			User user = (User) iterator.next(); 
 			System.out.print("User ID: " + user.getId() + " Name: " + user.getName());
