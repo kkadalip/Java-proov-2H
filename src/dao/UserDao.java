@@ -24,7 +24,7 @@ public class UserDao extends AbstractDaoHibernate {
 			//Configuration configuration = new Configuration().configure();
 			// 2. create sessionfactory
 			//SessionFactory sessionFactory = configuration.buildSessionFactory();
-
+			sessionFactory = HibernateUtil.getSessionFactory();
 			// 3. Get Session object
 			Session session = sessionFactory.openSession();
 			// 4. Starting Transaction
@@ -53,6 +53,8 @@ public class UserDao extends AbstractDaoHibernate {
 		// 2. create sessionfactory
 		//SessionFactory sessionFactory = configuration.buildSessionFactory();
 		
+		sessionFactory = HibernateUtil.getSessionFactory();
+		System.out.println("userdao sessionfactory is: " + sessionFactory);
 		// 3. Get Session object
 		Session session = sessionFactory.openSession();
 		// 4. Starting Transaction

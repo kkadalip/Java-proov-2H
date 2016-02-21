@@ -3,6 +3,7 @@ package listener;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
+import dao.HibernateUtil;
 import dao.SetupDao;
 import dao.SetupDaoHibernate;
 
@@ -11,7 +12,14 @@ public class InitDatabaseListener implements ServletContextListener {
 	@Override
 	public void contextInitialized(ServletContextEvent arg0) {
 		SetupDaoHibernate setupDaoHibernate = new SetupDaoHibernate();
-
+		//setupDaoHibernate.initFactory();
+//		try {
+//			setupDaoHibernate.setUp();
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		
 		/*
 		SetupDao setupDao = new SetupDao();
 		

@@ -20,16 +20,17 @@ import org.hibernate.cfg.Configuration;
 public abstract class AbstractDaoHibernate {
 	// private or protected
 	// 1. configuring hibernate
-	static Configuration configuration; //in setupdao:    = new Configuration().configure();
+	//protected Configuration configuration; //in setupdao:    = new Configuration().configure();
 	// 2. create sessionfactory
-	static SessionFactory sessionFactory; //= configuration.buildSessionFactory();
-
-	static void initFactory() { // protected
-		try {
-			configuration = new Configuration().configure();
-			sessionFactory = configuration.buildSessionFactory();
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
+	protected SessionFactory sessionFactory; //= configuration.buildSessionFactory();
+	
+	//static void initFactory() { // protected
+//    static { 
+//		try {
+//			configuration = new Configuration().configure();
+//			sessionFactory = configuration.buildSessionFactory();
+//		} catch (Exception e) {
+//			throw new RuntimeException(e);
+//		}
+//	}
 }
