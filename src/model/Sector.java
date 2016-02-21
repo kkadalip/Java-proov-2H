@@ -1,41 +1,85 @@
 package model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
+
+@Entity
+@Table(name = "sector")
 public class Sector {
-	private int id;
+
+	@Id
+	@Column(name="sector_id")
+	//@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(generator="increment")
+	@GenericGenerator(name="increment", strategy = "increment")
+	private Long id;
 	private String name;
-	private int parent_id;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+    @ManyToOne // (cascade={CascadeType.ALL})
+    @JoinColumn(name = "sector_id") // not parent_sector duh
+    private Sector parentSector;
 
-	public int getParent_id() {
-		return parent_id;
-	}
+//	@ManyToOne
+//    @JoinColumn(name = "user_id")
+//	private int parent_sector_id;
+	
+//    public Sector(){
+//    }
+    
+    //public Sector(String sectorName, Long user_id){
+//    public Sector(String sectorName){
+//    	name = sectorName;
+//    }
 
-	public void setParent_id(int parent_id) {
-		this.parent_id = parent_id;
-	}
-
-	public int getId() {
+    public Long getId() {
 		return id;
 	}
-
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
 	public String getName() {
 		return name;
 	}
-
 	public void setName(String name) {
 		this.name = name;
 	}
-
-	public int getParent_sector_id() {
-		return parent_sector_id;
+	
+	public User getUser() {
+		return user;
 	}
-
-	public void setParent_sector_id(int parent_sector_id) {
-		this.parent_sector_id = parent_sector_id;
+	public void setUser(User user) {
+		this.user = user;
 	}
-
-	private int parent_sector_id;
+	
+	public Sector getParentSector() {
+		return parentSector;
+	}
+	public void setParentSector(Sector parentSector) {
+		this.parentSector = parentSector;
+	}
+ 
+    
+//	public int getParent_sector_id() {
+//		return parent_sector_id;
+//	}
+//	public void setParent_sector_id(int parent_sector_id) {
+//		this.parent_sector_id = parent_sector_id;
+//	}
+	
+//	@Temporal(TemporalType.TIMESTAMP)
+//	@Column(name = "EVENT_DATE")
+//	public Date getDate() {
+//	    return date;
+//	}
 }

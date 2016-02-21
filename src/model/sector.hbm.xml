@@ -7,16 +7,28 @@
 		<meta attribute="class-description">
 		     This class contains the sector detail. 
 		</meta>
-        <!-- <id column="ID" name="id" type="java.lang.Integer" /> -->
-		<id name="id" type="int" column="id">
+        <!-- <id column="ID" name="id" type="java.lang.Integer" />  int -->
+		<id name="id" type="long" column="id">
 			<generator class="native"/>
 		</id>
 		<property name="name" column="name" type="string"/>
-		<property name="parent_id" column="parentID" type="int"/>
+		
+		
+		<many-to-one name="user" class="model.User" column="user_id"
+			unique="true" not-null="false" cascade="all" />
+			
+		<many-to-one name="parentSector" class="model.Sector" column="sector_id"
+			unique="true" not-null="false" cascade="all" />
+		
+		<!-- 
+		WRONG
+		<property name="user" column="user_id" type="long"/>
+		
+		<property name="parentSector" column="sector_id" type="long"/>
+		 -->
 		<!-- 
         <property column="SECTOR_NAME" name="sectorName" type="java.lang.String" />
         <property column="PARENT_SECTOR_ID" name="parentSectorID" type="java.lang.Integer" />
          -->
     </class>
 </hibernate-mapping>
-

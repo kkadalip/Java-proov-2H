@@ -1,7 +1,21 @@
 package model;
 
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+import org.hibernate.annotations.GenericGenerator;
+
 public class User {
-    private int id;
+	
+
+	@Id
+	@Column(name="user_id")
+	//@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(generator="increment")
+	@GenericGenerator(name="increment", strategy = "increment")
+	private Long id;
     private String name;
     //private Boolean termsAccepted; // just validate, no need for this in db
     
@@ -12,23 +26,20 @@ public class User {
     
     public User(){
     }
-    
     public User(String fullName){
     	name = fullName;
     }
  
-    public int getId() {
-        return id;
-    }
- 
-    public void setId(int id) {
-        this.id = id;
-    }
- 
+    public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+
     public String getName() {
         return name;
-    }
- 
+    } 
     public void setName(String name) {
         this.name = name;
     }

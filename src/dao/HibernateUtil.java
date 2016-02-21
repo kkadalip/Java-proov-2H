@@ -1,5 +1,6 @@
 package dao;
 
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.Metadata;
@@ -27,10 +28,12 @@ public class HibernateUtil {
 			System.out.println("hibernateutil sessionfactory is " + sessionFactory);
 			return sessionFactory;
 		} 
-		catch (Throwable ex) {
+		//catch (Throwable ex) {
+		catch (HibernateException ex) {
 			// Make sure you log the exception, as it might be swallowed
 			System.err.println("Initial SessionFactory creation failed." + ex);
-			throw new ExceptionInInitializerError(ex);
+//			throw new ExceptionInInitializerError(ex);
+			throw new HibernateException(ex);
 		}
 	}
 
