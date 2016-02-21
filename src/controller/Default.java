@@ -15,7 +15,7 @@ import javax.servlet.http.HttpSession;
 
 
 import dao.UserDao;
-
+import model.Sector;
 import model.User;
 
 public class Default extends HttpServlet {
@@ -24,6 +24,7 @@ public class Default extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("Controller Default doGet");
 		doStuff(request);
+		doStuffSectors(request);
 		//request.getRequestDispatcher("WEB-INF/index.jsp").forward(request, response);
 		request.getRequestDispatcher("index.jsp").forward(request, response);
 	}
@@ -33,7 +34,7 @@ public class Default extends HttpServlet {
 		//response.sendRedirect("Search");
 	}
 	
-	
+	// users
 	private void doStuff(HttpServletRequest request){
 		//String behaviour = request.getParameter("do");
 		//String searchString = request.getParameter("searchString");
@@ -59,6 +60,13 @@ public class Default extends HttpServlet {
 		displayedUsers = getAllUsers(request);
 		request.setAttribute("displayedUsers", displayedUsers);
 	}
+	
+	private void doStuffSectors(HttpServletRequest request){
+		List<Sector> displayedSectors = new ArrayList<Sector>();
+		displayedSectors = getAllSectors(request);
+		request.setAttribute("displayedSectors", displayedSectors);
+	}
+	
 	private List<User> getAllUsers(HttpServletRequest request){
 		List<User> allUsers = new ArrayList<User>();
 		dao.UserDao userDao = new dao.UserDao();
@@ -68,6 +76,17 @@ public class Default extends HttpServlet {
 		//	e.printStackTrace();
 		//}
 		return allUsers;
+	}
+	
+	private List<Sector> getAllSectors(HttpServletRequest request){
+		List<Sector> allSectors = new ArrayList<Sector>();
+		dao.SectorDao sectorDao = new dao.SectorDao();
+		//try {
+			allSectors = sectorDao.findAll();
+		//} catch (SQLException e) {
+		//	e.printStackTrace();
+		//}
+		return allSectors;
 	}
 	
 	

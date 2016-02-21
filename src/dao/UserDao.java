@@ -11,12 +11,13 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
-import dao.AbstractDao;
+//import dao.AbstractDao;
 import model.User; // bean
 
 //public class UserDao extends AbstractDao {
-public class UserDao extends AbstractDaoHibernate {
-
+//public class UserDao extends AbstractDaoHibernate {
+public class UserDao {
+	
 	// HIBERNATE WAY:
 	public void addUserDetails(String userName) { //, String password, String email, String phone, String city) {
 		try {
@@ -24,7 +25,9 @@ public class UserDao extends AbstractDaoHibernate {
 			//Configuration configuration = new Configuration().configure();
 			// 2. create sessionfactory
 			//SessionFactory sessionFactory = configuration.buildSessionFactory();
-			sessionFactory = HibernateUtil.getSessionFactory();
+			
+			SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+			
 			// 3. Get Session object
 			Session session = sessionFactory.openSession();
 			// 4. Starting Transaction
@@ -53,7 +56,7 @@ public class UserDao extends AbstractDaoHibernate {
 		// 2. create sessionfactory
 		//SessionFactory sessionFactory = configuration.buildSessionFactory();
 		
-		sessionFactory = HibernateUtil.getSessionFactory();
+		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 		System.out.println("userdao sessionfactory is: " + sessionFactory);
 		// 3. Get Session object
 		Session session = sessionFactory.openSession();
@@ -63,11 +66,12 @@ public class UserDao extends AbstractDaoHibernate {
 		List<User> users = new ArrayList<User>();
 		//return users;
 		//session.save(user);
-		transaction.commit();
+		
+		//transaction.commit(); // why? nothing to commit here, should be last thing before close
 		List queryResult = session.createQuery("FROM User").list(); 
 		for (Iterator iterator = queryResult.iterator(); iterator.hasNext();){
 			User user = (User) iterator.next(); 
-			System.out.print("User ID: " + user.getId() + " Name: " + user.getName());
+			System.out.print("[UserDao][findAll] User ID: " + user.getId() + " Name: " + user.getName());
 			//System.out.print("First Name: " + employee.getFirstName()); 
 			//System.out.print("  Last Name: " + employee.getLastName()); 
 			//System.out.println("  Salary: " + employee.getSalary()); 

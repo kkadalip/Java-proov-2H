@@ -216,6 +216,28 @@
 				</c:forEach>
 			</tbody>
 		</table>
+		
+		
+		
+		<table class="listTable2" id="listTable2">
+			<thead>
+				<tr>
+					<th scope="col">Sector</th>
+					<th scope="col">Sector name</th>
+					<th scope="col">Whatever...</th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach items="${requestScope['displayedSectors']}" var="item">
+					<tr>
+						<td>
+						<div id="row_${item.id}">ID: ${item.id}</div>
+						</td>
+						<td>Sector name: ${item.name}</td>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
 	</form>
 </body>
 </html>
