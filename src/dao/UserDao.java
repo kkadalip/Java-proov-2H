@@ -37,7 +37,7 @@ public class UserDao extends AbstractDaoHibernate {
 			//user.setPhone(phone);
 			session.save(user);
 			transaction.commit(); // session.getTransaction().commit();
-			// session.close();
+			session.close();
 			System.out.println("\n\n Details Added \n");
 
 		} catch (HibernateException e) {
@@ -75,8 +75,8 @@ public class UserDao extends AbstractDaoHibernate {
 		}
 
 		//users = session.createCriteria(User.class).list();
+		session.close();
 		return users;
-
 	}
 
 
