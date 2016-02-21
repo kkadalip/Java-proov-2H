@@ -12,6 +12,7 @@ public class InitDatabaseListener implements ServletContextListener {
 	@Override
 	public void contextInitialized(ServletContextEvent arg0) {
 		SetupDaoHibernate setupDaoHibernate = new SetupDaoHibernate();
+		setupDaoHibernate.insertSampleDataUsers();
 		//setupDaoHibernate.initFactory();
 //		try {
 //			setupDaoHibernate.setUp();

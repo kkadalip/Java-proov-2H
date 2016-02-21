@@ -9,6 +9,13 @@ public class User {
     //private String email;
     //private String phone;
     //private String city;
+    
+    public User(){
+    }
+    
+    public User(String fullName){
+    	name = fullName;
+    }
  
     public int getId() {
         return id;

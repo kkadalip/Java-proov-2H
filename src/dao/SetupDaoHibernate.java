@@ -17,6 +17,36 @@ import model.User;
 
 public class SetupDaoHibernate extends AbstractDaoHibernate {
 
+	public void insertSampleDataUsers(){
+		try {
+			sessionFactory = HibernateUtil.getSessionFactory();
+			Session session = sessionFactory.openSession();
+			Transaction transaction = session.beginTransaction();
+			/*User user = new User();
+			user.setName("John Smith");
+			session.save(user);*/
+			//user.setPassword1(password);
+			//user.setEmail(email);
+			//user.setCity(city);
+			//user.setPhone(phone);
+			//session.save(user);
+			session.save(new User("John Smith"));
+			session.save(new User("Karl Kadalipp"));
+			session.save(new User("Random Blandom"));
+			transaction.commit(); // session.getTransaction().commit();
+			session.close();
+			System.out.println("\n\n Details Added \n");
+
+		} catch (HibernateException e) {
+			System.out.println(e.getMessage());
+			System.out.println("error");
+		}
+	}
+	
+	public void insertSampleDataSectors(){
+		
+	}
+	
 	//protected void setUp() throws Exception {
 //	public void setUp() throws Exception {
 //		System.out.println("sessionfactory is atm " + sessionFactory);
