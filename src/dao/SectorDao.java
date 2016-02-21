@@ -25,7 +25,8 @@ public class SectorDao {
 		List queryResult = session.createQuery("FROM Sector").list(); 
 		for (Iterator iterator = queryResult.iterator(); iterator.hasNext();){
 			Sector sector = (Sector) iterator.next(); 
-			System.out.print("[SectorDao][findAll] Sector ID: " + sector.getId() + " Sector Name: " + sector.getName());
+			//System.out.print("[SectorDao][findAll] Sector ID: " + sector.getId() + " Sector Name: " + sector.getName() + " Sector parent sector: " + sector.getParentSector().getName());
+			System.out.print("[SectorDao][findAll] Sector: " + sector.toString() ); //+ " Parent sector: " + sector.getParentSector().toString());
 			sectors.add(sector);
 		}
 		//transaction.commit(); // nothing to commit here

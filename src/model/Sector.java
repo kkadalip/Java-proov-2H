@@ -68,6 +68,30 @@ public class Sector {
 	public void setParentSector(Sector parentSector) {
 		this.parentSector = parentSector;
 	}
+	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		//return super.toString();
+		System.out.println("sector tostring");
+		String result = "";
+		result += " ID: " + this.getId();
+		result += " Name: " + this.getName();
+		User sector_user = this.getUser();
+		if(sector_user != null){
+			result += " Sector user: " + sector_user.toString();
+		}else{
+			result += " Sector user: null";
+		}
+		Sector parent_sector = this.getParentSector();
+		if(parent_sector != null){
+			result += " Parent sector: " + this.getParentSector().toString();
+		}else{
+			result += " Parent sector: null";
+		}
+		 // recursively goes through
+		return result;
+	}
  
     
 //	public int getParent_sector_id() {
@@ -82,4 +106,6 @@ public class Sector {
 //	public Date getDate() {
 //	    return date;
 //	}
+	
+	
 }

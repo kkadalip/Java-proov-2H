@@ -71,7 +71,7 @@ public class UserDao {
 		List queryResult = session.createQuery("FROM User").list(); 
 		for (Iterator iterator = queryResult.iterator(); iterator.hasNext();){
 			User user = (User) iterator.next(); 
-			System.out.print("[UserDao][findAll] User ID: " + user.getId() + " Name: " + user.getName());
+			System.out.print("[UserDao][findAll] " + user.toString() ); // User ID: + user.getId() + " Name: " + user.getName());
 			//System.out.print("First Name: " + employee.getFirstName()); 
 			//System.out.print("  Last Name: " + employee.getLastName()); 
 			//System.out.println("  Salary: " + employee.getSalary()); 
