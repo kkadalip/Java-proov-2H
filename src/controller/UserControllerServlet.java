@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
  
-import dao.UserDAO;
+import dao.UserDao;
 
 public class UserControllerServlet extends HttpServlet {
      
@@ -25,7 +25,7 @@ public class UserControllerServlet extends HttpServlet {
  
         HttpSession session = request.getSession(true);
         try {
-            UserDAO userDAO = new UserDAO();
+            UserDao userDAO = new UserDao();
             userDAO.addUserDetails(userName); //, password, email, phone, city);
             response.sendRedirect("Success");
         } catch (Exception e) {

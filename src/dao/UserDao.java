@@ -14,20 +14,19 @@ import org.hibernate.cfg.Configuration;
 import dao.AbstractDao;
 import model.User; // bean
 
-public class UserDAO extends AbstractDao {
+//public class UserDao extends AbstractDao {
+public class UserDao extends AbstractDaoHibernate {
 
 	// HIBERNATE WAY:
 	public void addUserDetails(String userName) { //, String password, String email, String phone, String city) {
 		try {
 			// 1. configuring hibernate
-			Configuration configuration = new Configuration().configure();
-
+			//Configuration configuration = new Configuration().configure();
 			// 2. create sessionfactory
-			SessionFactory sessionFactory = configuration.buildSessionFactory();
+			//SessionFactory sessionFactory = configuration.buildSessionFactory();
 
 			// 3. Get Session object
 			Session session = sessionFactory.openSession();
-
 			// 4. Starting Transaction
 			Transaction transaction = session.beginTransaction();
 			User user = new User();
@@ -37,7 +36,8 @@ public class UserDAO extends AbstractDao {
 			//user.setCity(city);
 			//user.setPhone(phone);
 			session.save(user);
-			transaction.commit();
+			transaction.commit(); // session.getTransaction().commit();
+			// session.close();
 			System.out.println("\n\n Details Added \n");
 
 		} catch (HibernateException e) {
@@ -49,9 +49,10 @@ public class UserDAO extends AbstractDao {
 
 	public List<User> findAll(){
 		// 1. configuring hibernate
-		Configuration configuration = new Configuration().configure();
+		//Configuration configuration = new Configuration().configure();
 		// 2. create sessionfactory
-		SessionFactory sessionFactory = configuration.buildSessionFactory();
+		//SessionFactory sessionFactory = configuration.buildSessionFactory();
+		
 		// 3. Get Session object
 		Session session = sessionFactory.openSession();
 		// 4. Starting Transaction
@@ -79,6 +80,7 @@ public class UserDAO extends AbstractDao {
 
 
 	// NON HIBERNATE STUFF:
+	/*
 	public List<User> findAll2() throws SQLException{
 		List<User> users = new ArrayList<User>();
 		try {
@@ -147,6 +149,6 @@ public class UserDAO extends AbstractDao {
 			closeResources();
 		}
 	}
-
+*/
 
 }

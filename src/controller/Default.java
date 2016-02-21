@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 
-import dao.UserDAO;
+import dao.UserDao;
 
 import model.User;
 
@@ -61,7 +61,7 @@ public class Default extends HttpServlet {
 	}
 	private List<User> getAllUsers(HttpServletRequest request){
 		List<User> allUsers = new ArrayList<User>();
-		dao.UserDAO userDao = new dao.UserDAO();
+		dao.UserDao userDao = new dao.UserDao();
 		//try {
 			allUsers = userDao.findAll();
 		//} catch (SQLException e) {
