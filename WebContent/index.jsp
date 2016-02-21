@@ -188,13 +188,13 @@
 
 
 
-	<h1>Please enter your name and pick the Sectors you are currently involved in.</h1>
+	<h1>Please enter your name and pick the Sectors you are currently
+		involved in.</h1>
 	<form action="save" method="post">
 		<!-- action here is what matters -->
-		<br>
-		<br> Name:
-		<input type="text" name="userName">
-		<input type="submit" value="Save"> <!-- move this to bottom and make a generic form with all other things IN THIS FORM user name + sectors + agreement -->
+		<br> <br> Name: <input type="text" name="userName">
+		<input type="submit" value="Save">
+		<!-- move this to bottom and make a generic form with all other things IN THIS FORM user name + sectors + agreement -->
 		<br />
 		<!-- 
 		<table cellpadding="3pt">
@@ -238,7 +238,7 @@
 		</table>
 
 
-
+		<!-- 
 		<table class="listTable2" id="listTable2">
 			<thead>
 				<tr>
@@ -258,22 +258,18 @@
 				</c:forEach>
 			</tbody>
 		</table>
+ -->
+		<br /> Sectors: <select multiple size="5">
+			<c:forEach items="${requestScope['displayedSectors']}" var="item">
+				<option value="${item.id}">${item.name}</option>
+			</c:forEach>
+		</select>
 	</form>
-
-
-	<br /> 
-	Sectors:
-	<select multiple size="5">
-		<option value="1">Manufacturing</option>
-	</select>
 	<br />
 	<br />
-
 	<input type="checkbox"> Agree to terms
 	<br />
 	<br />
 	<input type="submit" value="Save">
-
-
 </body>
 </html>
