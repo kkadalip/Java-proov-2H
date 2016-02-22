@@ -259,9 +259,21 @@
 			</tbody>
 		</table>
  -->
+
 		<br /> Sectors: <select multiple size="5">
 			<c:forEach items="${requestScope['displayedSectors']}" var="item">
+				<!--<option value="<c:if test="${not empty item.child_sectors}">swag &nbsp;&nbsp;</c:if>${item.child_sectors} - ${item.id}">${item.name}</option>-->
+				<!--<c:if test="${not empty item.child_sectors}">OMFG</c:if>-->
+				<!-- <option value="${item.id}">${item.name}</option> -->
+				
+				<!-- <option value="${item.id}">${item.child_sectors} - ${item.name}</option> -->
+				
 				<option value="${item.id}">${item.name}</option>
+				<c:if test="${not empty item.child_sectors}">
+					<c:forEach items="${item.child_sectors}" var="child_item">
+						<option value="${child_item.id}">&nbsp;&nbsp;${child_item.name}</option>
+					</c:forEach>
+				</c:if>
 			</c:forEach>
 		</select>
 	</form>
