@@ -35,6 +35,7 @@ public class InitDatabaseListener implements ServletContextListener { // class n
 
 	@Override
 	public void contextDestroyed(ServletContextEvent arg0) {
+		HibernateUtil.getSessionFactory().close(); // closing factory
 		System.out.println("[InitDatabaseListener] contextDestroyed");
 	}
 

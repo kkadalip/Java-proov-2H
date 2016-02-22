@@ -63,7 +63,8 @@ public class Default extends HttpServlet {
 	
 	private void doStuffSectors(HttpServletRequest request){
 		List<Sector> displayedSectors = new ArrayList<Sector>();
-		displayedSectors = getAllSectors(request);
+		//displayedSectors = getAllSectors(request);
+		displayedSectors = getAllSectorsLevel0(request);
 		request.setAttribute("displayedSectors", displayedSectors);
 	}
 	
@@ -78,7 +79,9 @@ public class Default extends HttpServlet {
 		return allUsers;
 	}
 	
-	private List<Sector> getAllSectors(HttpServletRequest request){
+	// LITERALLY GETS ALL (regardless of level/group)
+	private List<Sector> getAllSectors(HttpServletRequest request){	
+		System.out.println("[Default][getAllSectors]");
 		List<Sector> allSectors = new ArrayList<Sector>();
 		dao.SectorDao sectorDao = new dao.SectorDao();
 		//try {
@@ -86,6 +89,14 @@ public class Default extends HttpServlet {
 		//} catch (SQLException e) {
 		//	e.printStackTrace();
 		//}
+		return allSectors;
+	}
+	
+	private List<Sector> getAllSectorsLevel0(HttpServletRequest request){
+		System.out.println("[Default][getAllSectorsLevel0]");
+		List<Sector> allSectors = new ArrayList<Sector>();
+		dao.SectorDao sectorDao = new dao.SectorDao();
+		allSectors = sectorDao.findAllLevel0();
 		return allSectors;
 	}
 	

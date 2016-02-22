@@ -49,7 +49,7 @@ public class Sector {
     //@SortNatural
 //    @SortComparator(WhateverComparator.class) // http://docs.jboss.org/hibernate/orm/5.1/userguide/html_single/Hibernate_User_Guide.html#collections-sorted-set
     // another way @Sort(type=SortType.COMPARATOR, comparator=TimeComparator.class)
-    @OrderBy("name ASC")
+    //@OrderBy("name")
     private Set<Sector> child_sectors = new HashSet<>();
     //private SortedSet<Sector> child_sectors = new TreeSet<>(); // TreeSet is only appropriate if you need the Set sorted, either by the Object's implementation of Comparable or by a custom Comparator passed to the TreeSet's constructor.
 	
