@@ -23,10 +23,19 @@
         	<key column="user_id" not-null="false" />
         	<one-to-many class="model.User" />
       	</set>
+	    <!-- <set name="child_sectors" cascade="all" sort="model.SectorComparator" > -->
+	    <set name="child_sectors" cascade="all">
+        	<key column="sector_id" not-null="false" />
+        	<one-to-many class="model.Sector" />
+      	</set>
+      	<!--
+      	GOOD BUT NOT ORDERED
       	<set name="child_sectors" cascade="all" >
         	<key column="sector_id" not-null="false" />
         	<one-to-many class="model.Sector" />
       	</set>
+      	-->
+      	
       	<!-- inverse="true"  -->
       	<!--
       	<set name="parentSector" cascade="all" >

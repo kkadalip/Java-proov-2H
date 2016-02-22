@@ -23,6 +23,7 @@ public class SectorDao {
 		Transaction transaction = session.beginTransaction();
 		List<Sector> sectors = new ArrayList<Sector>();
 		List queryResult = session.createQuery("FROM Sector").list(); 
+		//List queryResult = session.createQuery("FROM Sector ORDER BY name").list(); // SORTS BY NAME
 		for (Iterator iterator = queryResult.iterator(); iterator.hasNext();){
 			Sector sector = (Sector) iterator.next(); 
 			//System.out.print("[SectorDao][findAll] Sector ID: " + sector.getId() + " Sector Name: " + sector.getName() + " Sector parent sector: " + sector.getParentSector().getName());

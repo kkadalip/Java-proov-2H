@@ -3,6 +3,8 @@ package dao;
 import java.io.File;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.taskdefs.SQLExec;
@@ -66,7 +68,8 @@ public class SetupDaoHibernate extends AbstractDaoHibernate {
 		Sector s_lvl1_group0_9 = new Sector("Wood");
 		//session.save(s_lvl1_3);
 
-		Set<Sector> set_lvl0_0 = new HashSet<Sector>();
+//		Set<Sector> set_lvl0_0 = new HashSet<Sector>();'
+		SortedSet<Sector> set_lvl0_0 = new TreeSet<Sector>();
 		set_lvl0_0.add(s_lvl1_group0_0);
 		set_lvl0_0.add(s_lvl1_group0_1);
 		set_lvl0_0.add(s_lvl1_group0_2);
@@ -86,7 +89,8 @@ public class SetupDaoHibernate extends AbstractDaoHibernate {
 		Sector s_lvl1_group1_1 = new Sector("Energy technology");
 		Sector s_lvl1_group1_2 = new Sector("Environment");
 		
-		Set<Sector> set_lvl0_1 = new HashSet<Sector>();
+//		Set<Sector> set_lvl0_1 = new HashSet<Sector>();
+		SortedSet<Sector> set_lvl0_1 = new TreeSet<Sector>();
 		set_lvl0_1.add(s_lvl1_group1_0);
 		set_lvl0_1.add(s_lvl1_group1_1);
 		set_lvl0_1.add(s_lvl1_group1_2);
@@ -102,7 +106,8 @@ public class SetupDaoHibernate extends AbstractDaoHibernate {
 		Sector s_lvl1_group2_4 = new Sector("Translation services");
 		Sector s_lvl1_group2_5 = new Sector("Transport and Logistics");
 
-		Set<Sector> set_lvl0_2 = new HashSet<Sector>();
+//		Set<Sector> set_lvl0_2 = new HashSet<Sector>();
+		SortedSet<Sector> set_lvl0_2 = new TreeSet<Sector>();
 		set_lvl0_2.add(s_lvl1_group2_0);
 		set_lvl0_2.add(s_lvl1_group2_1);
 		set_lvl0_2.add(s_lvl1_group2_2);
