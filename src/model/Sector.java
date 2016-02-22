@@ -1,6 +1,7 @@
 package model;
 
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -23,9 +24,9 @@ import org.hibernate.annotations.SortNatural;
 
 @Entity
 @Table(name = "sector")
-//public class Sector {
+public class Sector {
 // static class??
-public class Sector implements Comparable<Sector> {
+//public class Sector implements Comparable<Sector> {
 
 	@Id
 	@Column(name="sector_id")
@@ -44,10 +45,13 @@ public class Sector implements Comparable<Sector> {
     private Set<Sector> child_sectors; */
     @OneToMany //@ManyToOne // (cascade={CascadeType.ALL})
     @JoinColumn(name = "sector_id") // not parent_sector duh
-    //@OrderBy("name ASC") wtf
-    @SortNatural
+    //@OrderBy("name ASC")
+    //@SortNatural
 //    @SortComparator(WhateverComparator.class) // http://docs.jboss.org/hibernate/orm/5.1/userguide/html_single/Hibernate_User_Guide.html#collections-sorted-set
-    private SortedSet<Sector> child_sectors = new TreeSet<>();
+    // another way @Sort(type=SortType.COMPARATOR, comparator=TimeComparator.class)
+    @OrderBy("name ASC")
+    private Set<Sector> child_sectors = new HashSet<>();
+    //private SortedSet<Sector> child_sectors = new TreeSet<>(); // TreeSet is only appropriate if you need the Set sorted, either by the Object's implementation of Comparable or by a custom Comparator passed to the TreeSet's constructor.
 	
     //private Sector parentSector;
 
@@ -62,35 +66,35 @@ public class Sector implements Comparable<Sector> {
 //		this.parentSector = parentSector;
 //	}
     
+    // CONSTRUCTORS
     public Sector(){
     }
-    
-//    public Set<Sector> getChild_sectors() {
-//		return child_sectors;
-//	}
-//
-//	public void setChild_sectors(Set<Sector> child_sectors) {
-//		this.child_sectors = child_sectors;
-//	}
-	public SortedSet<Sector> getChild_sectors() {
-		return child_sectors;
-	}
-
-	public void setChild_sectors(SortedSet<Sector> child_sectors) {
-		this.child_sectors = child_sectors;
-	}
-
 	public Sector(String sectorName){
     	name = sectorName;
     }
-    
-//    public Sector(String sectorName, Long user_id){
-//    public Sector(String sectorName, Sector sector_parentSector){
-//    	name = sectorName;
-//    	parentSector = sector_parentSector;
-//    }
+//  public Sector(String sectorName, Long user_id){
+//  public Sector(String sectorName, Sector sector_parentSector){
+//  	name = sectorName;
+//  	parentSector = sector_parentSector;
+//  }
 	
-//    public Sector(String sectorName, Set<Sector> sector_childSectors){
+	public Set<Sector> getChild_sectors() {
+		return child_sectors;
+	}
+
+	public void setChild_sectors(Set<Sector> child_sectors) {
+		this.child_sectors = child_sectors;
+	}
+
+
+//	public SortedSet<Sector> getChild_sectors() {
+//		return child_sectors;
+//	}
+//	public void setChild_sectors(SortedSet<Sector> child_sectors) {
+//		this.child_sectors = child_sectors;
+//	}
+
+	//    public Sector(String sectorName, Set<Sector> sector_childSectors){
 	public Sector(String sectorName, SortedSet<Sector> sector_childSectors){
     	name = sectorName;
     	child_sectors = sector_childSectors;
@@ -187,11 +191,11 @@ public class Sector implements Comparable<Sector> {
 //	    return date;
 //	}
 	
-	@Override
-    public int compareTo(Sector o) {
-		System.out.println("[Sector][compareTo] this name: " + this.name + " comparing to " + o.getName());
-        return this.name.compareTo( o.getName() );
-    }
+//	@Override
+//    public int compareTo(Sector o) {
+//		System.out.println("[Sector][compareTo] this name: " + this.name + " comparing to " + o.getName());
+//        return this.name.compareTo( o.getName() );
+//    }
 	
 //    @Override
 //    public int compareTo(Phone o) {

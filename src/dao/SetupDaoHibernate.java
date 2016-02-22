@@ -68,8 +68,8 @@ public class SetupDaoHibernate extends AbstractDaoHibernate {
 		Sector s_lvl1_group0_9 = new Sector("Wood");
 		//session.save(s_lvl1_3);
 
-//		Set<Sector> set_lvl0_0 = new HashSet<Sector>();'
-		SortedSet<Sector> set_lvl0_0 = new TreeSet<Sector>();
+		Set<Sector> set_lvl0_0 = new HashSet<Sector>();
+//		SortedSet<Sector> set_lvl0_0 = new TreeSet<Sector>();
 		set_lvl0_0.add(s_lvl1_group0_0);
 		set_lvl0_0.add(s_lvl1_group0_1);
 		set_lvl0_0.add(s_lvl1_group0_2);
@@ -80,7 +80,7 @@ public class SetupDaoHibernate extends AbstractDaoHibernate {
 		set_lvl0_0.add(s_lvl1_group0_7);
 		set_lvl0_0.add(s_lvl1_group0_8);
 		set_lvl0_0.add(s_lvl1_group0_9);
-		s_lvl0_0.setChild_sectors(set_lvl0_0);
+		s_lvl0_0.setChild_sectors(set_lvl0_0); // ERROR TODO FIX
 		session.save(s_lvl0_0);
 		
 		Sector s_lvl0_1 = new Sector("Other");
@@ -89,8 +89,8 @@ public class SetupDaoHibernate extends AbstractDaoHibernate {
 		Sector s_lvl1_group1_1 = new Sector("Energy technology");
 		Sector s_lvl1_group1_2 = new Sector("Environment");
 		
-//		Set<Sector> set_lvl0_1 = new HashSet<Sector>();
-		SortedSet<Sector> set_lvl0_1 = new TreeSet<Sector>();
+		Set<Sector> set_lvl0_1 = new HashSet<Sector>();
+//		SortedSet<Sector> set_lvl0_1 = new TreeSet<Sector>();
 		set_lvl0_1.add(s_lvl1_group1_0);
 		set_lvl0_1.add(s_lvl1_group1_1);
 		set_lvl0_1.add(s_lvl1_group1_2);
@@ -106,8 +106,8 @@ public class SetupDaoHibernate extends AbstractDaoHibernate {
 		Sector s_lvl1_group2_4 = new Sector("Translation services");
 		Sector s_lvl1_group2_5 = new Sector("Transport and Logistics");
 
-//		Set<Sector> set_lvl0_2 = new HashSet<Sector>();
-		SortedSet<Sector> set_lvl0_2 = new TreeSet<Sector>();
+		Set<Sector> set_lvl0_2 = new HashSet<Sector>();
+//		SortedSet<Sector> set_lvl0_2 = new TreeSet<Sector>();
 		set_lvl0_2.add(s_lvl1_group2_0);
 		set_lvl0_2.add(s_lvl1_group2_1);
 		set_lvl0_2.add(s_lvl1_group2_2);
