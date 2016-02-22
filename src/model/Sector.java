@@ -36,7 +36,7 @@ public class Sector {
 	private Long id;
 	private String name;
     //@ManyToOne
-	@OneToMany // changed, haven't used this yet
+	@OneToMany // changed, haven't used this yet // (fetch=FetchType.EAGER)
     @JoinColumn(name = "user_id")
 	private Set<User> users;
     //private User user;
