@@ -51,22 +51,66 @@ public class SetupDaoHibernate extends AbstractDaoHibernate {
 		//session.save(s_lvl0_0);
 		
 		System.out.println("adding Construction mat");
-		Sector s_lvl1_0 = new Sector("Construction materials");
+		Sector s_lvl1_group0_0 = new Sector("Construction materials");
 		System.out.println("adding Electronics and opt");
-		Sector s_lvl1_1 = new Sector("Electronics and Optics");
+		Sector s_lvl1_group0_1 = new Sector("Electronics and Optics");
 		System.out.println("adding food and beverages");
-		Sector s_lvl1_2 = new Sector("Food and Beverage");
+		Sector s_lvl1_group0_2 = new Sector("Food and Beverage");
 		System.out.println("adding Machinery");
-		Sector s_lvl1_3 = new Sector("Machinery");
-		session.save(s_lvl1_3);
+		Sector s_lvl1_group0_3 = new Sector("Furniture");
+		Sector s_lvl1_group0_4 = new Sector("Machinery");
+		Sector s_lvl1_group0_5 = new Sector("Metalworking");
+		Sector s_lvl1_group0_6 = new Sector("Plastic and Rubber");
+		Sector s_lvl1_group0_7 = new Sector("Printing");
+		Sector s_lvl1_group0_8 = new Sector("Textile and Clothing");
+		Sector s_lvl1_group0_9 = new Sector("Wood");
+		//session.save(s_lvl1_3);
 
 		Set<Sector> set_lvl0_0 = new HashSet<Sector>();
-		set_lvl0_0.add(s_lvl1_0);
-		set_lvl0_0.add(s_lvl1_1);
-		set_lvl0_0.add(s_lvl1_2);
-		set_lvl0_0.add(s_lvl1_3);
+		set_lvl0_0.add(s_lvl1_group0_0);
+		set_lvl0_0.add(s_lvl1_group0_1);
+		set_lvl0_0.add(s_lvl1_group0_2);
+		set_lvl0_0.add(s_lvl1_group0_3);
+		set_lvl0_0.add(s_lvl1_group0_4);
+		set_lvl0_0.add(s_lvl1_group0_5);
+		set_lvl0_0.add(s_lvl1_group0_6);
+		set_lvl0_0.add(s_lvl1_group0_7);
+		set_lvl0_0.add(s_lvl1_group0_8);
+		set_lvl0_0.add(s_lvl1_group0_9);
 		s_lvl0_0.setChild_sectors(set_lvl0_0);
 		session.save(s_lvl0_0);
+		
+		Sector s_lvl0_1 = new Sector("Other");
+		
+		Sector s_lvl1_group1_0 = new Sector("Creative industries");
+		Sector s_lvl1_group1_1 = new Sector("Energy technology");
+		Sector s_lvl1_group1_2 = new Sector("Environment");
+		
+		Set<Sector> set_lvl0_1 = new HashSet<Sector>();
+		set_lvl0_1.add(s_lvl1_group1_0);
+		set_lvl0_1.add(s_lvl1_group1_1);
+		set_lvl0_1.add(s_lvl1_group1_2);
+		s_lvl0_1.setChild_sectors(set_lvl0_1);
+		session.save(s_lvl0_1);
+		
+		Sector s_lvl0_2 = new Sector("Service");
+		
+		Sector s_lvl1_group2_0 = new Sector("Business services");
+		Sector s_lvl1_group2_1 = new Sector("Engineering");
+		Sector s_lvl1_group2_2 = new Sector("Information Technology and Telecommunications");
+		Sector s_lvl1_group2_3 = new Sector("Tourism");
+		Sector s_lvl1_group2_4 = new Sector("Translation services");
+		Sector s_lvl1_group2_5 = new Sector("Transport and Logistics");
+
+		Set<Sector> set_lvl0_2 = new HashSet<Sector>();
+		set_lvl0_2.add(s_lvl1_group2_0);
+		set_lvl0_2.add(s_lvl1_group2_1);
+		set_lvl0_2.add(s_lvl1_group2_2);
+		set_lvl0_2.add(s_lvl1_group2_3);
+		set_lvl0_2.add(s_lvl1_group2_4);
+		set_lvl0_2.add(s_lvl1_group2_5);
+		s_lvl0_2.setChild_sectors(set_lvl0_2);
+		session.save(s_lvl0_2);
 		
 		/*
 		System.out.println("adding Construction mat");
