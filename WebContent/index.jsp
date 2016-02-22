@@ -269,7 +269,7 @@
 				<!-- <option value="${item.id}">${item.child_sectors} - ${item.name}</option> -->
 				
 				<option value="${item.id}">${item.name}</option>
-				<c:if test="${not empty item.child_sectors}">
+				<c:if test="${not empty item.w}">
 					<c:forEach items="${item.child_sectors}" var="child_item">
 						<option value="${child_item.id}">&nbsp;&nbsp;${child_item.name}</option>
 					</c:forEach>

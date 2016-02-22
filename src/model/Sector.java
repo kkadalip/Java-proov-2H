@@ -18,7 +18,7 @@ import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Sort;
+//import org.hibernate.annotations.OrderBy;
 import org.hibernate.annotations.SortComparator;
 import org.hibernate.annotations.SortNatural;
 
@@ -43,15 +43,17 @@ public class Sector {
  /*   @OneToMany //@ManyToOne // (cascade={CascadeType.ALL})
     @JoinColumn(name = "sector_id") // not parent_sector duh
     private Set<Sector> child_sectors; */
+    
+//  @SortComparator(WhateverComparator.class) // http://docs.jboss.org/hibernate/orm/5.1/userguide/html_single/Hibernate_User_Guide.html#collections-sorted-set
+  // another way @Sort(type=SortType.COMPARATOR, comparator=TimeComparator.class)
+  //@OrderBy("name")
     @OneToMany //@ManyToOne // (cascade={CascadeType.ALL})
     @JoinColumn(name = "sector_id") // not parent_sector duh
-    //@OrderBy("name ASC")
-    //@SortNatural
-//    @SortComparator(WhateverComparator.class) // http://docs.jboss.org/hibernate/orm/5.1/userguide/html_single/Hibernate_User_Guide.html#collections-sorted-set
-    // another way @Sort(type=SortType.COMPARATOR, comparator=TimeComparator.class)
-    //@OrderBy("name")
-    private Set<Sector> child_sectors = new HashSet<>();
-    //private SortedSet<Sector> child_sectors = new TreeSet<>(); // TreeSet is only appropriate if you need the Set sorted, either by the Object's implementation of Comparable or by a custom Comparator passed to the TreeSet's constructor.
+    //@OrderBy("name") // @OrderBy currently works only on collections having no association table. http://docs.jboss.org/ejb3/app-server/HibernateAnnotations/reference/en/html_single/index.html#entity-mapping-association-collections
+    //@OrderBy(clause = "name asc")
+    @SortNatural
+//    private Set<Sector> child_sectors = new HashSet<>();
+    private SortedSet<Sector> child_sectors = new TreeSet<>(); // TreeSet is only appropriate if you need the Set sorted, either by the Object's implementation of Comparable or by a custom Comparator passed to the TreeSet's constructor.
 	
     //private Sector parentSector;
 
@@ -78,21 +80,21 @@ public class Sector {
 //  	parentSector = sector_parentSector;
 //  }
 	
-	public Set<Sector> getChild_sectors() {
-		return child_sectors;
-	}
-
-	public void setChild_sectors(Set<Sector> child_sectors) {
-		this.child_sectors = child_sectors;
-	}
-
-
-//	public SortedSet<Sector> getChild_sectors() {
+//	public Set<Sector> getChild_sectors() {
 //		return child_sectors;
 //	}
-//	public void setChild_sectors(SortedSet<Sector> child_sectors) {
+//
+//	public void setChild_sectors(Set<Sector> child_sectors) {
 //		this.child_sectors = child_sectors;
 //	}
+
+
+	public SortedSet<Sector> getChild_sectors() {
+		return child_sectors;
+	}
+	public void setChild_sectors(SortedSet<Sector> child_sectors) {
+		this.child_sectors = child_sectors;
+	}
 
 	//    public Sector(String sectorName, Set<Sector> sector_childSectors){
 	public Sector(String sectorName, SortedSet<Sector> sector_childSectors){
