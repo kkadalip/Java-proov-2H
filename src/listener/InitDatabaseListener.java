@@ -7,7 +7,7 @@ import dao.HibernateUtil;
 import dao.SetupDao;
 import dao.SetupDaoHibernate;
 
-public class InitDatabaseListener implements ServletContextListener {
+public class InitDatabaseListener implements ServletContextListener { // class not found?? TODO
 
 	@Override
 	public void contextInitialized(ServletContextEvent arg0) {

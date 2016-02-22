@@ -1,6 +1,8 @@
 package dao;
 
 import java.io.File;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.taskdefs.SQLExec;
@@ -43,18 +45,92 @@ public class SetupDaoHibernate extends AbstractDaoHibernate {
 		Session session = sessionFactory.openSession();
 		Transaction transaction = session.beginTransaction();
 		
-		Sector sector = new Sector();
-		sector.setName("Business services");
-		session.save(sector);
+		// ATM LEVEL 0 and LEVEL 1 added
+		System.out.println("adding manufacturing");
+		Sector s_lvl0_0 = new Sector("Manufacturing");
+		//session.save(s_lvl0_0);
 		
-		Sector sector2 = new Sector();
-		sector2.setName("Transport and Logistics");
-		session.save(sector2);
+		System.out.println("adding Construction mat");
+		Sector s_lvl1_0 = new Sector("Construction materials");
+		System.out.println("adding Electronics and opt");
+		Sector s_lvl1_1 = new Sector("Electronics and Optics");
+		System.out.println("adding food and beverages");
+		Sector s_lvl1_2 = new Sector("Food and Beverage");
+		System.out.println("adding Machinery");
+		Sector s_lvl1_3 = new Sector("Machinery");
+		session.save(s_lvl1_3);
+
+		Set<Sector> set_lvl0_0 = new HashSet<Sector>();
+		set_lvl0_0.add(s_lvl1_0);
+		set_lvl0_0.add(s_lvl1_1);
+		set_lvl0_0.add(s_lvl1_2);
+		set_lvl0_0.add(s_lvl1_3);
+		s_lvl0_0.setChild_sectors(set_lvl0_0);
+		session.save(s_lvl0_0);
 		
-		Sector sector3 = new Sector();
-		sector3.setName("Air");
-		sector3.setParentSector(sector2);
-		session.save(sector3);
+		/*
+		System.out.println("adding Construction mat");
+		Sector s_lvl1_0 = new Sector("Construction materials",s_lvl0_0);
+		session.save(s_lvl1_0);
+		System.out.println("adding Electronics and opt");
+		Sector s_lvl1_1 = new Sector("Electronics and Optics",s_lvl0_0);
+		session.save(s_lvl1_1);
+		System.out.println("adding food and beverages");
+		Sector s_lvl1_2 = new Sector("Food and Beverage",s_lvl0_0);
+		session.save(s_lvl1_2);
+		Sector s_lvl1_3 = new Sector("Machinery",s_lvl0_0);
+		session.save(s_lvl1_3);
+		Sector s_lvl1_4 = new Sector("Metalworking",s_lvl0_0);
+		session.save(s_lvl1_4);
+		Sector s_lvl1_5 = new Sector("Plastic and Rubber",s_lvl0_0);
+		session.save(s_lvl1_5);
+		Sector s_lvl1_6 = new Sector("Printing",s_lvl0_0);
+		session.save(s_lvl1_6);
+		Sector s_lvl1_7 = new Sector("Textile and Clothing",s_lvl0_0);
+		session.save(s_lvl1_7);
+		Sector s_lvl1_8 = new Sector("Wood",s_lvl0_0);
+		session.save(s_lvl1_8);
+		
+		Sector s_lvl0_1 = new Sector("Other");
+		session.save(s_lvl0_1);
+		
+		Sector s_lvl1_9 = new Sector("Creative industries",s_lvl0_1);
+		session.save(s_lvl1_9);
+		Sector s_lvl1_10 = new Sector("Energy technology",s_lvl0_1);
+		session.save(s_lvl1_10);
+		Sector s_lvl1_11 = new Sector("Environment",s_lvl0_1);
+		session.save(s_lvl1_11);
+		
+		Sector s_lvl0_2 = new Sector("Service");
+		session.save(s_lvl0_2);
+		
+		Sector s_lvl1_12 = new Sector("Business services",s_lvl0_2);
+		session.save(s_lvl1_12);
+		Sector s_lvl1_13 = new Sector("Engineering",s_lvl0_2);
+		session.save(s_lvl1_13);
+		Sector s_lvl1_14 = new Sector("Information Technology and Telecommunications",s_lvl0_2);
+		session.save(s_lvl1_14);
+		Sector s_lvl1_15 = new Sector("Tourism",s_lvl0_2);
+		session.save(s_lvl1_15);
+		Sector s_lvl1_16 = new Sector("Translation services",s_lvl0_2);
+		session.save(s_lvl1_16);
+		Sector s_lvl1_17 = new Sector("Transport and Logistics",s_lvl0_2);
+		session.save(s_lvl1_17);
+		*/
+		
+		
+//		Sector sector = new Sector();
+//		sector.setName("Business services");
+//		session.save(sector);
+//		
+//		Sector sector2 = new Sector();
+//		sector2.setName("Transport and Logistics");
+//		session.save(sector2);
+//		
+//		Sector sector3 = new Sector();
+//		sector3.setName("Air");
+//		sector3.setParentSector(sector2);
+//		session.save(sector3);
 		//session.save(new Sector());;
 		
 		transaction.commit(); // session.getTransaction().commit();

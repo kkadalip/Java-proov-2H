@@ -12,14 +12,35 @@
 			<generator class="native"/>
 		</id>
 		<property name="name" column="name" type="string"/>
-		
-		
+		<!-- 
+		<set name="user" cascade="all">
+        	<key column="user_id"/>
+        	<one-to-many class="model.User"/>
+      	</set>
+		 -->
+		 
+		<set name="users" cascade="all" >
+        	<key column="user_id" not-null="false" />
+        	<one-to-many class="model.User" />
+      	</set>
+      	<set name="child_sectors" cascade="all" >
+        	<key column="sector_id" not-null="false" />
+        	<one-to-many class="model.Sector" />
+      	</set>
+      	<!-- inverse="true"  -->
+      	<!--
+      	<set name="parentSector" cascade="all" >
+        	<key column="sector_id" not-null="false" />
+        	<one-to-many class="model.Sector" />
+      	</set>
+      	-->
+      	
+		<!-- 
 		<many-to-one name="user" class="model.User" column="user_id"
 			unique="true" not-null="false" cascade="all" />
-			
 		<many-to-one name="parentSector" class="model.Sector" column="sector_id"
 			unique="true" not-null="false" cascade="all" />
-		
+		-->
 		<!-- 
 		WRONG
 		<property name="user" column="user_id" type="long"/>

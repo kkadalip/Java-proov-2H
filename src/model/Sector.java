@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -22,24 +25,52 @@ public class Sector {
 	@GenericGenerator(name="increment", strategy = "increment")
 	private Long id;
 	private String name;
-    @ManyToOne
+    //@ManyToOne
+	@OneToMany // changed, haven't used this yet
     @JoinColumn(name = "user_id")
-    private User user;
-    @ManyToOne // (cascade={CascadeType.ALL})
+	private Set<User> users;
+    //private User user;
+    @OneToMany //@ManyToOne // (cascade={CascadeType.ALL})
     @JoinColumn(name = "sector_id") // not parent_sector duh
-    private Sector parentSector;
+    private Set<Sector> child_sectors;
+    //private Sector parentSector;
 
 //	@ManyToOne
 //    @JoinColumn(name = "user_id")
 //	private int parent_sector_id;
-	
-//    public Sector(){
-//    }
     
-    //public Sector(String sectorName, Long user_id){
-//    public Sector(String sectorName){
+//	public Sector getParentSector() {
+//		return parentSector;
+//	}
+//	public void setParentSector(Sector parentSector) {
+//		this.parentSector = parentSector;
+//	}
+    
+    public Sector(){
+    }
+    
+    public Set<Sector> getChild_sectors() {
+		return child_sectors;
+	}
+
+	public void setChild_sectors(Set<Sector> child_sectors) {
+		this.child_sectors = child_sectors;
+	}
+
+	public Sector(String sectorName){
+    	name = sectorName;
+    }
+    
+//    public Sector(String sectorName, Long user_id){
+//    public Sector(String sectorName, Sector sector_parentSector){
 //    	name = sectorName;
+//    	parentSector = sector_parentSector;
 //    }
+	
+    public Sector(String sectorName, Set<Sector> sector_childSectors){
+    	name = sectorName;
+    	child_sectors = sector_childSectors;
+    }
 
     public Long getId() {
 		return id;
@@ -55,19 +86,16 @@ public class Sector {
 		this.name = name;
 	}
 	
-	public User getUser() {
-		return user;
-	}
-	public void setUser(User user) {
-		this.user = user;
-	}
+//	public User getUser() {
+//		return user;
+//	}
+//	public void setUser(User user) {
+//		this.user = user;
+//	}
 	
-	public Sector getParentSector() {
-		return parentSector;
-	}
-	public void setParentSector(Sector parentSector) {
-		this.parentSector = parentSector;
-	}
+	
+	
+
 	
 	@Override
 	public String toString() {
@@ -77,20 +105,47 @@ public class Sector {
 		String result = "";
 		result += " ID: " + this.getId();
 		result += " Name: " + this.getName();
-		User sector_user = this.getUser();
-		if(sector_user != null){
-			result += " Sector user: " + sector_user.toString();
+//		User sector_user = this.getUser();
+//		if(sector_user != null){
+//			result += " Sector user: " + sector_user.toString();
+//		}else{
+//			result += " Sector user: null";
+//		}
+		Set<User> users = this.getUsers();
+		if(users != null){
+			for (User user : users) {
+				result += user.toString();
+			}
 		}else{
-			result += " Sector user: null";
+			result += " Users: null";
 		}
+		Set<Sector> child_sectors = this.getChild_sectors();
+		if(child_sectors != null){
+			for (Sector child_sector : child_sectors) {
+				result += child_sector.toString();
+			}
+		}else{
+			result += " Child sector: null";
+		}
+		/*
 		Sector parent_sector = this.getParentSector();
 		if(parent_sector != null){
 			result += " Parent sector: " + this.getParentSector().toString();
 		}else{
 			result += " Parent sector: null";
 		}
+		*/
 		 // recursively goes through
+		  
 		return result;
+	}
+
+	public Set<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(Set<User> users) {
+		this.users = users;
 	}
  
     
