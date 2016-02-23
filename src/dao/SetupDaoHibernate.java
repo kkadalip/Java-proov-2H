@@ -197,13 +197,26 @@ public class SetupDaoHibernate { // extends AbstractDaoHibernate {
 		Sector s_lvl2_group3_1 = new Sector("Houses and buildings");
 		Sector s_lvl2_group3_2 = new Sector("Metal products");
 		Sector s_lvl2_group3_3 = new Sector("Metal works");
-		SortedSet<Sector> set_lvl3_group1 = new TreeSet<Sector>();
-		set_lvl3_group1.add(s_lvl2_group3_0);
-		set_lvl3_group1.add(s_lvl2_group3_1);
-		set_lvl3_group1.add(s_lvl2_group3_2);
-		set_lvl3_group1.add(s_lvl2_group3_3);
-		s_lvl1_group0_5.setChild_sectors(set_lvl3_group1);
+		SortedSet<Sector> set_lvl2_group3 = new TreeSet<Sector>();
+		set_lvl2_group3.add(s_lvl2_group3_0);
+		set_lvl2_group3.add(s_lvl2_group3_1);
+		set_lvl2_group3.add(s_lvl2_group3_2);
+		set_lvl2_group3.add(s_lvl2_group3_3);
+		s_lvl1_group0_5.setChild_sectors(set_lvl2_group3);
 		session.save(s_lvl1_group0_5);
+		
+		// LEVEL 3 // Sector s_lvl2_group3_3 = new Sector("Metal works");
+		Sector s_lvl3_group1_0 = new Sector("CNC-machining");
+		Sector s_lvl3_group1_1 = new Sector("Forgings, Fasteners");
+		Sector s_lvl3_group1_2 = new Sector("Gas, Plasma, Laser cutting");
+		Sector s_lvl3_group1_3 = new Sector("MIG, TIG, Aluminium welding");
+		SortedSet<Sector> set_lvl3_group1 = new TreeSet<Sector>();
+		set_lvl3_group1.add(s_lvl3_group1_0);
+		set_lvl3_group1.add(s_lvl3_group1_1);
+		set_lvl3_group1.add(s_lvl3_group1_2);
+		set_lvl3_group1.add(s_lvl3_group1_3);
+		s_lvl2_group3_3.setChild_sectors(set_lvl3_group1);
+		session.save(s_lvl2_group3_3);
 		
 		/*
 		System.out.println("adding Construction mat");
