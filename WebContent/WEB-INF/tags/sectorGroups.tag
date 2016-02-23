@@ -15,7 +15,7 @@
 		<!-- varStatus="innerLoop"> -->
 		<option value="${item.id}">
 			<c:forEach begin="0" end="${lvl}" varStatus="loop">
-			x
+			&nbsp;&nbsp;&nbsp;&nbsp;
 			</c:forEach> ${innerLoop.index}-${item.name}
 		</option>
 		<myTags:sectorGroups level="${lvl + 1}" outerIndex="${outerIndex}"
