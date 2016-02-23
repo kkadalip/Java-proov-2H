@@ -24,9 +24,9 @@ import org.hibernate.annotations.SortNatural;
 
 @Entity
 @Table(name = "sector")
-public class Sector {
+//public class Sector {
 // static class??
-//public class Sector implements Comparable<Sector> {
+public class Sector implements Comparable<Sector> {
 
 	@Id
 	@Column(name="sector_id")
@@ -88,8 +88,7 @@ public class Sector {
 //		this.child_sectors = child_sectors;
 //	}
 
-
-	public SortedSet<Sector> getChild_sectors() {
+    public SortedSet<Sector> getChild_sectors() {
 		return child_sectors;
 	}
 	public void setChild_sectors(SortedSet<Sector> child_sectors) {
@@ -102,7 +101,8 @@ public class Sector {
     	child_sectors = sector_childSectors;
     }
 
-    public Long getId() {
+
+	public Long getId() {
 		return id;
 	}
 	public void setId(Long id) {
@@ -193,11 +193,13 @@ public class Sector {
 //	    return date;
 //	}
 	
-//	@Override
-//    public int compareTo(Sector o) {
-//		System.out.println("[Sector][compareTo] this name: " + this.name + " comparing to " + o.getName());
-//        return this.name.compareTo( o.getName() );
-//    }
+	// compares names
+	// TODO FIX
+	@Override
+    public int compareTo(Sector o) {
+		System.out.println("[Sector][compareTo] this name: " + this.name + " comparing to " + o.getName());
+        return this.name.compareTo( o.getName() );
+    }
 	
 //    @Override
 //    public int compareTo(Phone o) {
@@ -217,13 +219,13 @@ public class Sector {
 //    }
 
 	
-	// compares names
 //	public static class WhateverComparator implements Comparator<Sector> {
 //	    @Override
 //	    public int compare(Sector o1, Sector o2) {
 //	        return o2.compareTo( o1 );
 //	    }
 //	}
+
 
 }
 
