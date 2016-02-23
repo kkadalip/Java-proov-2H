@@ -185,12 +185,7 @@
 	<br />
 	<input type="submit" value="Save">
 
-
-
-
-
-
-	<h1>Please enter your name and pick the Sectors you are currently
+	<h1>NOT USING Please enter your name and pick the Sectors you are currently
 		involved in.</h1>
 	<form action="save" method="post">
 		<!-- action here is what matters -->
@@ -211,7 +206,10 @@
 		<!-- Register -->
 	</form>
 
-
+	<form method="post" action="Default" >
+	Name pls: <input type="text" name="userNameDefault">
+	<input type="submit" value="Save">
+	</form>
 
 	<!-- < %@ include file="menu.jsp"%> -->
 	<form method="get" action="Default">

@@ -22,7 +22,7 @@ public class Default extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("Controller Default doGet");
+		System.out.println("Controller [Default][doGet]");
 		doStuff(request);
 		doStuffSectors(request);
 		//request.getRequestDispatcher("WEB-INF/index.jsp").forward(request, response);
@@ -30,7 +30,13 @@ public class Default extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("Controller Default doPost");
+		System.out.println("Controller [Default][doPost]");
+		
+		String userName = request.getParameter("userNameDefault");
+		System.out.println("[Default][doPost] username is: " + userName);
+		
+		//response.sendRedirect("Default");
+		
 		//response.sendRedirect("Search");
 	}
 	

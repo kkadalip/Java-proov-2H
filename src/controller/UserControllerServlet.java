@@ -1,3 +1,4 @@
+// DELETE THIS LATER
 package controller;
  
 import java.io.IOException;
@@ -27,6 +28,7 @@ public class UserControllerServlet extends HttpServlet {
         try {
             UserDao userDAO = new UserDao();
             userDAO.addUserDetails(userName); //, password, email, phone, city);
+            System.out.println("[UserControllerServlet]");
             response.sendRedirect("Success");
         } catch (Exception e) {
  
