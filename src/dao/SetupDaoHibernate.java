@@ -20,10 +20,10 @@ import org.hibernate.cfg.Configuration;
 import model.Sector;
 import model.User;
 
-public class SetupDaoHibernate extends AbstractDaoHibernate {
+public class SetupDaoHibernate { // extends AbstractDaoHibernate {
 
 	public void insertSampleDataUsers(){
-		sessionFactory = HibernateUtil.getSessionFactory();
+		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 		Session session = sessionFactory.openSession();
 		Transaction transaction = session.beginTransaction();
 		/*User user = new User();
@@ -43,7 +43,7 @@ public class SetupDaoHibernate extends AbstractDaoHibernate {
 	}
 
 	public void insertSampleDataSectors(){
-		sessionFactory = HibernateUtil.getSessionFactory();
+		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 		Session session = sessionFactory.openSession();
 		Transaction transaction = session.beginTransaction();
 		
@@ -58,7 +58,7 @@ public class SetupDaoHibernate extends AbstractDaoHibernate {
 		Sector s_lvl1_group0_1 = new Sector("Electronics and Optics");
 		System.out.println("adding food and beverages");
 		Sector s_lvl1_group0_2 = new Sector("Food and Beverage");
-		System.out.println("adding Machinery");
+		System.out.println("adding Furniture");
 		Sector s_lvl1_group0_3 = new Sector("Furniture");
 		Sector s_lvl1_group0_4 = new Sector("Machinery");
 		Sector s_lvl1_group0_5 = new Sector("Metalworking");
@@ -69,18 +69,18 @@ public class SetupDaoHibernate extends AbstractDaoHibernate {
 		//session.save(s_lvl1_3);
 
 //		Set<Sector> set_lvl0_0 = new HashSet<Sector>();
-		SortedSet<Sector> set_lvl0_0 = new TreeSet<Sector>();
-		set_lvl0_0.add(s_lvl1_group0_0);
-		set_lvl0_0.add(s_lvl1_group0_1);
-		set_lvl0_0.add(s_lvl1_group0_2);
-		set_lvl0_0.add(s_lvl1_group0_3);
-		set_lvl0_0.add(s_lvl1_group0_4);
-		set_lvl0_0.add(s_lvl1_group0_5);
-		set_lvl0_0.add(s_lvl1_group0_6);
-		set_lvl0_0.add(s_lvl1_group0_7);
-		set_lvl0_0.add(s_lvl1_group0_8);
-		set_lvl0_0.add(s_lvl1_group0_9);
-		s_lvl0_0.setChild_sectors(set_lvl0_0); // ERROR TODO FIX
+		SortedSet<Sector> set_lvl0_group0 = new TreeSet<Sector>();
+		set_lvl0_group0.add(s_lvl1_group0_0);
+		set_lvl0_group0.add(s_lvl1_group0_1);
+		set_lvl0_group0.add(s_lvl1_group0_2);
+		set_lvl0_group0.add(s_lvl1_group0_3);
+		set_lvl0_group0.add(s_lvl1_group0_4);
+		set_lvl0_group0.add(s_lvl1_group0_5);
+		set_lvl0_group0.add(s_lvl1_group0_6);
+		set_lvl0_group0.add(s_lvl1_group0_7);
+		set_lvl0_group0.add(s_lvl1_group0_8);
+		set_lvl0_group0.add(s_lvl1_group0_9);
+		s_lvl0_0.setChild_sectors(set_lvl0_group0); // ERROR TODO FIX
 		session.save(s_lvl0_0);
 		
 		Sector s_lvl0_1 = new Sector("Other");
@@ -90,11 +90,11 @@ public class SetupDaoHibernate extends AbstractDaoHibernate {
 		Sector s_lvl1_group1_2 = new Sector("Environment");
 		
 //		Set<Sector> set_lvl0_1 = new HashSet<Sector>();
-		SortedSet<Sector> set_lvl0_1 = new TreeSet<Sector>();
-		set_lvl0_1.add(s_lvl1_group1_0);
-		set_lvl0_1.add(s_lvl1_group1_1);
-		set_lvl0_1.add(s_lvl1_group1_2);
-		s_lvl0_1.setChild_sectors(set_lvl0_1);
+		SortedSet<Sector> set_lvl0_group1 = new TreeSet<Sector>();
+		set_lvl0_group1.add(s_lvl1_group1_0);
+		set_lvl0_group1.add(s_lvl1_group1_1);
+		set_lvl0_group1.add(s_lvl1_group1_2);
+		s_lvl0_1.setChild_sectors(set_lvl0_group1);
 		session.save(s_lvl0_1);
 		
 		Sector s_lvl0_2 = new Sector("Service");
@@ -107,14 +107,14 @@ public class SetupDaoHibernate extends AbstractDaoHibernate {
 		Sector s_lvl1_group2_5 = new Sector("Transport and Logistics");
 
 //		Set<Sector> set_lvl0_2 = new HashSet<Sector>();
-		SortedSet<Sector> set_lvl0_2 = new TreeSet<Sector>();
-		set_lvl0_2.add(s_lvl1_group2_0);
-		set_lvl0_2.add(s_lvl1_group2_1);
-		set_lvl0_2.add(s_lvl1_group2_2);
-		set_lvl0_2.add(s_lvl1_group2_3);
-		set_lvl0_2.add(s_lvl1_group2_4);
-		set_lvl0_2.add(s_lvl1_group2_5);
-		s_lvl0_2.setChild_sectors(set_lvl0_2);
+		SortedSet<Sector> set_lvl0_group2 = new TreeSet<Sector>();
+		set_lvl0_group2.add(s_lvl1_group2_0);
+		set_lvl0_group2.add(s_lvl1_group2_1);
+		set_lvl0_group2.add(s_lvl1_group2_2);
+		set_lvl0_group2.add(s_lvl1_group2_3);
+		set_lvl0_group2.add(s_lvl1_group2_4);
+		set_lvl0_group2.add(s_lvl1_group2_5);
+		s_lvl0_2.setChild_sectors(set_lvl0_group2);
 		session.save(s_lvl0_2);
 		
 		// lvl0 lvl1 LEVEL2 STUFF HERE // Sector s_lvl1_group0_2 = new Sector("Food and Beverage"); 
@@ -127,17 +127,59 @@ public class SetupDaoHibernate extends AbstractDaoHibernate {
 		Sector s_lvl2_group0_4 = new Sector("Milk & dairy products");
 		Sector s_lvl2_group0_5 = new Sector("Other");
 		Sector s_lvl2_group0_6 = new Sector("Sweets & snack food");
-		
-		SortedSet<Sector> set_lvl2_0 = new TreeSet<Sector>();
-		set_lvl2_0.add(s_lvl2_group0_0);
-		set_lvl2_0.add(s_lvl2_group0_1);
-		set_lvl2_0.add(s_lvl2_group0_2);
-		set_lvl2_0.add(s_lvl2_group0_3);
-		set_lvl2_0.add(s_lvl2_group0_4);
-		set_lvl2_0.add(s_lvl2_group0_5);
-		set_lvl2_0.add(s_lvl2_group0_6);
-		s_lvl1_group0_2.setChild_sectors(set_lvl2_0);
+		SortedSet<Sector> set_lvl2_group0 = new TreeSet<Sector>();
+		set_lvl2_group0.add(s_lvl2_group0_0);
+		set_lvl2_group0.add(s_lvl2_group0_1);
+		set_lvl2_group0.add(s_lvl2_group0_2);
+		set_lvl2_group0.add(s_lvl2_group0_3);
+		set_lvl2_group0.add(s_lvl2_group0_4);
+		set_lvl2_group0.add(s_lvl2_group0_5);
+		set_lvl2_group0.add(s_lvl2_group0_6);
+		s_lvl1_group0_2.setChild_sectors(set_lvl2_group0);
 		session.save(s_lvl1_group0_2);
+		
+		// LEVEL2 // Sector s_lvl1_group0_3 = new Sector("Furniture");
+		// creating new sectors that don't exist yet but belong to furniture
+		Sector s_lvl2_group1_0 = new Sector("Bathroom/sauna"); 
+		Sector s_lvl2_group1_1 = new Sector("Bedroom");
+		Sector s_lvl2_group1_2 = new Sector("Children's room");
+		Sector s_lvl2_group1_3 = new Sector("Kitchen");
+		Sector s_lvl2_group1_4 = new Sector("Living room");
+		Sector s_lvl2_group1_5 = new Sector("Office");
+		Sector s_lvl2_group1_6 = new Sector("Other (Furniture)");
+		Sector s_lvl2_group1_7 = new Sector("Outdoor");
+		Sector s_lvl2_group1_8 = new Sector("Project furniture");
+		SortedSet<Sector> set_lvl2_group1 = new TreeSet<Sector>(); // creating new collection for furniture (level2)
+		set_lvl2_group1.add(s_lvl2_group1_0); // adding children to sorted collection
+		set_lvl2_group1.add(s_lvl2_group1_1);
+		set_lvl2_group1.add(s_lvl2_group1_2);
+		set_lvl2_group1.add(s_lvl2_group1_3);
+		set_lvl2_group1.add(s_lvl2_group1_4);
+		set_lvl2_group1.add(s_lvl2_group1_5);
+		set_lvl2_group1.add(s_lvl2_group1_6);
+		set_lvl2_group1.add(s_lvl2_group1_7);
+		set_lvl2_group1.add(s_lvl2_group1_8);
+		s_lvl1_group0_3.setChild_sectors(set_lvl2_group1); // Adding children to furniture
+		session.save(s_lvl1_group0_3); // Saving furniture children
+		
+		// LEVEL 2 // Sector s_lvl1_group0_4 = new Sector("Machinery");
+		Sector s_lvl2_group2_0 = new Sector("Machinery components"); 
+		Sector s_lvl2_group2_1 = new Sector("Machinery equipment/tools");
+		Sector s_lvl2_group2_2 = new Sector("Manufacture of machinery");
+		Sector s_lvl2_group2_3 = new Sector("Maritime");
+		Sector s_lvl2_group2_4 = new Sector("Metal structures");
+		Sector s_lvl2_group2_5 = new Sector("Other");
+		Sector s_lvl2_group2_6 = new Sector("Repair and maintenance service");
+		SortedSet<Sector> set_lvl2_group2 = new TreeSet<Sector>();
+		set_lvl2_group2.add(s_lvl2_group2_0);
+		set_lvl2_group2.add(s_lvl2_group2_1);
+		set_lvl2_group2.add(s_lvl2_group2_2);
+		set_lvl2_group2.add(s_lvl2_group2_3);
+		set_lvl2_group2.add(s_lvl2_group2_4);
+		set_lvl2_group2.add(s_lvl2_group2_5);
+		set_lvl2_group2.add(s_lvl2_group2_6);
+		s_lvl1_group0_4.setChild_sectors(set_lvl2_group2);
+		session.save(s_lvl1_group0_4);
 		
 		/*
 		System.out.println("adding Construction mat");
