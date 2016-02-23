@@ -270,9 +270,9 @@
 				
 				<!-- <option value="${item.id}">${item.child_sectors} - ${item.name}</option> -->
 				
-				<option value="${item.id}">${item.name}</option>
+				<option value="${item.id}">[${outerLoop.index}]]${item.name}</option>
 				
-				<myTags:sectorGroups outerIndex="${outerLoop.index}" list="${item.child_sectors}"/> <!--  pass outerLoop.index !!! -->
+				<myTags:sectorGroups level="0" outerIndex="${outerLoop.index}" list="${item.child_sectors}"/> <!--  pass outerLoop.index !!! -->
 				<!-- 
 				<c:if test="${not empty item.child_sectors}">
 					<c:forEach items="${item.child_sectors}" var="child_item">

@@ -1,0 +1,23 @@
+<!-- 
+<c:set var="level" value="0" scope="page" />
+
+<c:set var="lvl" value="${level}" scope="page" />
+ -->
+ 
+ <!-- 
+<option value="${item.id}">&nbsp;&nbsp;${innerLoop.index}-${item.name}</option> 
+-->
+
+<!-- 
+<c:forEach begin="0" end="${innerLoop.index}" varStatus="loop">
+	&nbsp;&nbsp;
+</c:forEach>
+ -->
+ 
+ <!--
+<c:forEach begin="0" end="${outerIndex}" varStatus="loop">
+	&nbsp;&nbsp;
+</c:forEach>
+-->
+
+Index: ${loop.index}<br />
