@@ -49,7 +49,7 @@
 	<input type="text">
 	<br />
 	<br /> Sectors:
-	<select multiple size="5">
+	<select multiple size="15">
 		<option value="1">Manufacturing</option>
 		<option value="19">&nbsp;&nbsp;&nbsp;&nbsp;Construction
 			materials</option>
@@ -260,7 +260,7 @@
 		</table>
  -->
 
-		<br /> Sectors: <select multiple size="5">
+		<br /> Sectors: <select multiple size="15">
 			<c:forEach items="${requestScope['displayedSectors']}" var="item">
 				<!--<option value="<c:if test="${not empty item.child_sectors}">swag &nbsp;&nbsp;</c:if>${item.child_sectors} - ${item.id}">${item.name}</option>-->
 				<!--<c:if test="${not empty item.child_sectors}">OMFG</c:if>-->
