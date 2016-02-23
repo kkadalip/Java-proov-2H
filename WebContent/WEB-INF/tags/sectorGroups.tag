@@ -14,9 +14,8 @@
 	<c:forEach var="item" items="${list}" varStatus="innerLoop">
 		<!-- varStatus="innerLoop"> -->
 		<option value="${item.id}">
-			<c:forEach begin="0" end="${lvl}" varStatus="loop">
-			&nbsp;&nbsp;&nbsp;&nbsp;
-			</c:forEach> ${innerLoop.index}-${item.name}
+			<!--[${innerLoop.index}]${item.name}-->
+			<c:forEach begin="0" end="${lvl}" varStatus="loop">&nbsp;&nbsp;&nbsp;&nbsp;</c:forEach>${item.name}
 		</option>
 		<myTags:sectorGroups level="${lvl + 1}" outerIndex="${outerIndex}"
 			list="${item.child_sectors}" />
