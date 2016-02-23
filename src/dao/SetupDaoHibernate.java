@@ -242,7 +242,16 @@ public class SetupDaoHibernate { // extends AbstractDaoHibernate {
 		s_lvl2_group4_2.setChild_sectors(set_lvl3_group2);
 		session.save(s_lvl2_group4_2);
 		
-		
+		// LEVEL 2 // Sector s_lvl1_group0_7 = new Sector("Printing");
+		Sector s_lvl2_group5_0 = new Sector("Advertising");
+		Sector s_lvl2_group5_1 = new Sector("Book/Periodicals printing");
+		Sector s_lvl2_group5_2 = new Sector("Labelling and packaging printing");
+		SortedSet<Sector> set_lvl2_group5 = new TreeSet<Sector>();
+		set_lvl2_group5.add(s_lvl2_group5_0);
+		set_lvl2_group5.add(s_lvl2_group5_1);
+		set_lvl2_group5.add(s_lvl2_group5_2);
+		s_lvl1_group0_7.setChild_sectors(set_lvl2_group5);
+		session.save(s_lvl1_group0_7);
 		
 		/*
 		System.out.println("adding Construction mat");
