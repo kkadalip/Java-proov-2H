@@ -5,6 +5,8 @@
 <%@ page import="java.util.LinkedHashMap"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+<%@ taglib tagdir="/WEB-INF/tags" prefix="myTags" %>
+
 <c:url value="/" var="base" />
 <!-- 
 <c:url value="Part" var="homeLink" />
@@ -269,11 +271,15 @@
 				<!-- <option value="${item.id}">${item.child_sectors} - ${item.name}</option> -->
 				
 				<option value="${item.id}">${item.name}</option>
+				
+				<myTags:sectorGroups list="${item.child_sectors}"/>
+				<!-- 
 				<c:if test="${not empty item.child_sectors}">
 					<c:forEach items="${item.child_sectors}" var="child_item">
 						<option value="${child_item.id}">&nbsp;&nbsp;${child_item.name}</option>
 					</c:forEach>
 				</c:if>
+				 -->
 			</c:forEach>
 		</select>
 	</form>
