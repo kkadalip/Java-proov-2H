@@ -1,15 +1,21 @@
 package model;
 
+import java.util.HashSet;
+import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
+
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.SortNatural;
 
 public class User {
-	
-
 	@Id
 	@Column(name="user_id")
 	//@GeneratedValue(strategy = GenerationType.AUTO)
@@ -23,6 +29,11 @@ public class User {
     //private String email;
     //private String phone;
     //private String city;
+    
+    @OneToMany //@ManyToOne // (cascade={CascadeType.ALL})
+    @JoinColumn(name = "sector_id") // not parent_sector duh
+    private Set<Sector> user_sectors = new HashSet<>();
+
     
     public User(){
     }
@@ -44,40 +55,14 @@ public class User {
         this.name = name;
     }
  
-    /*
-    public String getPassword1() {
-        return password1;
-    }
- 
-    public void setPassword1(String password1) {
-        this.password1 = password1;
-    }
- 
-    public String getEmail() {
-        return email;
-    }
- 
-    public void setEmail(String email) {
-        this.email = email;
-    }
- 
-    public String getPhone() {
-        return phone;
-    }
- 
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
- 
-    public String getCity() {
-        return city;
-    }
- 
-    public void setCity(String city) {
-        this.city = city;
-    }
- 	*/
-    
+	public Set<Sector> getUser_sectors() {
+		return user_sectors;
+	}
+	public void setUser_sectors(Set<Sector> user_sectors) {
+		this.user_sectors = user_sectors;
+	}
+
+	
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub

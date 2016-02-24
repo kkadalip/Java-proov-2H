@@ -35,11 +35,15 @@ public class Sector implements Comparable<Sector> {
 	@GenericGenerator(name="increment", strategy = "increment")
 	private Long id;
 	private String name;
-    //@ManyToOne
+    
+	/*
+	//@ManyToOne
 	@OneToMany // changed, haven't used this yet // (fetch=FetchType.EAGER)
     @JoinColumn(name = "user_id")
 	private Set<User> users;
-    //private User user;
+	    //private User user;
+	*/
+	
  /*   @OneToMany //@ManyToOne // (cascade={CascadeType.ALL})
     @JoinColumn(name = "sector_id") // not parent_sector duh
     private Set<Sector> child_sectors; */
@@ -141,6 +145,7 @@ public class Sector implements Comparable<Sector> {
 //		}else{
 //			result += " Sector user: null";
 //		}
+		/*
 		Set<User> users = this.getUsers();
 		if(users != null){
 			for (User user : users) {
@@ -148,7 +153,7 @@ public class Sector implements Comparable<Sector> {
 			}
 		}else{
 			result += " Users: null";
-		}
+		}*/
 		Set<Sector> child_sectors = this.getChild_sectors();
 		if(child_sectors != null){
 			for (Sector child_sector : child_sectors) {
@@ -170,13 +175,13 @@ public class Sector implements Comparable<Sector> {
 		return result;
 	}
 
-	public Set<User> getUsers() {
-		return users;
-	}
-
-	public void setUsers(Set<User> users) {
-		this.users = users;
-	}
+//	public Set<User> getUsers() {
+//		return users;
+//	}
+//
+//	public void setUsers(Set<User> users) {
+//		this.users = users;
+//	}
 
  
     

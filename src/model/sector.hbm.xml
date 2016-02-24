@@ -18,13 +18,16 @@
         	<one-to-many class="model.User"/>
       	</set>
 		 -->
-		 
+		 <!-- 
+		 SECTOR DOES NOT HAVE USERS ANYMORE
 		<set name="users" cascade="all" >
         	<key column="user_id" not-null="false" />
         	<one-to-many class="model.User" />
       	</set>
+      	 -->
 	    <!-- <set name="child_sectors" cascade="all" sort="model.SectorComparator" > -->
 	    <!-- <set name="child_sectors" cascade="all"> -->
+	    <!-- http://stackoverflow.com/questions/13027214/jpa-manytoone-with-cascadetype-all -->
 	    <set name="child_sectors" cascade="all" order-by="name" sort="natural">
         	<key column="sector_id" not-null="false" />
         	<one-to-many class="model.Sector" />
