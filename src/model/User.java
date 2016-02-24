@@ -40,9 +40,10 @@ public class User {
     @ManyToMany //(fetch = FetchType.EAGER) //@ManyToOne // (cascade={CascadeType.ALL}) // @OneToMany(fetch = FetchType.LAZY, mappedBy = "user???")
     @JoinColumn(name = "sector_id") // not parent_sector duh
     private Set<Sector> user_sectors = new HashSet<>();
-
-    
-    public User(){
+    // @Column(name="agreedToTerms")
+    private Boolean agreedToTerms;
+	
+	public User(){
     }
     public User(String fullName){
     	name = fullName;
@@ -67,6 +68,13 @@ public class User {
 	}
 	public void setUser_sectors(Set<Sector> user_sectors) {
 		this.user_sectors = user_sectors;
+	}
+	
+    public Boolean getAgreedToTerms() {
+		return agreedToTerms;
+	}
+	public void setAgreedToTerms(Boolean agreedToTerms) {
+		this.agreedToTerms = agreedToTerms;
 	}
 
 	

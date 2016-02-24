@@ -81,6 +81,7 @@ public class Default extends HttpServlet {
             User newUser = new User();
             newUser.setName(userName);
             newUser.setUser_sectors(userSectors);
+            newUser.setAgreedToTerms(checkbox_checked);
             userDAO.addUser(newUser);
             System.out.println("[UserControllerServlet]");
             response.sendRedirect("Success");
