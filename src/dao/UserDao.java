@@ -21,6 +21,7 @@ public class UserDao {
 	
 	// HIBERNATE WAY:
 	// NOT USING THIS ANYMORE:
+	/*
 	public void addUserDetails(String userName) { //, String password, String email, String phone, String city) {
 		try {
 			// 1. configuring hibernate
@@ -51,7 +52,7 @@ public class UserDao {
 		}
 
 	}
-	
+	*/
 	public void addUser(User user) { //, String password, String email, String phone, String city) {
 		try {
 			System.out.println("[UserDao][addUser]");

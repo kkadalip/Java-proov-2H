@@ -27,7 +27,7 @@ public class UserControllerServlet extends HttpServlet {
         HttpSession session = request.getSession(true);
         try {
             UserDao userDAO = new UserDao();
-            userDAO.addUserDetails(userName); //, password, email, phone, city);
+            //removed userDAO.addUserDetails(userName); //, password, email, phone, city);
             System.out.println("[UserControllerServlet]");
             response.sendRedirect("Success");
         } catch (Exception e) {

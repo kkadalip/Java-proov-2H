@@ -18,12 +18,13 @@
 	<listener>
 		<listener-class>listener.InitDatabaseListener</listener-class>
 	</listener>
-
+	<!-- 
 	<servlet>
 		<display-name>User</display-name>
 		<servlet-name>User</servlet-name>
 		<servlet-class>controller.UserControllerServlet</servlet-class>
 	</servlet>
+	-->
 	<servlet-mapping>
 		<servlet-name>User</servlet-name>
 		<!--<url-pattern>/save</url-pattern> -->
