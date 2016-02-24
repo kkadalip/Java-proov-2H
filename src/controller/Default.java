@@ -42,11 +42,16 @@ public class Default extends HttpServlet {
 		System.out.println("Controller [Default][doPost]");
 		
 		String userName = request.getParameter("userNameDefault");
-		// "on" if checked null if not checked
 		System.out.println("[Default][doPost] username is: " + userName);
 		
-		String checkbox_checked = request.getParameter("accept_terms");
+		//String checkbox_checked = request.getParameter("accept_terms");
+		Boolean checkbox_checked = request.getParameter("accept_terms") != null;
 		System.out.println("[Default][doPost] checkbox_checked: " + checkbox_checked); 
+//		if(checkbox_checked == null){
+//			System.out.println("checkbox NOT checked");
+//		}else{
+//			System.out.println("checkbox IS checked");
+//		}
 		
 		String[] selectedSectors = request.getParameterValues("selectSectors"); // http://docs.oracle.com/javaee/6/api/javax/servlet/ServletRequest.html#getParameterValues%28java.lang.String%29
 		Set<Sector> userSectors = new HashSet<>();
