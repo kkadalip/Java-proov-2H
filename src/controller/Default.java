@@ -12,9 +12,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.swing.plaf.synth.SynthSeparatorUI;
 
 import org.apache.jasper.tagplugins.jstl.core.ForEach;
 
+import dao.SectorDao;
 import dao.UserDao;
 import model.Sector;
 import model.User;
@@ -40,6 +42,11 @@ public class Default extends HttpServlet {
 		System.out.println("Chosen sector amount: " + selectedSectors.length);
 		for(String sector : selectedSectors){
 			System.out.println("sector in selectedSectors: " + sector.toString());
+			
+			SectorDao sDao = new SectorDao();
+			Sector foundSector = sDao.findSectorById(Long.parseLong(sector));
+			System.out.println("[Default][Post] Foundsector: " + foundSector.toString());
+			System.out.println("");
 		}
 		//System.out.println("[Default][doPost] selectedSectors: " + selectedSectors);
 		//response.sendRedirect("Default");

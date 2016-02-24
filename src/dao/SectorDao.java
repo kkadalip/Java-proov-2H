@@ -16,12 +16,26 @@ import model.Sector; // bean
 import model.User;
 
 public class SectorDao {
+	
+	public Sector findSectorById(Long id){
+		System.out.print("[SectorDao][findSectorById] findSectorById");
+		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+		Session session = sessionFactory.openSession();
+		Sector resultSector = new Sector();
+		List queryResult = session.createQuery("FROM Sector S WHERE S.id IS "+id).list(); 
+		if(!queryResult.isEmpty()){
+			resultSector = (Sector) queryResult.get(0);
+			System.out.println("[SectorDao][findSectorById] FOUND SECTOR, returning: " + resultSector.toString());
+		}
+		session.close();
+		return resultSector;
+	}
 
 	public List<Sector> findAll() {
 		System.out.print("[SectorDao][findAll] START");
 		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 		Session session = sessionFactory.openSession();
-		Transaction transaction = session.beginTransaction();
+		//Transaction transaction = session.beginTransaction();
 		List<Sector> sectors = new ArrayList<Sector>();
 		List queryResult = session.createQuery("FROM Sector").list(); 
 		//List queryResult = session.createQuery("FROM Sector ORDER BY name").list(); // SORTS BY NAME
