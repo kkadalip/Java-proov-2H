@@ -22,6 +22,7 @@ import org.hibernate.annotations.GenericGenerator;
 //import org.hibernate.annotations.OrderBy;
 import org.hibernate.annotations.SortComparator;
 import org.hibernate.annotations.SortNatural;
+import org.springframework.beans.factory.annotation.Required;
 
 @Entity
 @Table(name = "sector")
@@ -55,7 +56,7 @@ public class Sector implements Comparable<Sector> {
     @JoinColumn(name = "sector_id") // not parent_sector duh
     private Set<Sector> child_sectors; */
     
-public Set<User> getSector_users() {
+    public Set<User> getSector_users() {
 		return sector_users;
 	}
 	public void setSector_users(Set<User> sector_users) {

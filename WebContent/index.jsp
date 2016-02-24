@@ -209,7 +209,7 @@
 	<!-- < %@ include file="menu.jsp"%> -->
 	<form method="post" action="Default">
 		Name pls: <input type="text" name="userNameDefault">
-	<input type="submit" value="Save">
+	<!-- <input type="submit" value="Save">  -->
 		<!--  
 		<input name="searchString" id="searchStringBox" value="" /> <input
 			type="submit" id="filterButton" value="Filtreeri" /> <br /> <br />
@@ -277,12 +277,12 @@
 				 -->
 			</c:forEach>
 		</select>
-		</form>
+			<br />
 	<br />
-	<br />
-	<input type="checkbox"> Agree to terms
+	<input id="id_accept_terms" type="checkbox" name="accept_terms"> Agree to terms
 	<br />
 	<br />
 	<input type="submit" value="Save">
+	</form>
 </body>
 </html>
