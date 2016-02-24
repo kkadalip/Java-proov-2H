@@ -45,29 +45,31 @@ public class Default extends HttpServlet {
 		System.out.println("[Default][doPost] username is: " + userName);
 		
 		String[] selectedSectors = request.getParameterValues("selectSectors"); // http://docs.oracle.com/javaee/6/api/javax/servlet/ServletRequest.html#getParameterValues%28java.lang.String%29
-		System.out.println("Chosen sector amount: " + selectedSectors.length);
-		
 		Set<Sector> userSectors = new HashSet<>();
-		
-		for(String sector : selectedSectors){
-			System.out.println("sector in selectedSectors: " + sector.toString());
+		if(selectedSectors != null){
+			System.out.println("Chosen sector amount: " + selectedSectors.length);			
+			for(String sector : selectedSectors){
+				System.out.println("sector in selectedSectors: " + sector.toString());
+				
+				SectorDao sDao = new SectorDao();
+				Sector foundSector = sDao.getSectorById(Long.parseLong(sector));
+				System.out.println("[Default][Post] Foundsector: " + foundSector.toString());
+				System.out.println("");
+				userSectors.add(foundSector);
+			}
+			//System.out.println("[Default][doPost] selectedSectors: " + selectedSectors);
+			//response.sendRedirect("Default");
 			
-			SectorDao sDao = new SectorDao();
-			Sector foundSector = sDao.getSectorById(Long.parseLong(sector));
-			System.out.println("[Default][Post] Foundsector: " + foundSector.toString());
-			System.out.println("");
-			userSectors.add(foundSector);
+			//response.sendRedirect("Search");
+		}else{
+			System.out.println("No sectors selected for user!");
 		}
-		//System.out.println("[Default][doPost] selectedSectors: " + selectedSectors);
-		//response.sendRedirect("Default");
-		
-		//response.sendRedirect("Search");
-		
 		
         try {
             UserDao userDAO = new UserDao();
             //userDAO.addUserDetails(userName); //, password, email, phone, city);
             User newUser = new User();
+            newUser.setName(userName);
             newUser.setUser_sectors(userSectors);
             userDAO.addUser(newUser);
             System.out.println("[UserControllerServlet]");
