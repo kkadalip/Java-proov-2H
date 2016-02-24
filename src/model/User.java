@@ -6,15 +6,20 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.SortNatural;
 
+@Entity
+@Table(name="user")
 public class User {
 	@Id
 	@Column(name="user_id")
@@ -30,7 +35,7 @@ public class User {
     //private String phone;
     //private String city;
     
-    @OneToMany //@ManyToOne // (cascade={CascadeType.ALL})
+    @ManyToMany //@ManyToOne // (cascade={CascadeType.ALL}) // @OneToMany(fetch = FetchType.LAZY, mappedBy = "user???")
     @JoinColumn(name = "sector_id") // not parent_sector duh
     private Set<Sector> user_sectors = new HashSet<>();
 

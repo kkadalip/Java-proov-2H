@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
@@ -44,11 +45,24 @@ public class Sector implements Comparable<Sector> {
 	    //private User user;
 	*/
 	
+    @ManyToMany //@ManyToOne // (cascade={CascadeType.ALL}) // @OneToMany(fetch = FetchType.LAZY, mappedBy = "user???")
+    @JoinColumn(name = "user_id") // not parent_sector duh
+    private Set<User> sector_users = new HashSet<>();
+	
+	
+	
  /*   @OneToMany //@ManyToOne // (cascade={CascadeType.ALL})
     @JoinColumn(name = "sector_id") // not parent_sector duh
     private Set<Sector> child_sectors; */
     
-//  @SortComparator(WhateverComparator.class) // http://docs.jboss.org/hibernate/orm/5.1/userguide/html_single/Hibernate_User_Guide.html#collections-sorted-set
+public Set<User> getSector_users() {
+		return sector_users;
+	}
+	public void setSector_users(Set<User> sector_users) {
+		this.sector_users = sector_users;
+	}
+
+	//  @SortComparator(WhateverComparator.class) // http://docs.jboss.org/hibernate/orm/5.1/userguide/html_single/Hibernate_User_Guide.html#collections-sorted-set
   // another way @Sort(type=SortType.COMPARATOR, comparator=TimeComparator.class)
   //@OrderBy("name")
     @OneToMany //@ManyToOne // (cascade={CascadeType.ALL})

@@ -18,6 +18,11 @@
         	<one-to-many class="model.User"/>
       	</set>
 		 -->
+		 <!--  MAKE SURE sector_users MATCHES WITH MODEL -->
+ 		<set name="sector_users" cascade="all">
+			<key column="user_id" not-null="false" />
+			<many-to-many class="model.User" />
+		</set>
 		 <!-- 
 		 SECTOR DOES NOT HAVE USERS ANYMORE
 		<set name="users" cascade="all" >

@@ -18,7 +18,8 @@
       
 		<set name="user_sectors" cascade="all">
 			<key column="sector_id" not-null="false" />
-			<one-to-many class="model.Sector" />
+			<many-to-many class="model.Sector" />
+			<!-- <one-to-many class="model.Sector" /> -->
 		</set>
 	</class>
 </hibernate-mapping>
