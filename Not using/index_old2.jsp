@@ -1,3 +1,5 @@
+<%@page import="java.util.Date"%>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="java.util.LinkedHashMap"%>
@@ -13,6 +15,10 @@
 <c:url value="Admin" var="adminLink" />
  -->
 
+<!-- <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> -->
+<!-- <html xmlns="http://www.w3.org/1999/xhtml"> -->
+<!-- <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> -->
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,10 +31,19 @@
 @import url("${base}/static/style.css");
 -->
 </style>
-<script>
-</script>
 </head>
 <body>
+	<h2>Well hello There!</h2>
+	<br>
+	<h3>
+		Date=<%=new Date()%>
+	</h3>
+
+	<%="Hello World!"%>
+
+	<form action="query" method="post">
+		<input type="submit" name="jdbc_query" value="Query DB" />
+	</form>
 	Please enter your name and pick the Sectors you are currently involved
 	in.
 	<br>
@@ -170,11 +185,31 @@
 	<br />
 	<input type="submit" value="Save">
 
+	<h1>NOT USING Please enter your name and pick the Sectors you are currently
+		involved in.</h1>
+	<form action="save" method="post">
+		<!-- action here is what matters -->
+		<br> <br> Name: <input type="text" name="userName">
+		<input type="submit" value="Save">
+		<!-- move this to bottom and make a generic form with all other things IN THIS FORM user name + sectors + agreement -->
+		<br />
+		<!-- 
+		<table cellpadding="3pt">
+			<tr>
+				<td>Name:</td>
+				<td><input type="text" name="userName" size="30" /></td>
+			</tr>
+		</table>
+		<p />
+		<input type="submit" value="Save" />
+		 -->
+		<!-- Register -->
+	</form>
 
  
 	<!-- < %@ include file="menu.jsp"%> -->
 	<form method="post" action="Default">
-		Name pls: <input required type="text" name="userNameDefault">
+		Name pls: <input type="text" name="userNameDefault">
 	<!-- <input type="submit" value="Save">  -->
 		<!--  
 		<input name="searchString" id="searchStringBox" value="" /> <input
@@ -183,9 +218,9 @@
 		<table class="listTable" id="listTable">
 			<thead>
 				<tr>
-					<th scope="col">[User ID]</th>
-					<th scope="col">[User name]</th>
-					<th scope="col">[User sectors]</th>
+					<th scope="col">Name</th>
+					<th scope="col">Whatever1</th>
+					<th scope="col">Whatever2</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -194,12 +229,7 @@
 						<td>
 							<div id="row_${item.id}">ID: ${item.id}</div>
 						</td>
-						<td>
-							Name: ${item.name}
-						</td>
-						<td>
-						
-						</td>
+						<td>Name: ${item.name}</td>
 					</tr>
 				</c:forEach>
 			</tbody>
@@ -228,7 +258,7 @@
 		</table>
  -->
 
-		<br /> Sectors: <select required name="selectSectors" multiple="multiple" size="15">
+		<br /> Sectors: <select name="selectSectors" multiple="multiple" size="15">
 			<c:forEach items="${requestScope['displayedSectors']}" var="item" varStatus="outerLoop">
 				<!--<option value="<c:if test="${not empty item.child_sectors}">swag &nbsp;&nbsp;</c:if>${item.child_sectors} - ${item.id}">${item.name}</option>-->
 				<!--<c:if test="${not empty item.child_sectors}">OMFG</c:if>-->
@@ -250,7 +280,7 @@
 		</select>
 			<br />
 	<br />
-	<input required id="id_accept_terms" type="checkbox" name="accept_terms"> Agree to terms
+	<input id="id_accept_terms" type="checkbox" name="accept_terms"> Agree to terms
 	<br />
 	<br />
 	<input type="submit" value="Save">

@@ -30,6 +30,7 @@ public class Default extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession(true);
 		System.out.println("Controller [Default][doGet]");
 		doStuff(request);
 		doStuffSectors(request);
@@ -38,7 +39,7 @@ public class Default extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// HttpSession session = request.getSession(true);
+		HttpSession session = request.getSession(true);
 		System.out.println("Controller [Default][doPost]");
 		
 		String userName = request.getParameter("userNameDefault");

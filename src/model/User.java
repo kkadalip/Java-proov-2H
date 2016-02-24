@@ -7,6 +7,7 @@ import java.util.TreeSet;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -35,7 +36,8 @@ public class User {
     //private String phone;
     //private String city;
     
-    @ManyToMany //@ManyToOne // (cascade={CascadeType.ALL}) // @OneToMany(fetch = FetchType.LAZY, mappedBy = "user???")
+    // http://stackoverflow.com/questions/11746499/solve-failed-to-lazily-initialize-a-collection-of-role-exception
+    @ManyToMany //(fetch = FetchType.EAGER) //@ManyToOne // (cascade={CascadeType.ALL}) // @OneToMany(fetch = FetchType.LAZY, mappedBy = "user???")
     @JoinColumn(name = "sector_id") // not parent_sector duh
     private Set<Sector> user_sectors = new HashSet<>();
 

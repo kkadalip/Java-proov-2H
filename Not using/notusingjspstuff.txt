@@ -1,0 +1,6 @@
+<!--
+CAN USE WITH FETCHTYPE EAGER BUT THAT LOADS THEM AND HAS PERFOMANCE HIT
+<c:forEach items="${item.user_sectors}" var="user_sector">
+ Sector: ${user_sector.name}  
+</c:forEach>
+-->
