@@ -3,9 +3,14 @@ package controller;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -33,6 +38,7 @@ public class Default extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// HttpSession session = request.getSession(true);
 		System.out.println("Controller [Default][doPost]");
 		
 		String userName = request.getParameter("userNameDefault");
@@ -40,18 +46,36 @@ public class Default extends HttpServlet {
 		
 		String[] selectedSectors = request.getParameterValues("selectSectors"); // http://docs.oracle.com/javaee/6/api/javax/servlet/ServletRequest.html#getParameterValues%28java.lang.String%29
 		System.out.println("Chosen sector amount: " + selectedSectors.length);
+		
+		Set<Sector> userSectors = new HashSet<>();
+		
 		for(String sector : selectedSectors){
 			System.out.println("sector in selectedSectors: " + sector.toString());
 			
 			SectorDao sDao = new SectorDao();
-			Sector foundSector = sDao.findSectorById(Long.parseLong(sector));
+			Sector foundSector = sDao.getSectorById(Long.parseLong(sector));
 			System.out.println("[Default][Post] Foundsector: " + foundSector.toString());
 			System.out.println("");
+			userSectors.add(foundSector);
 		}
 		//System.out.println("[Default][doPost] selectedSectors: " + selectedSectors);
 		//response.sendRedirect("Default");
 		
 		//response.sendRedirect("Search");
+		
+		
+        try {
+            UserDao userDAO = new UserDao();
+            //userDAO.addUserDetails(userName); //, password, email, phone, city);
+            User newUser = new User();
+            newUser.setUser_sectors(userSectors);
+            userDAO.addUser(newUser);
+            System.out.println("[UserControllerServlet]");
+            response.sendRedirect("Success");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+		
 	}
 	
 	// users

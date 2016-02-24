@@ -11,6 +11,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
+import model.Sector;
 //import dao.AbstractDao;
 import model.User; // bean
 
@@ -19,6 +20,7 @@ import model.User; // bean
 public class UserDao {
 	
 	// HIBERNATE WAY:
+	// NOT USING THIS ANYMORE:
 	public void addUserDetails(String userName) { //, String password, String email, String phone, String city) {
 		try {
 			// 1. configuring hibernate
@@ -48,6 +50,52 @@ public class UserDao {
 			System.out.println("error");
 		}
 
+	}
+	
+	public void addUser(User user) { //, String password, String email, String phone, String city) {
+		try {
+			System.out.println("[UserDao][addUser]");
+			// 1. configuring hibernate
+			//Configuration configuration = new Configuration().configure();
+			// 2. create sessionfactory
+			//SessionFactory sessionFactory = configuration.buildSessionFactory();
+			
+			SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+			
+			// 3. Get Session object
+			Session session = sessionFactory.openSession();
+			// 4. Starting Transaction
+			Transaction transaction = session.beginTransaction();
+			//User user = new User();
+			//user.setName(userName);
+			//user.setPassword1(password);
+			//user.setEmail(email);
+			//user.setCity(city);
+			//user.setPhone(phone);
+			session.save(user);
+			transaction.commit(); // session.getTransaction().commit();
+			session.close();
+			System.out.println("\n\n [UserDao][addUser] NEW USER DETAILS ADDED \n");
+
+		} catch (HibernateException e) {
+			System.out.println(e.getMessage());
+			System.out.println("error");
+		}
+
+	}
+	
+	public Sector getUserById(Long id){
+		System.out.print("[UserDao][findUserById] ID: " + id);
+		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+		Session session = sessionFactory.openSession();
+		Sector resultSector = new Sector();
+		List queryResult = session.createQuery("FROM User U WHERE U.id IS "+id).list(); 
+		if(!queryResult.isEmpty()){
+			resultSector = (Sector) queryResult.get(0);
+			System.out.println("[SectorDao][findSectorById] FOUND SECTOR, returning: " + resultSector.toString());
+		}
+		session.close();
+		return resultSector;
 	}
 
 	public List<User> findAll(){

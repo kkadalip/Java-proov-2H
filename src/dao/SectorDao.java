@@ -17,8 +17,8 @@ import model.User;
 
 public class SectorDao {
 	
-	public Sector findSectorById(Long id){
-		System.out.print("[SectorDao][findSectorById] findSectorById");
+	public Sector getSectorById(Long id){
+		System.out.print("[SectorDao][findSectorById] ID: " + id);
 		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 		Session session = sessionFactory.openSession();
 		Sector resultSector = new Sector();
