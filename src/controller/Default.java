@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.jasper.tagplugins.jstl.core.ForEach;
 
 import dao.UserDao;
 import model.Sector;
@@ -35,6 +36,12 @@ public class Default extends HttpServlet {
 		String userName = request.getParameter("userNameDefault");
 		System.out.println("[Default][doPost] username is: " + userName);
 		
+		String[] selectedSectors = request.getParameterValues("selectSectors"); // http://docs.oracle.com/javaee/6/api/javax/servlet/ServletRequest.html#getParameterValues%28java.lang.String%29
+		System.out.println("Chosen sector amount: " + selectedSectors.length);
+		for(String sector : selectedSectors){
+			System.out.println("sector in selectedSectors: " + sector.toString());
+		}
+		//System.out.println("[Default][doPost] selectedSectors: " + selectedSectors);
 		//response.sendRedirect("Default");
 		
 		//response.sendRedirect("Search");

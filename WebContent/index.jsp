@@ -206,13 +206,10 @@
 		<!-- Register -->
 	</form>
 
-	<form method="post" action="Default" >
-	Name pls: <input type="text" name="userNameDefault">
-	<input type="submit" value="Save">
-	</form>
-
 	<!-- < %@ include file="menu.jsp"%> -->
-	<form method="get" action="Default">
+	<form method="post" action="Default">
+		Name pls: <input type="text" name="userNameDefault">
+	<input type="submit" value="Save">
 		<!--  
 		<input name="searchString" id="searchStringBox" value="" /> <input
 			type="submit" id="filterButton" value="Filtreeri" /> <br /> <br />
@@ -260,7 +257,7 @@
 		</table>
  -->
 
-		<br /> Sectors: <select multiple size="15">
+		<br /> Sectors: <select name="selectSectors" multiple="multiple" size="15">
 			<c:forEach items="${requestScope['displayedSectors']}" var="item" varStatus="outerLoop">
 				<!--<option value="<c:if test="${not empty item.child_sectors}">swag &nbsp;&nbsp;</c:if>${item.child_sectors} - ${item.id}">${item.name}</option>-->
 				<!--<c:if test="${not empty item.child_sectors}">OMFG</c:if>-->
@@ -280,7 +277,7 @@
 				 -->
 			</c:forEach>
 		</select>
-	</form>
+		</form>
 	<br />
 	<br />
 	<input type="checkbox"> Agree to terms
