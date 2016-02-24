@@ -3,6 +3,10 @@ package controller;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+//import java.util.Date;
+//import java.time.Clock;
+//import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -82,6 +86,9 @@ public class Default extends HttpServlet {
             newUser.setName(userName);
             newUser.setUser_sectors(userSectors);
             newUser.setAgreedToTerms(checkbox_checked);
+            LocalDateTime date = LocalDateTime.now();
+            System.out.println("going to save date:");
+            newUser.setDateAdded(date); // http://stackoverflow.com/questions/2305973/java-util-date-vs-java-sql-date
             userDAO.addUser(newUser);
             System.out.println("[UserControllerServlet]");
             response.sendRedirect("Success");

@@ -23,6 +23,7 @@
 			<key column="user_id" not-null="false" />
 			<many-to-many class="model.User" />
 		</set>
+		
 		 <!-- 
 		 SECTOR DOES NOT HAVE USERS ANYMORE
 		<set name="users" cascade="all" >

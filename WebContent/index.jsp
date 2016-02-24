@@ -185,6 +185,8 @@
 				<tr>
 					<th scope="col">[User ID]</th>
 					<th scope="col">[User name]</th>
+					<th scope="col">[Agreed to terms]</th>
+					<th scope="col">[Date added]</th>
 					<th scope="col">[User sectors]</th>
 				</tr>
 			</thead>
@@ -195,10 +197,13 @@
 							<div id="row_${item.id}">ID: ${item.id}</div>
 						</td>
 						<td>
-							Name: ${item.name}
+							<div>Name: ${item.name}</div>
 						</td>
 						<td>
-						
+							<div>Agreed: ${item.agreedToTerms}</div>
+						</td>
+						<td>
+							<div>Date: ${item.dateAdded}</div>
 						</td>
 					</tr>
 				</c:forEach>

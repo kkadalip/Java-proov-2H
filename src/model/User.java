@@ -1,5 +1,7 @@
 package model;
 
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.SortedSet;
@@ -42,6 +44,14 @@ public class User {
     private Set<Sector> user_sectors = new HashSet<>();
     // @Column(name="agreedToTerms")
     private Boolean agreedToTerms;
+    private LocalDateTime dateAdded; // important because agreement may have changed
+	public LocalDateTime getDateAdded() {
+		return dateAdded;
+	}
+	public void setDateAdded(LocalDateTime dateAdded) {
+		this.dateAdded = dateAdded;
+	}
+	
 	
 	public User(){
     }
