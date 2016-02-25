@@ -44,14 +44,19 @@ public class Default extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(true);
+		
+		
 		System.out.println("Controller [Default][doPost]");
 		
 		String userName = request.getParameter("userNameDefault");
+		session.setAttribute("userName", userName);
 		System.out.println("[Default][doPost] username is: " + userName);
 		
 		//String checkbox_checked = request.getParameter("accept_terms");
 		Boolean checkbox_checked = request.getParameter("accept_terms") != null;
+		session.setAttribute("checkbox_checked", checkbox_checked);
 		System.out.println("[Default][doPost] checkbox_checked: " + checkbox_checked); 
+		
 //		if(checkbox_checked == null){
 //			System.out.println("checkbox NOT checked");
 //		}else{
@@ -59,6 +64,8 @@ public class Default extends HttpServlet {
 //		}
 		
 		String[] selectedSectors = request.getParameterValues("selectSectors"); // http://docs.oracle.com/javaee/6/api/javax/servlet/ServletRequest.html#getParameterValues%28java.lang.String%29
+		session.setAttribute("selectedSectors", selectedSectors); // PUTTING SELECTED SECTOR ID-S TO SESSION
+		
 		Set<Sector> userSectors = new HashSet<>();
 		if(selectedSectors != null){
 			System.out.println("Chosen sector amount: " + selectedSectors.length);			
