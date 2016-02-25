@@ -194,16 +194,16 @@
 				<c:forEach items="${requestScope['displayedUsers']}" var="item">
 					<tr>
 						<td>
-							<div id="row_${item.id}">ID: ${item.id}</div>
+							<div id="row_"<c:out value="${item.id}"/>>ID: <c:out value="${item.id}"/></div>
 						</td>
 						<td>
-							<div>Name: ${item.name}</div>
+							<div>Name: <c:out value="${item.name}"/></div>
 						</td>
 						<td>
-							<div>Agreed: ${item.agreedToTerms}</div>
+							<div>Agreed: <c:out value="${item.agreedToTerms}"/></div>
 						</td>
 						<td>
-							<div>Date: ${item.dateAdded}</div>
+							<div>Date: <c:out value="${item.dateAdded}"/></div>
 						</td>
 					</tr>
 				</c:forEach>
@@ -241,7 +241,7 @@
 				
 				<!-- <option value="${item.id}">${item.child_sectors} - ${item.name}</option> -->
 				
-				<option value="${item.id}"><!-- [${outerLoop.index}]] -->${item.name}</option>
+				<option value="<c:out value="${item.id}"/>"><!-- [${outerLoop.index}]] --><c:out value="${item.name}"/></option>
 				
 				<myTags:sectorGroups level="0" outerIndex="${outerLoop.index}" list="${item.child_sectors}"/> <!--  pass outerLoop.index !!! -->
 				<!-- 
