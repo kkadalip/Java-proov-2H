@@ -254,7 +254,17 @@
 				 -->
 			</c:forEach>
 		</select>
-			<br />
+		
+		<br />
+
+		<c:forEach items="${requestScope['SESSIONselectedSectors']}" var="item">
+			<c:out value="${item}" />
+		</c:forEach>
+
+		<!-- <c:out value="${requestScope['SESSIONselectedSectors']}" /> -->
+
+		
+	<br />
 	<br />
 	<input required id="id_accept_terms" type="checkbox" name="accept_terms" <c:if test="${requestScope['SESSIONcheckbox_checked'] eq true}">checked</c:if> > Agree to terms
 	<br />

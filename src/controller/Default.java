@@ -47,11 +47,19 @@ public class Default extends HttpServlet {
 		Boolean checkbox_checked = (Boolean) session.getAttribute("checkbox_checked");
 		System.out.println("Default GET checkbox_checked" + checkbox_checked);
 		String[] selectedSectors = (String[]) session.getAttribute("selectedSectors");
-		System.out.println("Default GET selectedSectors: " + selectedSectors);
+		if(selectedSectors != null){
+			for(String selectedSector : selectedSectors){
+				System.out.println("DEFAULT GET sector: " + selectedSector.toString());
+			}
+			System.out.println("Default GET selectedSectors: " + selectedSectors);
+		}else{
+			System.out.println("Default GET selectedSectors: null");
+		}
 		
 		// The client won't get the request back
 		request.setAttribute("SESSIONuserName", userName);
 		request.setAttribute("SESSIONcheckbox_checked", checkbox_checked);
+		request.setAttribute("SESSIONselectedSectors", selectedSectors); // TODO
 		
 		request.getRequestDispatcher("index.jsp").forward(request, response);
 	}
