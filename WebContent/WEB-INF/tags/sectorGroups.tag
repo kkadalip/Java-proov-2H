@@ -13,7 +13,8 @@
 <c:if test="${!empty list}">
 	<c:forEach var="item" items="${list}" varStatus="innerLoop">
 		<!-- varStatus="innerLoop"> -->
-		<option value="${item.id}">
+
+		<option id="option_${item.id}" value="${item.id}">
 			<!--[${innerLoop.index}]${item.name}-->
 			<c:forEach begin="0" end="${lvl}" varStatus="loop">&nbsp;&nbsp;&nbsp;&nbsp;</c:forEach>${item.name}
 		</option>

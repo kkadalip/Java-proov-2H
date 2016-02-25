@@ -5,6 +5,8 @@
 
 <%@ taglib tagdir="/WEB-INF/tags" prefix="myTags" %>
 
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <c:url value="/" var="base" />
 <!-- 
 <c:url value="Part" var="homeLink" />
@@ -23,7 +25,7 @@
 
 <meta http-equiv="Content-Security-Policy" content="
     default-src 'self';
-    script-src 'self' https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js;
+    script-src 'self' 'unsafe-inline' https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js;
     connect-src 'self';
     font-src 'self';
     img-src 'self';
@@ -33,8 +35,23 @@
 <style type="text/css">
 	@import url("${base}/static/style.css");
 </style>
-
+<!-- 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+ -->
 <script src="static/default.js"></script>
+<!-- 
+<script>
+var selectedSectors = "${requestScope['SESSIONselectedSectors']}";
+//jQuery(document).ready(function () {
+
+//jQuery(window).load(function (){
+//	selectOptions(selectedSectors);
+//});
+console.log("selectedSectors size: " + selectedSectors.length);
+window.onload = selectOptions(selectedSectors);
+console.log("wtf");
+</script>
+ -->
 </head>
 <body>
 	Please enter your name and pick the Sectors you are currently involved
@@ -250,7 +267,7 @@
 				
 				<!-- <option value="${item.id}">${item.child_sectors} - ${item.name}</option> -->
 				
-				<option value="<c:out value="${item.id}"/>"><!-- [${outerLoop.index}]] --><c:out value="${item.name}"/></option>
+				<option id="option_${item.id}" value="${item.id}"><!-- [${outerLoop.index}]] --><c:out value="${item.name}"/></option>
 				
 				<myTags:sectorGroups level="0" outerIndex="${outerLoop.index}" list="${item.child_sectors}"/> <!--  pass outerLoop.index !!! -->
 				<!-- 
@@ -264,9 +281,13 @@
 		</select>
 		
 		<br />
-
+		${fn:length(requestScope['SESSIONselectedSectors'])} length
+		
 		<c:forEach items="${requestScope['SESSIONselectedSectors']}" var="item">
 			<c:out value="${item}" />
+			<script>
+				selectOption('${item}');
+			</script>
 		</c:forEach>
 
 		<!-- <c:out value="${requestScope['SESSIONselectedSectors']}" /> -->
@@ -279,5 +300,6 @@
 	<br />
 	<input type="submit" value="Save">
 	</form>
+
 </body>
 </html>
