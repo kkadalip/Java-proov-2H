@@ -21,12 +21,11 @@
 <title>Helmes proov</title>
 
 <style type="text/css">
-<!--
+
 @import url("${base}/static/style.css");
--->
+
 </style>
-<script>
-</script>
+<script src="static/default.js"></script>
 </head>
 <body>
 	Please enter your name and pick the Sectors you are currently involved
