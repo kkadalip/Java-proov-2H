@@ -35,10 +35,23 @@ public class Default extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(true);
+		
 		System.out.println("Controller [Default][doGet]");
 		doStuff(request);
 		doStuffSectors(request);
 		//request.getRequestDispatcher("WEB-INF/index.jsp").forward(request, response);
+		// WAS HERE request.getRequestDispatcher("index.jsp").forward(request, response);
+		
+		String userName = (String) session.getAttribute("userName");
+		System.out.println("Default GET username: " + userName);
+		Boolean checkbox_checked = (Boolean) session.getAttribute("checkbox_checked");
+		System.out.println("Default GET checkbox_checked" + checkbox_checked);
+		String[] selectedSectors = (String[]) session.getAttribute("selectedSectors");
+		System.out.println("Default GET selectedSectors: " + selectedSectors);
+		
+		// The client won't get the request back
+		request.setAttribute("SESSIONuserName", userName);
+		
 		request.getRequestDispatcher("index.jsp").forward(request, response);
 	}
 

@@ -174,7 +174,8 @@
  
 	<!-- < %@ include file="menu.jsp"%> -->
 	<form method="post" action="Default">
-		Name pls: <input required type="text" name="userNameDefault">
+		<!-- <c:out value="SESSION NAME: ${requestScope['SESSIONuserName']}"/> -->
+		Name pls: <input required type="text" name="userNameDefault" value="<c:out value="${requestScope['SESSIONuserName']}"/>">
 	<!-- <input type="submit" value="Save">  -->
 		<!--  
 		<input name="searchString" id="searchStringBox" value="" /> <input
