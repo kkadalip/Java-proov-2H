@@ -18,13 +18,22 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="Content-Type" content="text/html">
+
 <title>Helmes proov</title>
 
+<meta http-equiv="Content-Security-Policy" content="
+    default-src 'self';
+    script-src 'self' https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js;
+    connect-src 'self';
+    font-src 'self';
+    img-src 'self';
+    style-src 'self' 'unsafe-inline';
+    media-src 'self';">
+    
 <style type="text/css">
-
-@import url("${base}/static/style.css");
-
+	@import url("${base}/static/style.css");
 </style>
+
 <script src="static/default.js"></script>
 </head>
 <body>
