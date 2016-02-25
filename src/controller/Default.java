@@ -61,7 +61,7 @@ public class Default extends HttpServlet {
 		request.setAttribute("SESSIONcheckbox_checked", checkbox_checked);
 		request.setAttribute("SESSIONselectedSectors", selectedSectors); // TODO
 		
-		request.getRequestDispatcher("index.jsp").forward(request, response);
+		request.getRequestDispatcher("jsp/index.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

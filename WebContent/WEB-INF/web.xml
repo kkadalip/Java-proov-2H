@@ -5,14 +5,17 @@
 	id="WebApp_ID" version="3.1">
 	<display-name>Java-proov-2H</display-name>
 	<welcome-file-list>
+		<welcome-file>jsp/index.jsp</welcome-file>
+		<!-- 
 		<welcome-file>index.html</welcome-file>
 		<welcome-file>index.htm</welcome-file>
-		<welcome-file>index.jsp</welcome-file>
+
 		<welcome-file>default.html</welcome-file>
 		<welcome-file>default.htm</welcome-file>
 		<welcome-file>default.jsp</welcome-file>
 
 		<welcome-file>register.jsp</welcome-file>
+		 -->
 	</welcome-file-list>
 
 	<listener>
