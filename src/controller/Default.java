@@ -51,6 +51,7 @@ public class Default extends HttpServlet {
 		
 		// The client won't get the request back
 		request.setAttribute("SESSIONuserName", userName);
+		request.setAttribute("SESSIONcheckbox_checked", checkbox_checked);
 		
 		request.getRequestDispatcher("index.jsp").forward(request, response);
 	}

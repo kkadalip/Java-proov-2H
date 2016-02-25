@@ -256,7 +256,7 @@
 		</select>
 			<br />
 	<br />
-	<input required id="id_accept_terms" type="checkbox" name="accept_terms"> Agree to terms
+	<input required id="id_accept_terms" type="checkbox" name="accept_terms" <c:if test="${requestScope['SESSIONcheckbox_checked'] eq true}">checked</c:if> > Agree to terms
 	<br />
 	<br />
 	<input type="submit" value="Save">
