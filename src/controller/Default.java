@@ -139,7 +139,7 @@ public class Default extends HttpServlet {
         		User existingUser = userDAO.getUserById(saved_user_id);
         		System.out.println("[Default][Post] old username: " + existingUser.getName() + " new username: " + userName);
         		existingUser.setName(userName); //(String) session.getAttribute("userName"));
-        		userDAO.addUser(existingUser);
+        		userDAO.updateUser(existingUser);
         	}
             
             response.sendRedirect("Success");

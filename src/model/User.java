@@ -26,9 +26,9 @@ import org.hibernate.annotations.SortNatural;
 public class User {
 	@Id
 	@Column(name="user_id")
-	//@GeneratedValue(strategy = GenerationType.AUTO)
-	@GeneratedValue(generator="increment")
-	@GenericGenerator(name="increment", strategy = "increment")
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	//@GeneratedValue(generator="increment")
+	//@GenericGenerator(name="increment", strategy = "increment")
 	private Long id;
     private String name;
     //private Boolean termsAccepted; // just validate, no need for this in db

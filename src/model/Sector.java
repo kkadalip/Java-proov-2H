@@ -32,9 +32,9 @@ public class Sector implements Comparable<Sector> {
 
 	@Id
 	@Column(name="sector_id")
-	//@GeneratedValue(strategy = GenerationType.AUTO)
-	@GeneratedValue(generator="increment")
-	@GenericGenerator(name="increment", strategy = "increment")
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	//@GeneratedValue(generator="increment")
+	//@GenericGenerator(name="increment", strategy = "increment")
 	private Long id;
 	private String name;
     

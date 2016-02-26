@@ -80,7 +80,27 @@ public class UserDao {
 
 		} catch (HibernateException e) {
 			System.out.println(e.getMessage());
-			System.out.println("error");
+			System.out.println("[UserDao] error 1");
+		}
+
+	}
+	
+	public void updateUser(User user) { //, String password, String email, String phone, String city) {
+		try {
+			System.out.println("[UserDao][addUser]");
+			SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+			// 3. Get Session object
+			Session session = sessionFactory.openSession();
+			// 4. Starting Transaction
+			Transaction transaction = session.beginTransaction();
+			session.update(user);
+			transaction.commit(); // session.getTransaction().commit();
+			session.close();
+			System.out.println("\n\n [UserDao][addUser] NEW USER DETAILS ADDED \n");
+
+		} catch (HibernateException e) {
+			System.out.println(e.getMessage());
+			System.out.println("[UserDao] error2");
 		}
 
 	}
