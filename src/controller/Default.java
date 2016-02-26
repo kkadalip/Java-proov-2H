@@ -37,8 +37,10 @@ public class Default extends HttpServlet {
 		HttpSession session = request.getSession(true);
 		
 		System.out.println("Controller [Default][doGet]");
-		doStuff(request);
-		doStuffSectors(request);
+//		doStuff(request);
+		doStuff(session);
+		doStuffSectors(session);
+//		doStuffSectors(request, session);
 		//request.getRequestDispatcher("WEB-INF/index.jsp").forward(request, response);
 		// WAS HERE request.getRequestDispatcher("index.jsp").forward(request, response);
 		
@@ -57,9 +59,16 @@ public class Default extends HttpServlet {
 		}
 		
 		// The client won't get the request back
-		request.setAttribute("SESSIONuserName", userName);
-		request.setAttribute("SESSIONcheckbox_checked", checkbox_checked);
-		request.setAttribute("SESSIONselectedSectors", selectedSectors); // TODO
+		
+//		request.setAttribute("SESSIONuserName", userName);
+//		request.setAttribute("SESSIONcheckbox_checked", checkbox_checked);
+//		request.setAttribute("SESSIONselectedSectors", selectedSectors); // TODO
+//		
+//		request.getRequestDispatcher("jsp/index.jsp").forward(request, response);
+		
+		session.setAttribute("SESSIONuserName", userName);
+		session.setAttribute("SESSIONcheckbox_checked", checkbox_checked);
+		session.setAttribute("SESSIONselectedSectors", selectedSectors); // TODO
 		
 		request.getRequestDispatcher("jsp/index.jsp").forward(request, response);
 	}
@@ -128,7 +137,8 @@ public class Default extends HttpServlet {
 	}
 	
 	// users
-	private void doStuff(HttpServletRequest request){
+//	private void doStuff(HttpServletRequest request){
+	private void doStuff(HttpSession session){
 		//String behaviour = request.getParameter("do");
 		//String searchString = request.getParameter("searchString");
 		List<User> displayedUsers = new ArrayList<User>();
@@ -150,18 +160,23 @@ public class Default extends HttpServlet {
 			displayedUnits = searchUnits(request);
 		}
 		*/
-		displayedUsers = getAllUsers(request);
-		request.setAttribute("displayedUsers", displayedUsers);
+//		displayedUsers = getAllUsers(request);
+		displayedUsers = getAllUsers();
+//		request.setAttribute("displayedUsers", displayedUsers);
+		session.setAttribute("displayedUsers", displayedUsers);
 	}
 	
-	private void doStuffSectors(HttpServletRequest request){
+	// private void doStuffSectors(HttpServletRequest request, HttpSession session){
+	private void doStuffSectors(HttpSession session){
 		List<Sector> displayedSectors = new ArrayList<Sector>();
 		//displayedSectors = getAllSectors(request);
-		displayedSectors = getAllSectorsLevel0(request);
-		request.setAttribute("displayedSectors", displayedSectors);
+//		displayedSectors = getAllSectorsLevel0(request);
+		displayedSectors = getAllSectorsLevel0();
+//		request.setAttribute("displayedSectors", displayedSectors);
+		session.setAttribute("displayedSectors", displayedSectors);
 	}
 	
-	private List<User> getAllUsers(HttpServletRequest request){
+	private List<User> getAllUsers(){ //(HttpServletRequest request){
 		List<User> allUsers = new ArrayList<User>();
 		dao.UserDao userDao = new dao.UserDao();
 		//try {
@@ -173,7 +188,7 @@ public class Default extends HttpServlet {
 	}
 	
 	// LITERALLY GETS ALL (regardless of level/group)
-	private List<Sector> getAllSectors(HttpServletRequest request){	
+	private List<Sector> getAllSectors(){ //(HttpServletRequest request){	
 		System.out.println("[Default][getAllSectors]");
 		List<Sector> allSectors = new ArrayList<Sector>();
 		dao.SectorDao sectorDao = new dao.SectorDao();
@@ -185,7 +200,8 @@ public class Default extends HttpServlet {
 		return allSectors;
 	}
 	
-	private List<Sector> getAllSectorsLevel0(HttpServletRequest request){
+//	private List<Sector> getAllSectorsLevel0(HttpServletRequest request){
+	private List<Sector> getAllSectorsLevel0(){	
 		System.out.println("[Default][getAllSectorsLevel0]");
 		List<Sector> allSectors = new ArrayList<Sector>();
 		dao.SectorDao sectorDao = new dao.SectorDao();

@@ -200,7 +200,7 @@ console.log("wtf");
 	<!-- < %@ include file="menu.jsp"%> -->
 	<form method="post" action="Default">
 		<!-- <c:out value="SESSION NAME: ${requestScope['SESSIONuserName']}"/> -->
-		Name pls: <input required type="text" name="userNameDefault" value="<c:out value="${requestScope['SESSIONuserName']}"/>">
+		Name pls: <input required type="text" name="userNameDefault" value="<c:out value="${sessionScope['SESSIONuserName']}"/>">
 	<!-- <input type="submit" value="Save">  -->
 		<!--  
 		<input name="searchString" id="searchStringBox" value="" /> <input
@@ -217,7 +217,7 @@ console.log("wtf");
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach items="${requestScope['displayedUsers']}" var="item">
+				<c:forEach items="${sessionScope['displayedUsers']}" var="item">
 					<tr>
 						<td>
 							<div id="row_"<c:out value="${item.id}"/>>ID: <c:out value="${item.id}"/></div>
@@ -260,7 +260,7 @@ console.log("wtf");
  -->
 
 		<br /> Sectors: <select required name="selectSectors" multiple="multiple" size="15">
-			<c:forEach items="${requestScope['displayedSectors']}" var="item" varStatus="outerLoop">
+			<c:forEach items="${sessionScope['displayedSectors']}" var="item" varStatus="outerLoop">
 				<!--<option value="<c:if test="${not empty item.child_sectors}">swag &nbsp;&nbsp;</c:if>${item.child_sectors} - ${item.id}">${item.name}</option>-->
 				<!--<c:if test="${not empty item.child_sectors}">OMFG</c:if>-->
 				<!-- <option value="${item.id}">${item.name}</option> -->
@@ -281,9 +281,9 @@ console.log("wtf");
 		</select>
 		
 		<br />
-		${fn:length(requestScope['SESSIONselectedSectors'])} length
+		${fn:length(sessionScope['SESSIONselectedSectors'])} length
 		
-		<c:forEach items="${requestScope['SESSIONselectedSectors']}" var="item">
+		<c:forEach items="${sessionScope['SESSIONselectedSectors']}" var="item">
 			<c:out value="${item}" />
 			<script>
 				selectOption('${item}');
@@ -295,7 +295,7 @@ console.log("wtf");
 		
 	<br />
 	<br />
-	<input required id="id_accept_terms" type="checkbox" name="accept_terms" <c:if test="${requestScope['SESSIONcheckbox_checked'] eq true}">checked</c:if> > Agree to terms
+	<input required id="id_accept_terms" type="checkbox" name="accept_terms" <c:if test="${sessionScope['SESSIONcheckbox_checked'] eq true}">checked</c:if> > Agree to terms
 	<br />
 	<br />
 	<input type="submit" value="Save">
