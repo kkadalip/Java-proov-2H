@@ -44,7 +44,7 @@ public class Default extends HttpServlet {
 		//request.getRequestDispatcher("WEB-INF/index.jsp").forward(request, response);
 		// WAS HERE request.getRequestDispatcher("index.jsp").forward(request, response);
 		
-		String userName = (String) session.getAttribute("userName");
+		String userName = (String) session.getAttribute("userName"); //session.getAttribute("userName").toString(); // http://stackoverflow.com/questions/3521026/java-io-objectstreamclass-cannot-be-cast-to-java-lang-string
 		System.out.println("Default GET username: " + userName);
 		Boolean checkbox_checked = (Boolean) session.getAttribute("checkbox_checked");
 		System.out.println("Default GET checkbox_checked" + checkbox_checked);
@@ -128,7 +128,7 @@ public class Default extends HttpServlet {
 	            newUser.setUser_sectors(userSectors);
 	            newUser.setAgreedToTerms(checkbox_checked);
 	            LocalDateTime date = LocalDateTime.now();
-	            System.out.println("going to save date:");
+	            System.out.println("[Default][Post] going to save date:");
 	            newUser.setDateAdded(date); // http://stackoverflow.com/questions/2305973/java-util-date-vs-java-sql-date
 	            userDAO.addUser(newUser);
 	            System.out.println("[Default][Post] erm saved user id is: " + newUser.getId());
@@ -137,7 +137,7 @@ public class Default extends HttpServlet {
         	}else{
         		System.out.println("[Default][Post] saved user id NOT NULL, UPDATING EXISTING");
         		User existingUser = userDAO.getUserById(saved_user_id);
-        		System.out.println("old username: " + existingUser.getName() + " new username: " + userName);
+        		System.out.println("[Default][Post] old username: " + existingUser.getName() + " new username: " + userName);
         		existingUser.setName(userName); //(String) session.getAttribute("userName"));
         		userDAO.addUser(existingUser);
         	}

@@ -90,10 +90,12 @@ public class UserDao {
 		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 		Session session = sessionFactory.openSession();
 		User resultUser = new User();
-		List queryResult = session.createQuery("FROM User U WHERE U.id IS "+id).list(); 
+		List queryResult = session.createQuery("FROM User U WHERE U.id IS "+id).list();
 		if(!queryResult.isEmpty()){
 			resultUser = (User) queryResult.get(0);
-			System.out.println("[SectorDao][findSectorById] FOUND SECTOR, returning: " + resultUser.toString());
+			System.out.println("[SectorDao][findSectorById] FOUND USER, returning: " + resultUser.toString());
+		}else{
+			System.out.println("[SectorDao][findSectorById] queryresult EMPTY");
 		}
 		session.close();
 		return resultUser;
