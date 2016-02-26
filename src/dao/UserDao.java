@@ -85,18 +85,18 @@ public class UserDao {
 
 	}
 	
-	public Sector getUserById(Long id){
+	public User getUserById(Long id){
 		System.out.print("[UserDao][findUserById] ID: " + id);
 		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 		Session session = sessionFactory.openSession();
-		Sector resultSector = new Sector();
+		User resultUser = new User();
 		List queryResult = session.createQuery("FROM User U WHERE U.id IS "+id).list(); 
 		if(!queryResult.isEmpty()){
-			resultSector = (Sector) queryResult.get(0);
-			System.out.println("[SectorDao][findSectorById] FOUND SECTOR, returning: " + resultSector.toString());
+			resultUser = (User) queryResult.get(0);
+			System.out.println("[SectorDao][findSectorById] FOUND SECTOR, returning: " + resultUser.toString());
 		}
 		session.close();
-		return resultSector;
+		return resultUser;
 	}
 
 	public List<User> findAll(){

@@ -118,17 +118,30 @@ public class Default extends HttpServlet {
 		}
 		
         try {
-            UserDao userDAO = new UserDao();
-            //userDAO.addUserDetails(userName); //, password, email, phone, city);
-            User newUser = new User();
-            newUser.setName(userName);
-            newUser.setUser_sectors(userSectors);
-            newUser.setAgreedToTerms(checkbox_checked);
-            LocalDateTime date = LocalDateTime.now();
-            System.out.println("going to save date:");
-            newUser.setDateAdded(date); // http://stackoverflow.com/questions/2305973/java-util-date-vs-java-sql-date
-            userDAO.addUser(newUser);
-            System.out.println("[UserControllerServlet]");
+        	Long saved_user_id = (Long) session.getAttribute("saved_user_id");
+        	UserDao userDAO = new UserDao();
+        	if(saved_user_id == null){	
+        		System.out.println("[Default][Post] saved user id NULL, CREATING NEW USER");
+	            //userDAO.addUserDetails(userName); //, password, email, phone, city);
+	            User newUser = new User();
+	            newUser.setName(userName);
+	            newUser.setUser_sectors(userSectors);
+	            newUser.setAgreedToTerms(checkbox_checked);
+	            LocalDateTime date = LocalDateTime.now();
+	            System.out.println("going to save date:");
+	            newUser.setDateAdded(date); // http://stackoverflow.com/questions/2305973/java-util-date-vs-java-sql-date
+	            userDAO.addUser(newUser);
+	            System.out.println("[Default][Post] erm saved user id is: " + newUser.getId());
+	            session.setAttribute("saved_user_id", newUser.getId());
+	            
+        	}else{
+        		System.out.println("[Default][Post] saved user id NOT NULL, UPDATING EXISTING");
+        		User existingUser = userDAO.getUserById(saved_user_id);
+        		System.out.println("old username: " + existingUser.getName() + " new username: " + userName);
+        		existingUser.setName(userName); //(String) session.getAttribute("userName"));
+        		userDAO.addUser(existingUser);
+        	}
+            
             response.sendRedirect("Success");
         } catch (Exception e) {
             e.printStackTrace();
