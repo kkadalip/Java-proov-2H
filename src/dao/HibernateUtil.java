@@ -3,6 +3,7 @@ package dao;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.boot.Metadata;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
@@ -19,12 +20,14 @@ public class HibernateUtil {
 
 	private static SessionFactory buildSessionFactory() {
 		try {
-			//            // Create the SessionFactory from hibernate.cfg.xml
 			//            StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder() .configure("hibernate.cfg.xml").build();
 			//            Metadata metadata = new MetadataSources(standardRegistry).getMetadataBuilder().build();
 			//            return metadata.getSessionFactoryBuilder().build();
 			System.out.println("hibernateutil");
-			SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+			// 1. Configure hibernate
+			Configuration configuration = new Configuration().configure();
+			// 2.  Create SessionFactory (from hibernate.cfg.xml)
+			SessionFactory sessionFactory = configuration.buildSessionFactory();
 			System.out.println("hibernateutil sessionfactory is " + sessionFactory);
 			return sessionFactory;
 		} 
@@ -32,7 +35,6 @@ public class HibernateUtil {
 		catch (HibernateException ex) {
 			// Make sure you log the exception, as it might be swallowed
 			System.err.println("Initial SessionFactory creation failed." + ex);
-//			throw new ExceptionInInitializerError(ex);
 			throw new HibernateException(ex);
 		}
 	}

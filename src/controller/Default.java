@@ -142,7 +142,8 @@ public class Default extends HttpServlet {
         		userDAO.updateUser(existingUser);
         	}
             
-            response.sendRedirect("Success");
+            //response.sendRedirect("Success");
+        	response.sendRedirect("Default");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -193,7 +194,7 @@ public class Default extends HttpServlet {
 		List<User> allUsers = new ArrayList<User>();
 		dao.UserDao userDao = new dao.UserDao();
 		//try {
-			allUsers = userDao.findAll();
+			allUsers = userDao.getAllUsers();
 		//} catch (SQLException e) {
 		//	e.printStackTrace();
 		//}

@@ -27,6 +27,7 @@ public class User {
 	@Id
 	@Column(name="user_id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	// GenerationType.IDENTITY
 	//@GeneratedValue(generator="increment")
 	//@GenericGenerator(name="increment", strategy = "increment")
 	private Long id;

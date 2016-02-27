@@ -15,65 +15,23 @@ import model.Sector;
 //import dao.AbstractDao;
 import model.User; // bean
 
-//public class UserDao extends AbstractDao {
-//public class UserDao extends AbstractDaoHibernate {
-public class UserDao {
-	
-	// HIBERNATE WAY:
-	// NOT USING THIS ANYMORE:
-	/*
-	public void addUserDetails(String userName) { //, String password, String email, String phone, String city) {
-		try {
-			// 1. configuring hibernate
-			//Configuration configuration = new Configuration().configure();
-			// 2. create sessionfactory
-			//SessionFactory sessionFactory = configuration.buildSessionFactory();
-			
-			SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-			
-			// 3. Get Session object
-			Session session = sessionFactory.openSession();
-			// 4. Starting Transaction
-			Transaction transaction = session.beginTransaction();
-			User user = new User();
-			user.setName(userName);
-			//user.setPassword1(password);
-			//user.setEmail(email);
-			//user.setCity(city);
-			//user.setPhone(phone);
-			session.save(user);
-			transaction.commit(); // session.getTransaction().commit();
-			session.close();
-			System.out.println("\n\n Details Added \n");
+public class UserDao { // extends AbstractDao {
 
-		} catch (HibernateException e) {
-			System.out.println(e.getMessage());
-			System.out.println("error");
-		}
-
-	}
-	*/
+	// READ THIS http://www.coderanch.com/t/434465/Servlets/java/request-Response-object-web-application
 	public void addUser(User user) { //, String password, String email, String phone, String city) {
 		try {
 			System.out.println("[UserDao][addUser]");
-			// 1. configuring hibernate
-			//Configuration configuration = new Configuration().configure();
-			// 2. create sessionfactory
-			//SessionFactory sessionFactory = configuration.buildSessionFactory();
-			
+			// (1. configuring hibernate &) 2. create sessionfactory
 			SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-			
 			// 3. Get Session object
 			Session session = sessionFactory.openSession();
 			// 4. Starting Transaction
 			Transaction transaction = session.beginTransaction();
+
 			//User user = new User();
 			//user.setName(userName);
-			//user.setPassword1(password);
-			//user.setEmail(email);
-			//user.setCity(city);
-			//user.setPhone(phone);
 			session.save(user);
+			
 			transaction.commit(); // session.getTransaction().commit();
 			session.close();
 			System.out.println("\n\n [UserDao][addUser] NEW USER DETAILS ADDED \n");
@@ -110,6 +68,8 @@ public class UserDao {
 		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 		Session session = sessionFactory.openSession();
 		User resultUser = new User();
+		// Query query = this.session.createQuery("select p from Person as p where p.address=:address")
+        //query.setParameter("address",address); 
 		List queryResult = session.createQuery("FROM User U WHERE U.id IS "+id).list();
 		if(!queryResult.isEmpty()){
 			resultUser = (User) queryResult.get(0);
@@ -121,18 +81,10 @@ public class UserDao {
 		return resultUser;
 	}
 
-	public List<User> findAll(){
-		// 1. configuring hibernate
-		//Configuration configuration = new Configuration().configure();
-		// 2. create sessionfactory
-		//SessionFactory sessionFactory = configuration.buildSessionFactory();
-		
+	public List<User> getAllUsers(){
 		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-		System.out.println("userdao sessionfactory is: " + sessionFactory);
-		// 3. Get Session object
 		Session session = sessionFactory.openSession();
-		// 4. Starting Transaction
-		Transaction transaction = session.beginTransaction();
+		//Transaction transaction = session.beginTransaction();
 
 		List<User> users = new ArrayList<User>();
 		//return users;
