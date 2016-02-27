@@ -92,9 +92,7 @@ public class User {
 	
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
 		//return super.toString();
-		//System.out.println(" user tostring ");
 		String result = "";
 		result += " User ID: " + this.getId();
 		result += " User Name: " + this.getName();

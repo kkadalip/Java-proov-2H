@@ -11,25 +11,12 @@ public class InitDatabaseListener implements ServletContextListener { // class n
 
 	@Override
 	public void contextInitialized(ServletContextEvent arg0) {
-		SetupDao setupDaoHibernate = new SetupDao();
-		setupDaoHibernate.insertSampleDataUsers();
-		setupDaoHibernate.insertSampleDataSectors();
-		//setupDaoHibernate.initFactory();
-//		try {
-//			setupDaoHibernate.setUp();
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-		
-		/*
 		SetupDao setupDao = new SetupDao();
-		
-		setupDao.destroy();
-		
-		setupDao.createSchema();
-		setupDao.insertSampleData();
-		*/
+		// setupDao.destroy();
+		// setupDao.createSchema();
+		setupDao.insertSampleDataUsers();
+		setupDao.insertSampleDataSectors();
+		//setupDaoHibernate.initFactory();
 		System.out.println("[InitDatabaseListener] contextInitialized");
 	}
 

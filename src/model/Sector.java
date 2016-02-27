@@ -149,9 +149,7 @@ public class Sector implements Comparable<Sector> {
 	
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
 		//return super.toString();
-		System.out.println("sector tostring");
 		String result = "";
 		result += " ID: " + this.getId();
 		result += " Name: " + this.getName();
