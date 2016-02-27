@@ -31,7 +31,7 @@ public class UserDao { // extends AbstractDao {
 			//User user = new User();
 			//user.setName(userName);
 			session.save(user);
-			
+
 			transaction.commit(); // session.getTransaction().commit();
 			session.close();
 			System.out.println("\n\n [UserDao][addUser] NEW USER DETAILS ADDED \n");
@@ -42,7 +42,7 @@ public class UserDao { // extends AbstractDao {
 		}
 
 	}
-	
+
 	public void updateUser(User user) { //, String password, String email, String phone, String city) {
 		try {
 			System.out.println("[UserDao][addUser]");
@@ -51,7 +51,7 @@ public class UserDao { // extends AbstractDao {
 			Session session = sessionFactory.openSession();
 			// 4. Starting Transaction
 			Transaction transaction = session.beginTransaction();
-			session.update(user);
+			session.saveOrUpdate(user); //.update(user); // saveOrUpdate
 			transaction.commit(); // session.getTransaction().commit();
 			session.close();
 			System.out.println("\n\n [UserDao][addUser] NEW USER DETAILS ADDED \n");
@@ -62,24 +62,38 @@ public class UserDao { // extends AbstractDao {
 		}
 
 	}
-	
+
 	public User getUserById(Long id){
 		System.out.print("[UserDao][findUserById] ID: " + id);
 		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-		Session session = sessionFactory.openSession();
-		User resultUser = new User();
-		// Query query = this.session.createQuery("select p from Person as p where p.address=:address")
-        //query.setParameter("address",address); 
-		List queryResult = session.createQuery("FROM User U WHERE U.id IS "+id).list();
-		if(!queryResult.isEmpty()){
-			resultUser = (User) queryResult.get(0);
-			System.out.println("[SectorDao][findSectorById] FOUND USER, returning: " + resultUser.toString());
-		}else{
-			System.out.println("[SectorDao][findSectorById] queryresult EMPTY");
-		}
+		Session session = sessionFactory.getCurrentSession();
+		session.beginTransaction();
+		User resultUser = session.get(User.class, id);
 		session.close();
 		return resultUser;
 	}
+
+	// List<User> list = sessionFactory.getCurrentSession().createQuery("from User where id = 1").list();
+    // return (list.isEmpty() ? null : list.get(0));
+	
+	//	public User getUserById(Long id){
+	//		System.out.print("[UserDao][findUserById] ID: " + id);
+	//		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+	//		Session session = sessionFactory.openSession();
+	//		//User resultUser = new User();
+	//		// Query query = this.session.createQuery("select p from Person as p where p.address=:address")
+	//        //query.setParameter("address",address); 
+	//		User queryResult = (User) session.createQuery("FROM User U WHERE U.id IS "+id).uniqueResult(); //.list();
+	//		//if(!queryResult.isEmpty()){
+	////		if(queryResult != null){
+	////			resultUser = (User) queryResult.get(0);
+	////			System.out.println("[SectorDao][findSectorById] FOUND USER, returning: " + resultUser.toString());
+	////		}else{
+	////			System.out.println("[SectorDao][findSectorById] queryresult EMPTY");
+	////		}
+	//		session.close();
+	//		return queryResult; //resultUser;
+	//	}
 
 	public List<User> getAllUsers(){
 		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
@@ -89,7 +103,7 @@ public class UserDao { // extends AbstractDao {
 		List<User> users = new ArrayList<User>();
 		//return users;
 		//session.save(user);
-		
+
 		//transaction.commit(); // why? nothing to commit here, should be last thing before close
 		List queryResult = session.createQuery("FROM User").list(); 
 		for (Iterator iterator = queryResult.iterator(); iterator.hasNext();){
@@ -178,6 +192,6 @@ public class UserDao { // extends AbstractDao {
 			closeResources();
 		}
 	}
-*/
+	 */
 
 }

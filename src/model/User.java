@@ -42,6 +42,7 @@ public class User {
     // http://stackoverflow.com/questions/11746499/solve-failed-to-lazily-initialize-a-collection-of-role-exception
     @ManyToMany //(fetch = FetchType.EAGER) //@ManyToOne // (cascade={CascadeType.ALL}) // @OneToMany(fetch = FetchType.LAZY, mappedBy = "user???")
     @JoinColumn(name = "sector_id") // not parent_sector duh
+    // @JoinColumn(name = "person_id", foreignKey = @ForeignKey(name = "PERSON_ID_FK"))
     private Set<Sector> user_sectors = new HashSet<>();
     // @Column(name="agreedToTerms")
     private Boolean agreedToTerms;

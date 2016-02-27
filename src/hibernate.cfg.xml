@@ -50,6 +50,8 @@
         <property name="current_session_context_class">thread</property>-->    <!-- this will show us all sql statements -->
         
         <!-- <session-factory name="java:hibernate/SessionFactory"> --> <!-- Name is Optional -->
+
+		<property name="hibernate.current_session_context_class">thread</property>
 		 
 		 <!-- <property name="hibernate.default_schema">theSchemaNameUsuallydbo</property> -->
 		<mapping resource="model/user.hbm.xml" />

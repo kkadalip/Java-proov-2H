@@ -44,6 +44,7 @@ public class Default extends HttpServlet {
 		//request.getRequestDispatcher("WEB-INF/index.jsp").forward(request, response);
 		// WAS HERE request.getRequestDispatcher("index.jsp").forward(request, response);
 		
+		// TODO FIX sometimes java.lang.ClassCastException: java.io.ObjectStreamClass cannot be cast to java.lang.String
 		String userName = (String) session.getAttribute("userName"); //session.getAttribute("userName").toString(); // http://stackoverflow.com/questions/3521026/java-io-objectstreamclass-cannot-be-cast-to-java-lang-string
 		System.out.println("Default GET username: " + userName);
 		Boolean checkbox_checked = (Boolean) session.getAttribute("checkbox_checked");
@@ -135,9 +136,15 @@ public class Default extends HttpServlet {
 	            session.setAttribute("saved_user_id", newUser.getId());
 	            
         	}else{
-        		System.out.println("[Default][Post] saved user id NOT NULL, UPDATING EXISTING");
+        		System.out.println("[Default][Post] saved user id NOT NULL: "+ saved_user_id +" , UPDATING EXISTING");
         		User existingUser = userDAO.getUserById(saved_user_id);
-        		System.out.println("[Default][Post] old username: " + existingUser.getName() + " new username: " + userName);
+        		if(existingUser != null){
+        			System.out.println("[Default][Post] existinguser NOT NULL, existing user name: " + existingUser.getName());
+        		}else{
+        			System.out.println("[Default][Post] existinguser null!!!");
+        		}
+        		//System.out.println("[Default][Post] old username: " + existingUser.getName().toString());
+        		System.out.println("[Default][Post] new username: " + userName);
         		existingUser.setName(userName); //(String) session.getAttribute("userName"));
         		userDAO.updateUser(existingUser);
         	}
