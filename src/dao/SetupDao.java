@@ -20,20 +20,12 @@ import org.hibernate.cfg.Configuration;
 import model.Sector;
 import model.User;
 
-public class SetupDaoHibernate { // extends AbstractDaoHibernate {
+public class SetupDao { // extends AbstractDaoHibernate {
 
 	public void insertSampleDataUsers(){
 		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 		Session session = sessionFactory.openSession();
 		Transaction transaction = session.beginTransaction();
-		/*User user = new User();
-			user.setName("John Smith");
-			session.save(user);*/
-		//user.setPassword1(password);
-		//user.setEmail(email);
-		//user.setCity(city);
-		//user.setPhone(phone);
-		//session.save(user);
 		session.save(new User("John Smith"));
 		session.save(new User("Karl Kadalipp"));
 		session.save(new User("Random Blandom"));

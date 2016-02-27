@@ -12,7 +12,7 @@ import org.apache.commons.dbutils.DbUtils;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.taskdefs.SQLExec;
 
-public class SetupDao extends AbstractDao {
+public class SetupDaoOld extends AbstractDao {
 
 	public void createSchema() {
 		System.out.println("[SetupDao] createSchema");

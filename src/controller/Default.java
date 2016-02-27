@@ -134,19 +134,18 @@ public class Default extends HttpServlet {
 	            userDAO.addUser(newUser);
 	            System.out.println("[Default][Post] erm saved user id is: " + newUser.getId());
 	            session.setAttribute("saved_user_id", newUser.getId());
-	            
         	}else{
         		System.out.println("[Default][Post] saved user id NOT NULL: "+ saved_user_id +" , UPDATING EXISTING");
         		User existingUser = userDAO.getUserById(saved_user_id);
         		if(existingUser != null){
         			System.out.println("[Default][Post] existinguser NOT NULL, existing user name: " + existingUser.getName());
+            		//System.out.println("[Default][Post] old username: " + existingUser.getName().toString());
+            		System.out.println("[Default][Post] new username: " + userName);
+            		existingUser.setName(userName); //(String) session.getAttribute("userName"));
+            		userDAO.updateUser(existingUser);
         		}else{
         			System.out.println("[Default][Post] existinguser null!!!");
         		}
-        		//System.out.println("[Default][Post] old username: " + existingUser.getName().toString());
-        		System.out.println("[Default][Post] new username: " + userName);
-        		existingUser.setName(userName); //(String) session.getAttribute("userName"));
-        		userDAO.updateUser(existingUser);
         	}
             
             //response.sendRedirect("Success");

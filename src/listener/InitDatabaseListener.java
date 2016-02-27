@@ -4,14 +4,14 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
 import dao.HibernateUtil;
+import dao.SetupDaoOld;
 import dao.SetupDao;
-import dao.SetupDaoHibernate;
 
 public class InitDatabaseListener implements ServletContextListener { // class not found?? TODO
 
 	@Override
 	public void contextInitialized(ServletContextEvent arg0) {
-		SetupDaoHibernate setupDaoHibernate = new SetupDaoHibernate();
+		SetupDao setupDaoHibernate = new SetupDao();
 		setupDaoHibernate.insertSampleDataUsers();
 		setupDaoHibernate.insertSampleDataSectors();
 		//setupDaoHibernate.initFactory();
