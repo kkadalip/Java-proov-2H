@@ -4,7 +4,6 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
 import dao.HibernateUtil;
-import dao.SetupDaoOld;
 import dao.SetupDao;
 
 public class InitDatabaseListener implements ServletContextListener { // class not found?? TODO

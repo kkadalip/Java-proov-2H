@@ -23,6 +23,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.SortComparator;
 import org.hibernate.annotations.SortNatural;
 import org.springframework.beans.factory.annotation.Required;
+import org.springframework.transaction.annotation.Transactional;
 
 @Entity
 @Table(name = "sector")
@@ -148,6 +149,7 @@ public class Sector implements Comparable<Sector> {
 
 	
 	@Override
+	@Transactional
 	public String toString() {
 		//return super.toString();
 		String result = "";
@@ -169,6 +171,8 @@ public class Sector implements Comparable<Sector> {
 			result += " Users: null";
 		}*/
 		Set<Sector> child_sectors = this.getChild_sectors();
+		
+		// fetch = FetchType.EAGER to use this, atm using lazy
 		if(child_sectors != null){
 			for (Sector child_sector : child_sectors) {
 				result += child_sector.toString();
@@ -176,6 +180,7 @@ public class Sector implements Comparable<Sector> {
 		}else{
 			result += " Child sector: null";
 		}
+		
 		/*
 		Sector parent_sector = this.getParentSector();
 		if(parent_sector != null){

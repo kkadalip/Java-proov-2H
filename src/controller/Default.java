@@ -46,6 +46,8 @@ public class Default extends HttpServlet {
 		
 		// TODO FIX sometimes java.lang.ClassCastException: java.io.ObjectStreamClass cannot be cast to java.lang.String
 		String userName = (String) session.getAttribute("userName"); //session.getAttribute("userName").toString(); // http://stackoverflow.com/questions/3521026/java-io-objectstreamclass-cannot-be-cast-to-java-lang-string
+		System.out.println("[Default][GET] session username is: " + userName);
+		
 		System.out.println("Default GET username: " + userName);
 		Boolean checkbox_checked = (Boolean) session.getAttribute("checkbox_checked");
 		System.out.println("Default GET checkbox_checked" + checkbox_checked);
@@ -106,9 +108,12 @@ public class Default extends HttpServlet {
 				
 				SectorDao sDao = new SectorDao();
 				Sector foundSector = sDao.getSectorById(Long.parseLong(sector));
-				System.out.println("[Default][Post] Foundsector: " + foundSector.toString());
-				System.out.println("");
-				userSectors.add(foundSector);
+				if(foundSector != null){
+					System.out.println("[Default][Post] Foundsector: " + foundSector.toString());
+					userSectors.add(foundSector);
+				}else{
+					System.out.println("[Default][Post] Foundsector: null!!!!");
+				}
 			}
 			//System.out.println("[Default][doPost] selectedSectors: " + selectedSectors);
 			//response.sendRedirect("Default");
