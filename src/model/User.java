@@ -1,25 +1,25 @@
 package model;
 
 import java.time.LocalDateTime;
-import java.util.Date;
+//import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.SortedSet;
-import java.util.TreeSet;
+//import java.util.SortedSet;
+//import java.util.TreeSet;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
+//import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
+//import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.SortNatural;
+//import org.hibernate.annotations.GenericGenerator;
+//import org.hibernate.annotations.SortNatural;
 
 @Entity
 @Table(name="user")

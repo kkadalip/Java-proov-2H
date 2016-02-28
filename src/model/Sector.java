@@ -1,6 +1,6 @@
 package model;
 
-import java.util.Comparator;
+//import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.SortedSet;
@@ -13,16 +13,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
+//import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
+//import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.GenericGenerator;
+//import org.hibernate.annotations.GenericGenerator;
 //import org.hibernate.annotations.OrderBy;
-import org.hibernate.annotations.SortComparator;
+//import org.hibernate.annotations.SortComparator;
 import org.hibernate.annotations.SortNatural;
-import org.springframework.beans.factory.annotation.Required;
+//import org.springframework.beans.factory.annotation.Required;
 import org.springframework.transaction.annotation.Transactional;
 
 @Entity
