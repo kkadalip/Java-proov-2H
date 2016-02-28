@@ -121,22 +121,11 @@ console.log("wtf");
 
 		<br /> Sectors: <select required name="selectSectors" multiple="multiple" size="15">
 			<c:forEach items="${sessionScope['displayedSectors']}" var="item" varStatus="outerLoop">
-				<!--<option value="<c:if test="${not empty item.child_sectors}">swag &nbsp;&nbsp;</c:if>${item.child_sectors} - ${item.id}">${item.name}</option>-->
-				<!--<c:if test="${not empty item.child_sectors}">OMFG</c:if>-->
-				<!-- <option value="${item.id}">${item.name}</option> -->
-				
-				<!-- <option value="${item.id}">${item.child_sectors} - ${item.name}</option> -->
-				
 				<option id="option_${item.id}" value="${item.id}"><!-- [${outerLoop.index}]] --><c:out value="${item.name}"/></option>
 				
 				<myTags:sectorGroups level="0" outerIndex="${outerLoop.index}" list="${item.child_sectors}"/> <!--  pass outerLoop.index !!! -->
-				<!-- 
-				<c:if test="${not empty item.child_sectors}">
-					<c:forEach items="${item.child_sectors}" var="child_item">
-						<option value="${child_item.id}">&nbsp;&nbsp;${child_item.name}</option>
-					</c:forEach>
-				</c:if>
-				 -->
+
+
 			</c:forEach>
 		</select>
 		

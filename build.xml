@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xml>
 <project name="kkadalip" xmlns:ivy="antlib:org.apache.ivy.ant" default="war">
 	<presetdef name="javac">
 		<javac includeantruntime="false" />

@@ -23,6 +23,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 //import javax.swing.plaf.synth.SynthSeparatorUI;
 
+//import org.hibernate.Session;
+//import org.hibernate.SessionFactory;
+//
+//import dao.HibernateUtil;
+
 //import org.apache.jasper.tagplugins.jstl.core.ForEach;
 //import org.hibernate.Session;
 //import org.hibernate.SessionFactory;
@@ -37,29 +42,29 @@ public class Default extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession(true);
+		HttpSession httpSession = request.getSession(true);
 		
 		System.out.println("Controller [Default][doGet]");
 //		doStuff(request);
-		doStuff(session);
-		doStuffSectors(session);
+		doStuff(httpSession);
+		doStuffSectors(httpSession);
 //		doStuffSectors(request, session);
 		//request.getRequestDispatcher("WEB-INF/index.jsp").forward(request, response);
 		// WAS HERE request.getRequestDispatcher("index.jsp").forward(request, response);
 		
-		// TODO FIX sometimes java.lang.ClassCastException: java.io.ObjectStreamClass cannot be cast to java.lang.String
-		String userName = (String) session.getAttribute("userName"); //session.getAttribute("userName").toString(); // http://stackoverflow.com/questions/3521026/java-io-objectstreamclass-cannot-be-cast-to-java-lang-string
+		// TODO FIX using (String) case sometimes java.lang.ClassCastException: java.io.ObjectStreamClass cannot be cast to java.lang.String
+		String userName = httpSession.getAttribute("userName").toString(); //session.getAttribute("userName").toString(); // http://stackoverflow.com/questions/3521026/java-io-objectstreamclass-cannot-be-cast-to-java-lang-string
 		System.out.println("[Default][GET] session username is: " + userName);
 		
 		System.out.println("Default GET username: " + userName);
-		Boolean checkbox_checked = (Boolean) session.getAttribute("checkbox_checked");
+		Boolean checkbox_checked = (Boolean) httpSession.getAttribute("checkbox_checked");
 		System.out.println("Default GET checkbox_checked" + checkbox_checked);
-		String[] selectedSectors = (String[]) session.getAttribute("selectedSectors");
+		String[] selectedSectors = (String[]) httpSession.getAttribute("selectedSectors");
 		if(selectedSectors != null){
 			for(String selectedSector : selectedSectors){
 				System.out.println("DEFAULT GET sector: " + selectedSector.toString());
 			}
-			System.out.println("Default GET selectedSectors: " + selectedSectors);
+			//System.out.println("Default GET selectedSectors: " + selectedSectors);
 		}else{
 			System.out.println("Default GET selectedSectors: null");
 		}
@@ -72,9 +77,11 @@ public class Default extends HttpServlet {
 //		
 //		request.getRequestDispatcher("jsp/index.jsp").forward(request, response);
 		
-		session.setAttribute("SESSIONuserName", userName);
-		session.setAttribute("SESSIONcheckbox_checked", checkbox_checked);
-		session.setAttribute("SESSIONselectedSectors", selectedSectors); // TODO
+		httpSession.setAttribute("SESSIONuserName", userName);
+		httpSession.setAttribute("SESSIONcheckbox_checked", checkbox_checked);
+		httpSession.setAttribute("SESSIONselectedSectors", selectedSectors); // TODO
+		
+		System.out.println("IT WILL BREAK HERE NOW");
 		
 		request.getRequestDispatcher("jsp/index.jsp").forward(request, response);
 	}
@@ -84,7 +91,7 @@ public class Default extends HttpServlet {
 		
 		System.out.println("Controller [Default][doPost]");
 		
-		String userName = request.getParameter("userNameDefault");
+		String userName = request.getParameter("userNameDefault").toString();
 		httpSession.setAttribute("userName", userName);
 		System.out.println("[Default][doPost] username is: " + userName);
 		

@@ -51,7 +51,10 @@
         
         <!-- <session-factory name="java:hibernate/SessionFactory"> --> <!-- Name is Optional -->
 
+		<!-- 
+		http://docs.jboss.org/hibernate/orm/4.1/manual/en-US/html/ch02.html#architecture-current-session
 		<property name="hibernate.current_session_context_class">thread</property>
+		  -->
 		 
 		 <!-- <property name="hibernate.default_schema">theSchemaNameUsuallydbo</property> -->
 		<mapping resource="model/user.hbm.xml" />
