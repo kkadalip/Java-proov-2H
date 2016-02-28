@@ -33,28 +33,28 @@ public class SectorDao {
 		return resultSector;
 	}
 
-	public List<Sector> getAllSectors() {
-		System.out.print("[SectorDao][findAll] START");
-		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-		Session session = sessionFactory.openSession();
-		//@SuppressWarnings("unchecked")
-		//List<Sector> sectors = session.createCriteria(Sector.class).list();
-		
-		//Transaction transaction = session.beginTransaction();
-		List<Sector> sectors = new ArrayList<Sector>();
-		@SuppressWarnings("unchecked")
-		List<Sector> queryResult = session.createQuery("FROM Sector").list(); 
-		//List queryResult = session.createQuery("FROM Sector ORDER BY name").list(); // SORTS BY NAME
-		for (Iterator<Sector> iterator = queryResult.iterator(); iterator.hasNext();){
-			Sector sector = (Sector) iterator.next(); 
-			//System.out.print("[SectorDao][findAll] Sector ID: " + sector.getId() + " Sector Name: " + sector.getName() + " Sector parent sector: " + sector.getParentSector().getName());
-			System.out.print("[SectorDao][findAll] Sector: " + sector.toString() ); //+ " Parent sector: " + sector.getParentSector().toString());
-			sectors.add(sector);
-		}
-		//transaction.commit(); // nothing to commit here
-		session.close();
-		return sectors;
-	}
+//	public List<Sector> getAllSectors() {
+//		System.out.print("[SectorDao][findAll] START");
+//		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+//		Session session = sessionFactory.openSession();
+//		//@SuppressWarnings("unchecked")
+//		//List<Sector> sectors = session.createCriteria(Sector.class).list();
+//		
+//		//Transaction transaction = session.beginTransaction();
+//		List<Sector> sectors = new ArrayList<Sector>();
+//		@SuppressWarnings("unchecked")
+//		List<Sector> queryResult = session.createQuery("FROM Sector").list(); 
+//		//List queryResult = session.createQuery("FROM Sector ORDER BY name").list(); // SORTS BY NAME
+//		for (Iterator<Sector> iterator = queryResult.iterator(); iterator.hasNext();){
+//			Sector sector = (Sector) iterator.next(); 
+//			//System.out.print("[SectorDao][findAll] Sector ID: " + sector.getId() + " Sector Name: " + sector.getName() + " Sector parent sector: " + sector.getParentSector().getName());
+//			System.out.print("[SectorDao][findAll] Sector: " + sector.toString() ); //+ " Parent sector: " + sector.getParentSector().toString());
+//			sectors.add(sector);
+//		}
+//		//transaction.commit(); // nothing to commit here
+//		session.close();
+//		return sectors;
+//	}
 
 	// FIND ALL ROOT SECTORS
 	public List<Sector> findAllLevel0() {
@@ -65,7 +65,17 @@ public class SectorDao {
 		List<Sector> sectors = new ArrayList<Sector>();
 		// https://docs.jboss.org/hibernate/orm/3.3/reference/en/html/queryhql.html
 		@SuppressWarnings("unchecked")
-		List<Sector> queryResult = session.createQuery("FROM Sector S WHERE sector_id IS NULL").list(); // GETS ME ROOT ELEMENTS because fk join column is null
+		
+		
+		//List<Sector> queryResult = session.createQuery("FROM Sector S WHERE sector_id IS NULL").list(); // GETS ME ROOT ELEMENTS because fk join column is null
+
+		// select p from Person p join fetch p.lazyDogs where p.name = :name
+		//select p FROM Person p left join fetch p.invoices
+		
+		List<Sector> queryResult = session.createQuery("FROM Sector S LEFT JOIN FETCH S.child_sectors").list(); // WHERE S.sector_id IS NULL").list();
+		//List<Sector> queryResult = session.createQuery("FROM Sector S WHERE sector_id IS NULL").list();
+		
+		
 		//List queryResult = session.createQuery("FROM Sector ORDER BY name").list(); // SORTS BY NAME
 		for (Iterator<Sector> iterator = queryResult.iterator(); iterator.hasNext();){
 			Sector sector = (Sector) iterator.next();

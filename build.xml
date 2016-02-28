@@ -3,7 +3,8 @@
 <project name="kkadalip" xmlns:ivy="antlib:org.apache.ivy.ant" default="war">
 	<presetdef name="javac">
 		<javac includeantruntime="false" />
-	</presetdef>	
+	</presetdef>
+	
 	<!-- src build classes -->  
 	<property name="basedir" location="." />
 	<property name="src.dir" location="${basedir}/src" />
@@ -18,17 +19,17 @@
 	<property name="ivy.retrieve.pattern" value="${lib.dir}/[artifact][type][revision].[ext]" />
 
 	<path id="classpath.compile">
-		<!-- ivy teek -->
+		<!-- ivy library -->
 		<fileset dir="${ivylib.dir}">
 			<include name="*.jar" />
 		</fileset>
-		<!-- allatõmatud failide teegid -->
+		<!-- downloaded file libraries -->
 		<fileset dir="${lib.dir}">
 			<include name="*.jar" />
 		</fileset>
 	</path>
 	
-	<!-- kompileerimiseks vajaminev ja tegevused -->
+	<!-- actions for compiling (cleaning, initializing, retrieving) -->
 	<target name="compile" depends="clean, init, retrieve">
 		<javac srcdir="${src.dir}" destdir="${classes.dir}" source="1.8" target="1.8" includeantruntime="false">
 			<classpath refid="classpath.compile" />
@@ -67,7 +68,7 @@
 		</war>
 	</target>
 
-	<!-- ivy jaride kättesaamiseks -->
+	<!-- To retreive Ivy dependency libraries (.jar) -->
 	<path id="classpath.retrieve">
 		<fileset dir="${ivylib.dir}">
 			<include name="*.jar" />

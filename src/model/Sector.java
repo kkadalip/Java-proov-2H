@@ -69,7 +69,7 @@ public class Sector implements Comparable<Sector> {
 	//  @SortComparator(WhateverComparator.class) // http://docs.jboss.org/hibernate/orm/5.1/userguide/html_single/Hibernate_User_Guide.html#collections-sorted-set
   // another way @Sort(type=SortType.COMPARATOR, comparator=TimeComparator.class)
   //@OrderBy("name")
-    @OneToMany//(fetch=FetchType.EAGER) //@ManyToOne // (cascade={CascadeType.ALL})
+    @OneToMany //(fetch=FetchType.EAGER) //@ManyToOne // (cascade={CascadeType.ALL})
     @JoinColumn(name = "sector_id") // not parent_sector duh
     //@OrderBy("name") // @OrderBy currently works only on collections having no association table. http://docs.jboss.org/ejb3/app-server/HibernateAnnotations/reference/en/html_single/index.html#entity-mapping-association-collections
     //@OrderBy(clause = "name asc")

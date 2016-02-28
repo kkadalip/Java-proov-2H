@@ -47,8 +47,8 @@
 
 		<!-- 
 		<property name="transaction.factory_class">org.hibernate.transaction.JDBCTransactionFactory</property>
-        <property name="current_session_context_class">thread</property>-->    <!-- this will show us all sql statements -->
-        
+        <property name="current_session_context_class">thread</property>
+        -->        
         <!-- <session-factory name="java:hibernate/SessionFactory"> --> <!-- Name is Optional -->
 
 		<!-- 

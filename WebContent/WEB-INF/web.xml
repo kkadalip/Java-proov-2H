@@ -4,23 +4,69 @@
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
 	id="WebApp_ID" version="3.1">
 	<display-name>Java-proov-2H</display-name>
+
 	<welcome-file-list>
 		<welcome-file>jsp/index.jsp</welcome-file>
-		<!-- 
-		<welcome-file>index.html</welcome-file>
-		<welcome-file>index.htm</welcome-file>
-
-		<welcome-file>default.html</welcome-file>
-		<welcome-file>default.htm</welcome-file>
-		<welcome-file>default.jsp</welcome-file>
-
-		<welcome-file>register.jsp</welcome-file>
-		 -->
 	</welcome-file-list>
+
+	<servlet>
+		<display-name>Default</display-name>
+		<servlet-name>Default</servlet-name>
+		<servlet-class>controller.Default</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Default</servlet-name>
+		<url-pattern>/Default</url-pattern>
+	</servlet-mapping>
 
 	<listener>
 		<listener-class>listener.InitDatabaseListener</listener-class>
 	</listener>
+	<!-- 
+	applicationContext.xml 
+	<listener>
+    	<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	 -->
+</web-app>
+
+
+
+
+
+
+
+
+
+	<!-- http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/orm/hibernate4/support/OpenSessionInViewFilter.html -->
+	<!--
+	<filter>
+	    <filter-name>Spring OpenSessionInViewFilter</filter-name>
+	    <filter-class>
+	        org.springframework.orm.hibernate4.support.OpenSessionInViewFilter
+	    </filter-class>
+	</filter>
+	<filter-mapping>
+	    <filter-name>Spring OpenSessionInViewFilter</filter-name>
+	    <url-pattern>/*</url-pattern>
+	    
+	    <dispatcher>REQUEST</dispatcher>
+	    <dispatcher>FORWARD</dispatcher>
+	    
+	</filter-mapping>
+	-->
+
+	<!-- 
+	<welcome-file>index.html</welcome-file>
+	<welcome-file>index.htm</welcome-file>
+
+	<welcome-file>default.html</welcome-file>
+	<welcome-file>default.htm</welcome-file>
+	<welcome-file>default.jsp</welcome-file>
+
+	<welcome-file>register.jsp</welcome-file>
+	 -->
+
 	<!-- 
 	<servlet>
 		<display-name>User</display-name>
@@ -34,16 +80,8 @@
 		<url-pattern>/save</url-pattern>
 	</servlet-mapping>
 	-->
-	<servlet>
-		<display-name>Default</display-name>
-		<servlet-name>Default</servlet-name>
-		<servlet-class>controller.Default</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>Default</servlet-name>
-		<url-pattern>/Default</url-pattern>
-	</servlet-mapping>
-
+	
+	<!-- 
 	<servlet>
 		<display-name>Success</display-name>
 		<servlet-name>Success</servlet-name>
@@ -53,5 +91,4 @@
 		<servlet-name>Success</servlet-name>
 		<url-pattern>/Success</url-pattern>
 	</servlet-mapping>
-
-</web-app>
+	 -->
