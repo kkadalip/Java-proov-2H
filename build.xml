@@ -29,7 +29,7 @@
 	
 	<!-- kompileerimiseks vajaminev ja tegevused -->
 	<target name="compile" depends="clean, init, retrieve">
-		<javac srcdir="${src.dir}" destdir="${classes.dir}" source="1.6" target="1.6" includeantruntime="false">
+		<javac srcdir="${src.dir}" destdir="${classes.dir}" source="1.8" target="1.8" includeantruntime="false">
 			<classpath refid="classpath.compile" />
 		</javac>
 	</target>
@@ -61,7 +61,7 @@
 			<!--<include name="defaultValues.sql"/>
 			                <include name="schema.sql"/>-->
 			<zipfileset dir="${META-INF.dir}" includes="*" prefix="WEB-INF/classes/META-INF" />
-			<zipfileset dir="${src.dir}" includes="*.sql" prefix="WEB-INF/classes" />
+			<!--<zipfileset dir="${src.dir}" includes="*.sql" prefix="WEB-INF/classes" />-->
 			<zipfileset dir="${src.dir}" includes="*.properties" prefix="WEB-INF/classes" />
 		</war>
 	</target>

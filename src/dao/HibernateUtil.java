@@ -1,18 +1,18 @@
 package dao;
 
 import org.hibernate.HibernateException;
-import org.hibernate.Session;
+//import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.hibernate.boot.Metadata;
-import org.hibernate.boot.MetadataSources;
-import org.hibernate.boot.registry.StandardServiceRegistry;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+//import org.hibernate.Transaction;
+//import org.hibernate.boot.Metadata;
+//import org.hibernate.boot.MetadataSources;
+//import org.hibernate.boot.registry.StandardServiceRegistry;
+//import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 import org.hibernate.cfg.Configuration;
-import org.hibernate.service.ServiceRegistry;
+//import org.hibernate.service.ServiceRegistry;
 
-import model.User;
+//import model.User;
 
 public class HibernateUtil {
 	// http://stackoverflow.com/questions/32405031/hibernate-5-org-hibernate-mappingexception-unknown-entity

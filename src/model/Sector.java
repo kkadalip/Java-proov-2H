@@ -170,6 +170,8 @@ public class Sector implements Comparable<Sector> {
 		}else{
 			result += " Users: null";
 		}*/
+		
+		
 		Set<Sector> child_sectors = this.getChild_sectors();
 		
 		// fetch = FetchType.EAGER to use this, atm using lazy
@@ -178,7 +180,7 @@ public class Sector implements Comparable<Sector> {
 				result += child_sector.toString();
 			}
 		}else{
-			result += " Child sector: null";
+			result += " (No child sectors)";
 		}
 		
 		/*

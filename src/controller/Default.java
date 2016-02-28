@@ -1,30 +1,33 @@
 package controller;
 
 import java.io.IOException;
-import java.sql.SQLException;
+//import java.sql.SQLException;
 import java.util.ArrayList;
 //import java.util.Date;
 //import java.time.Clock;
 //import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.HashMap;
+//import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
+//import java.util.Iterator;
+//import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Set;
-import java.util.SortedSet;
-import java.util.TreeSet;
+//import java.util.SortedSet;
+//import java.util.TreeSet;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.swing.plaf.synth.SynthSeparatorUI;
+//import javax.swing.plaf.synth.SynthSeparatorUI;
 
-import org.apache.jasper.tagplugins.jstl.core.ForEach;
+//import org.apache.jasper.tagplugins.jstl.core.ForEach;
+//import org.hibernate.Session;
+//import org.hibernate.SessionFactory;
 
+//import dao.HibernateUtil;
 import dao.SectorDao;
 import dao.UserDao;
 import model.Sector;
@@ -77,18 +80,17 @@ public class Default extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession(true);
-		
+		HttpSession httpSession = request.getSession(true);
 		
 		System.out.println("Controller [Default][doPost]");
 		
 		String userName = request.getParameter("userNameDefault");
-		session.setAttribute("userName", userName);
+		httpSession.setAttribute("userName", userName);
 		System.out.println("[Default][doPost] username is: " + userName);
 		
 		//String checkbox_checked = request.getParameter("accept_terms");
 		Boolean checkbox_checked = request.getParameter("accept_terms") != null;
-		session.setAttribute("checkbox_checked", checkbox_checked);
+		httpSession.setAttribute("checkbox_checked", checkbox_checked);
 		System.out.println("[Default][doPost] checkbox_checked: " + checkbox_checked); 
 		
 //		if(checkbox_checked == null){
@@ -98,7 +100,7 @@ public class Default extends HttpServlet {
 //		}
 		
 		String[] selectedSectors = request.getParameterValues("selectSectors"); // http://docs.oracle.com/javaee/6/api/javax/servlet/ServletRequest.html#getParameterValues%28java.lang.String%29
-		session.setAttribute("selectedSectors", selectedSectors); // PUTTING SELECTED SECTOR ID-S TO SESSION
+		httpSession.setAttribute("selectedSectors", selectedSectors); // PUTTING SELECTED SECTOR ID-S TO SESSION
 		
 		Set<Sector> userSectors = new HashSet<>();
 		if(selectedSectors != null){
@@ -124,7 +126,7 @@ public class Default extends HttpServlet {
 		}
 		
         try {
-        	Long saved_user_id = (Long) session.getAttribute("saved_user_id");
+        	Long saved_user_id = (Long) httpSession.getAttribute("saved_user_id");
         	UserDao userDAO = new UserDao();
         	if(saved_user_id == null){	
         		System.out.println("[Default][Post] saved user id NULL, CREATING NEW USER");
@@ -138,7 +140,7 @@ public class Default extends HttpServlet {
 	            newUser.setDateAdded(date); // http://stackoverflow.com/questions/2305973/java-util-date-vs-java-sql-date
 	            userDAO.addUser(newUser);
 	            System.out.println("[Default][Post] erm saved user id is: " + newUser.getId());
-	            session.setAttribute("saved_user_id", newUser.getId());
+	            httpSession.setAttribute("saved_user_id", newUser.getId());
         	}else{
         		System.out.println("[Default][Post] saved user id NOT NULL: "+ saved_user_id +" , UPDATING EXISTING");
         		User existingUser = userDAO.getUserById(saved_user_id);
@@ -158,7 +160,7 @@ public class Default extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
         }
-		
+        
 	}
 	
 	// users
@@ -213,17 +215,19 @@ public class Default extends HttpServlet {
 	}
 	
 	// LITERALLY GETS ALL (regardless of level/group)
+	/*
 	private List<Sector> getAllSectors(){ //(HttpServletRequest request){	
 		System.out.println("[Default][getAllSectors]");
 		List<Sector> allSectors = new ArrayList<Sector>();
 		dao.SectorDao sectorDao = new dao.SectorDao();
 		//try {
-			allSectors = sectorDao.findAll();
+			allSectors = sectorDao.getAllSectors();
 		//} catch (SQLException e) {
 		//	e.printStackTrace();
 		//}
 		return allSectors;
 	}
+	*/
 	
 //	private List<Sector> getAllSectorsLevel0(HttpServletRequest request){
 	private List<Sector> getAllSectorsLevel0(){	

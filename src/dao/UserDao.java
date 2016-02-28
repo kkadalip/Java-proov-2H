@@ -1,17 +1,19 @@
 package dao;
 
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Iterator;
+//import java.sql.SQLException;
+//import java.util.ArrayList;
+//import java.util.Iterator;
 import java.util.List;
+
+//import javax.persistence.Query;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.cfg.Configuration;
+//import org.hibernate.cfg.Configuration;
 
-import model.Sector;
+//import model.Sector;
 //import dao.AbstractDao;
 import model.User; // bean
 
@@ -52,8 +54,8 @@ public class UserDao { // extends AbstractDao {
 	public List<User> getAllUsers(){
 		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 		Session session = sessionFactory.openSession();
+		@SuppressWarnings("unchecked")
 		List<User> users = session.createCriteria(User.class).list(); // .addOrder(Order.asc("name")).list(); 
-		//List<User> users = new ArrayList<User>();
 		//List queryResult = session.createQuery("FROM User").list(); 
 //		for (Iterator iterator = queryResult.iterator(); iterator.hasNext();){
 //			User user = (User) iterator.next(); 

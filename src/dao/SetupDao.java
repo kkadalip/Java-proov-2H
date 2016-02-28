@@ -1,21 +1,21 @@
 package dao;
 
-import java.io.File;
-import java.util.HashSet;
-import java.util.Set;
+//import java.io.File;
+//import java.util.HashSet;
+//import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-import org.apache.tools.ant.Project;
-import org.apache.tools.ant.taskdefs.SQLExec;
-import org.hibernate.HibernateException;
+//import org.apache.tools.ant.Project;
+//import org.apache.tools.ant.taskdefs.SQLExec;
+//import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.boot.MetadataSources;
-import org.hibernate.boot.registry.StandardServiceRegistry;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.cfg.Configuration;
+//import org.hibernate.boot.MetadataSources;
+//import org.hibernate.boot.registry.StandardServiceRegistry;
+//import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+//import org.hibernate.cfg.Configuration;
 
 import model.Sector;
 import model.User;
@@ -72,7 +72,7 @@ public class SetupDao { // extends AbstractDaoHibernate {
 		set_lvl0_group0.add(s_lvl1_group0_7);
 		set_lvl0_group0.add(s_lvl1_group0_8);
 		set_lvl0_group0.add(s_lvl1_group0_9);
-		s_lvl0_0.setChild_sectors(set_lvl0_group0); // ERROR TODO FIX
+		s_lvl0_0.setChild_sectors(set_lvl0_group0);
 		session.save(s_lvl0_0);
 		
 		Sector s_lvl0_1 = new Sector("Other");
@@ -408,31 +408,31 @@ public class SetupDao { // extends AbstractDaoHibernate {
 	//		sessionFactory = configuration.buildSessionFactory();
 	//	}
 
-	public void createSchema() {
+//	public void createSchema() {
 		//		System.out.println("[SetupDao] createSchema");
 		//		executeSqlFromFile(getClassPathFile("schema.sql"));
-	}
+//	}
 
-	public void insertSampleData() {
+//	public void insertSampleData() {
 		//		System.out.println("[SetupDao] insertSampleData");
 		//		executeSqlFromFile(getClassPathFile("sample_data.sql"));
-	}
+//	}
 
-	public void destroy() {
+//	public void destroy() {
 		//		System.out.println("[SetupDao] destroy");
 		//		//http://h2database.com/html/grammar.html#drop_all_objects
 		//		executeQuery("DROP ALL OBJECTS DELETE FILES;"); // without dropping tables use TRUNCATE TABLE, doesn't reset AUTO_INCREMENT counters to zero
 		//		// ? The command: SHUTDOWN You can execute it using RunScript.execute(jdbc_url, user, password, "classpath:shutdown.sql", "UTF8", false);
 		//		//executeQuery("DROP SCHEMA PUBLIC CASCADE;");
-	}
+//	}
 
-	private String getClassPathFile(String fileName) {
-		return fileName;
+//	private String getClassPathFile(String fileName) {
+//		return fileName;
 		//		return getClass().getClassLoader().getResource(fileName).getFile();
 		//		//return getClass().getResource(fileName).getFile();
-	}
+//	}
 
-	private void executeSqlFromFile(String sqlFilePath) {
+//	private void executeSqlFromFile(String sqlFilePath) {
 		//		Project project = new Project();
 		//		project.init();
 		//
@@ -447,7 +447,7 @@ public class SetupDao { // extends AbstractDaoHibernate {
 		//		e.setPassword("");
 		//		e.setUrl(DB_URL);
 		//		e.execute();
-	}
+//	}
 
 	/*
 	protected void setUp() throws Exception {
