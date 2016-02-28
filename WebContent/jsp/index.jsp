@@ -125,7 +125,6 @@ console.log("wtf");
 				
 				<myTags:sectorGroups level="0" outerIndex="${outerLoop.index}" list="${item.child_sectors}"/> <!--  pass outerLoop.index !!! -->
 
-
 			</c:forEach>
 		</select>
 		

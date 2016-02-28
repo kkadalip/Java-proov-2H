@@ -53,7 +53,7 @@ public class Default extends HttpServlet {
 		// WAS HERE request.getRequestDispatcher("index.jsp").forward(request, response);
 		
 		// TODO FIX using (String) case sometimes java.lang.ClassCastException: java.io.ObjectStreamClass cannot be cast to java.lang.String
-		String userName = httpSession.getAttribute("userName").toString(); //session.getAttribute("userName").toString(); // http://stackoverflow.com/questions/3521026/java-io-objectstreamclass-cannot-be-cast-to-java-lang-string
+		String userName = (String) httpSession.getAttribute("userName"); //session.getAttribute("userName").toString(); // http://stackoverflow.com/questions/3521026/java-io-objectstreamclass-cannot-be-cast-to-java-lang-string
 		System.out.println("[Default][GET] session username is: " + userName);
 		
 		System.out.println("Default GET username: " + userName);

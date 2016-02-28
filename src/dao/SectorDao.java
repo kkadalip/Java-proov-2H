@@ -37,18 +37,20 @@ public class SectorDao {
 		System.out.print("[SectorDao][findAll] START");
 		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 		Session session = sessionFactory.openSession();
-		@SuppressWarnings("unchecked")
-		List<Sector> sectors = session.createCriteria(Sector.class).list();
+		//@SuppressWarnings("unchecked")
+		//List<Sector> sectors = session.createCriteria(Sector.class).list();
+		
 		//Transaction transaction = session.beginTransaction();
-//		List<Sector> sectors = new ArrayList<Sector>();
-//		List queryResult = session.createQuery("FROM Sector").list(); 
-//		//List queryResult = session.createQuery("FROM Sector ORDER BY name").list(); // SORTS BY NAME
-//		for (Iterator iterator = queryResult.iterator(); iterator.hasNext();){
-//			Sector sector = (Sector) iterator.next(); 
-//			//System.out.print("[SectorDao][findAll] Sector ID: " + sector.getId() + " Sector Name: " + sector.getName() + " Sector parent sector: " + sector.getParentSector().getName());
-//			System.out.print("[SectorDao][findAll] Sector: " + sector.toString() ); //+ " Parent sector: " + sector.getParentSector().toString());
-//			sectors.add(sector);
-//		}
+		List<Sector> sectors = new ArrayList<Sector>();
+		@SuppressWarnings("unchecked")
+		List<Sector> queryResult = session.createQuery("FROM Sector").list(); 
+		//List queryResult = session.createQuery("FROM Sector ORDER BY name").list(); // SORTS BY NAME
+		for (Iterator<Sector> iterator = queryResult.iterator(); iterator.hasNext();){
+			Sector sector = (Sector) iterator.next(); 
+			//System.out.print("[SectorDao][findAll] Sector ID: " + sector.getId() + " Sector Name: " + sector.getName() + " Sector parent sector: " + sector.getParentSector().getName());
+			System.out.print("[SectorDao][findAll] Sector: " + sector.toString() ); //+ " Parent sector: " + sector.getParentSector().toString());
+			sectors.add(sector);
+		}
 		//transaction.commit(); // nothing to commit here
 		session.close();
 		return sectors;
