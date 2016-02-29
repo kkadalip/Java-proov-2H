@@ -29,7 +29,7 @@ public class UserDao { // extends AbstractDao {
 			Session session = sessionFactory.openSession();
 			// 4. Starting Transaction
 			Transaction transaction = session.beginTransaction();
-			session.save(user);
+			session.save(user); // TODO FIX UserDao][addUser] error 1 A different object with the same identifier value was already associated with the session : [model.Sector#39]
 			transaction.commit(); // session.getTransaction().commit();
 			session.close();
 			System.out.println("\n\n [UserDao][addUser] NEW USER DETAILS ADDED \n");

@@ -145,7 +145,7 @@ public class Default extends HttpServlet {
 	            LocalDateTime date = LocalDateTime.now();
 	            System.out.println("[Default][Post] going to save date:");
 	            newUser.setDateAdded(date); // http://stackoverflow.com/questions/2305973/java-util-date-vs-java-sql-date
-	            userDAO.addUser(newUser);
+	            userDAO.addUser(newUser); // TODO in there fix one thing
 	            System.out.println("[Default][Post] erm saved user id is: " + newUser.getId());
 	            httpSession.setAttribute("saved_user_id", newUser.getId());
         	}else{
