@@ -5,10 +5,11 @@
 	id="WebApp_ID" version="3.1">
 	<display-name>Java-proov-2H</display-name>
 
+<!--
 	<welcome-file-list>
 		<welcome-file>jsp/index.jsp</welcome-file>
 	</welcome-file-list>
-
+-->
 	<listener>
 		<listener-class>listener.InitDatabaseListener</listener-class>
 	</listener>
@@ -20,9 +21,23 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>Default</servlet-name>
-		<url-pattern>/Default</url-pattern>
+		<url-pattern></url-pattern>
 	</servlet-mapping>
 </web-app>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 	<!-- 
 	applicationContext.xml 

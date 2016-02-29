@@ -94,14 +94,16 @@ public class SectorDao {
 		
 		//List<Sector> queryResult = session.createQuery("FROM Sector S WHERE sector_id IS NULL").list();
 		List<Sector> queryResult = session.createQuery("FROM Sector S WHERE fk_sector_id IS NULL").list();
-//		List<Sector> queryResult = session.createQuery("FROM Sector").list();
+		//List<Sector> queryResult = session.createQuery("FROM Sector").list();
 		
 		//List queryResult = session.createQuery("FROM Sector ORDER BY name").list(); // SORTS BY NAME
 		for (Iterator<Sector> iterator = queryResult.iterator(); iterator.hasNext();){
 			Sector sector = (Sector) iterator.next();
 			//System.out.print("[SectorDao][findAll] Sector ID: " + sector.getId() + " Sector Name: " + sector.getName() + " Sector parent sector: " + sector.getParentSector().getName());
 			
-			System.out.print("[SectorDao][findAllLevel0] Sector: " + sector.toString() ); //+ " Parent sector: " + sector.getParentSector().toString());
+			// java.lang.ClassCastException: java.io.ObjectStreamClass cannot be cast to java.lang.String
+			System.out.print("[SectorDao][findAllLevel0] ADDING SECTOR");
+			//System.out.print("[SectorDao][findAllLevel0] Sector: " + sector.toString() ); //+ " Parent sector: " + sector.getParentSector().toString());
 			sectors.add(sector);
 		}
 		//transaction.commit(); // nothing to commit here

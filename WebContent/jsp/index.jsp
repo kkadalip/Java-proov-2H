@@ -6,8 +6,9 @@
 <%@ taglib tagdir="/WEB-INF/tags" prefix="myTags" %>
 
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-
+<!-- 
 <c:url value="/" var="base" />
+ -->
 <!-- 
 <c:url value="Part" var="homeLink" />
 <c:url value="Search" var="searchLink" />
@@ -31,14 +32,17 @@
     img-src 'self';
     style-src 'self' 'unsafe-inline';
     media-src 'self';">
-    
+
+<link rel="stylesheet" type="text/css" href="static/style.css">
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script> -->
+<script src="static/default.js"></script>
+
+<!--     
 <style type="text/css">
 	@import url("${base}/static/style.css");
 </style>
-<!-- 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
  -->
-<script src="static/default.js"></script>
+
 <!-- 
 <script>
 var selectedSectors = "${requestScope['SESSIONselectedSectors']}";

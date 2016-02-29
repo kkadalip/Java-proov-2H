@@ -8,7 +8,7 @@
 	<!-- src build classes -->  
 	<property name="basedir" location="." />
 	<property name="src.dir" location="${basedir}/src" />
-	<property name="tests.dir" location="${src.dir}/tests" />
+	<!--<property name="tests.dir" location="${src.dir}/tests" />-->
 	<property name="build.dir" location="${basedir}/build" />
 	<property name="classes.dir" location="${build.dir}/classes" />
 	<property name="web_content.dir" location="${basedir}/WebContent" />
