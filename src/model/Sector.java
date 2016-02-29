@@ -6,6 +6,7 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+//import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -16,15 +17,25 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 //import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 //import javax.persistence.OrderBy;
 import javax.persistence.Table;
+//import javax.validation.constraints.Null;
 
+//import org.hibernate.annotations.Cascade;
 //import org.hibernate.annotations.GenericGenerator;
 //import org.hibernate.annotations.OrderBy;
 //import org.hibernate.annotations.SortComparator;
 import org.hibernate.annotations.SortNatural;
+//import org.hibernate.annotations.Type;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
 //import org.springframework.beans.factory.annotation.Required;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.sun.istack.internal.Nullable;
+
 
 @Entity
 @Table(name = "sector")
@@ -32,85 +43,91 @@ import org.springframework.transaction.annotation.Transactional;
 // static class??
 public class Sector implements Comparable<Sector> {
 
-	@Id
-	@Column(name="sector_id")
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	// GenerationType.IDENTITY
 	//@GeneratedValue(generator="increment")
 	//@GenericGenerator(name="increment", strategy = "increment")
+	@Id
+	@Column(name="sector_id")
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	//@Type(type = "long")
 	private Long id;
+
+	//@Type(type = "string")
+	@Column(name="sector_name")
 	private String name;
-    
-	/*
-	//@ManyToOne
-	@OneToMany // changed, haven't used this yet // (fetch=FetchType.EAGER)
-    @JoinColumn(name = "user_id")
-	private Set<User> users;
-	    //private User user;
-	*/
-	
-    @ManyToMany //@ManyToOne // (cascade={CascadeType.ALL}) // @OneToMany(fetch = FetchType.LAZY, mappedBy = "user???")
-    @JoinColumn(name = "user_id") // not parent_sector duh
-    private Set<User> sector_users = new HashSet<>();
-	
-	
-	
- /*   @OneToMany //@ManyToOne // (cascade={CascadeType.ALL})
+
+	@ManyToMany //@ManyToOne // (cascade={CascadeType.ALL}) // @OneToMany(fetch = FetchType.LAZY, mappedBy = "user???")
+	@Cascade(value = { CascadeType.ALL })
+	@JoinColumn(name = "user_id") // <key column="user_id"
+	@Nullable
+	private Set<User> sector_users = new HashSet<>();
+
+	//@SortComparator(WhateverComparator.class) // http://docs.jboss.org/hibernate/orm/5.1/userguide/html_single/Hibernate_User_Guide.html#collections-sorted-set
+	//another way @Sort(type=SortType.COMPARATOR, comparator=TimeComparator.class)
+	//@OrderBy("name")
+	//@OrderBy("name") // @OrderBy currently works only on collections having no association table. http://docs.jboss.org/ejb3/app-server/HibernateAnnotations/reference/en/html_single/index.html#entity-mapping-association-collections
+	//@OrderBy(clause = "name asc")
+	//private Set<Sector> child_sectors = new HashSet<>();
+	//@JoinColumn(name = "sector_id")
+	//@JoinColumn(name = "parent_sector", referencedColumnName = "sector_id")
+	// org.hibernate.HibernateException: org.hibernate.AnnotationException: Associations marked as mappedBy must not define database mappings like @JoinTable or @JoinColumn: model.Sector.child_sectors
+	@OneToMany(fetch = FetchType.EAGER) //, mappedBy="sector") //cascade = CascadeType.ALL, (fetch=FetchType.EAGER) //@ManyToOne // (cascade={CascadeType.ALL})
+	@Cascade(value = { CascadeType.ALL })
+	@OrderBy(value="name")
+	@SortNatural
+	@JoinColumn(name = "sector_id") // <key column="sector_id"
+	@Nullable
+	private SortedSet<Sector> child_sectors = new TreeSet<>(); // TreeSet is only appropriate if you need the Set sorted, either by the Object's implementation of Comparable or by a custom Comparator passed to the TreeSet's constructor.
+
+
+
+
+	/*   @OneToMany //@ManyToOne // (cascade={CascadeType.ALL})
     @JoinColumn(name = "sector_id") // not parent_sector duh
     private Set<Sector> child_sectors; */
-    
-    public Set<User> getSector_users() {
+
+	public Set<User> getSector_users() {
 		return sector_users;
 	}
 	public void setSector_users(Set<User> sector_users) {
 		this.sector_users = sector_users;
 	}
 
-	//  @SortComparator(WhateverComparator.class) // http://docs.jboss.org/hibernate/orm/5.1/userguide/html_single/Hibernate_User_Guide.html#collections-sorted-set
-  // another way @Sort(type=SortType.COMPARATOR, comparator=TimeComparator.class)
-  //@OrderBy("name")
-    @OneToMany //(fetch=FetchType.EAGER) //@ManyToOne // (cascade={CascadeType.ALL})
-    @JoinColumn(name = "sector_id") // not parent_sector duh
-    //@OrderBy("name") // @OrderBy currently works only on collections having no association table. http://docs.jboss.org/ejb3/app-server/HibernateAnnotations/reference/en/html_single/index.html#entity-mapping-association-collections
-    //@OrderBy(clause = "name asc")
-    @SortNatural
-//    private Set<Sector> child_sectors = new HashSet<>();
-    private SortedSet<Sector> child_sectors = new TreeSet<>(); // TreeSet is only appropriate if you need the Set sorted, either by the Object's implementation of Comparable or by a custom Comparator passed to the TreeSet's constructor.
-	
-    //private Sector parentSector;
 
-//	@ManyToOne
-//    @JoinColumn(name = "user_id")
-//	private int parent_sector_id;
-    
-//	public Sector getParentSector() {
-//		return parentSector;
-//	}
-//	public void setParentSector(Sector parentSector) {
-//		this.parentSector = parentSector;
-//	}
-    
-    // CONSTRUCTORS
-    public Sector(){
-    }
+	//private Sector parentSector;
+
+	//	@ManyToOne
+	//    @JoinColumn(name = "user_id")
+	//	private int parent_sector_id;
+
+	//	public Sector getParentSector() {
+	//		return parentSector;
+	//	}
+	//	public void setParentSector(Sector parentSector) {
+	//		this.parentSector = parentSector;
+	//	}
+
+	// CONSTRUCTORS
+	public Sector(){
+	}
 	public Sector(String sectorName){
-    	name = sectorName;
-    }
-//  public Sector(String sectorName, Long user_id){
-//  public Sector(String sectorName, Sector sector_parentSector){
-//  	name = sectorName;
-//  	parentSector = sector_parentSector;
-//  }
-	
-//	public Set<Sector> getChild_sectors() {
-//		return child_sectors;
-//	}
-//
-//	public void setChild_sectors(Set<Sector> child_sectors) {
-//		this.child_sectors = child_sectors;
-//	}
+		name = sectorName;
+	}
+	//  public Sector(String sectorName, Long user_id){
+	//  public Sector(String sectorName, Sector sector_parentSector){
+	//  	name = sectorName;
+	//  	parentSector = sector_parentSector;
+	//  }
 
-    public SortedSet<Sector> getChild_sectors() {
+	//	public Set<Sector> getChild_sectors() {
+	//		return child_sectors;
+	//	}
+	//
+	//	public void setChild_sectors(Set<Sector> child_sectors) {
+	//		this.child_sectors = child_sectors;
+	//	}
+
+	public SortedSet<Sector> getChild_sectors() {
 		return child_sectors;
 	}
 	public void setChild_sectors(SortedSet<Sector> child_sectors) {
@@ -119,9 +136,9 @@ public class Sector implements Comparable<Sector> {
 
 	//    public Sector(String sectorName, Set<Sector> sector_childSectors){
 	public Sector(String sectorName, SortedSet<Sector> sector_childSectors){
-    	name = sectorName;
-    	child_sectors = sector_childSectors;
-    }
+		name = sectorName;
+		child_sectors = sector_childSectors;
+	}
 
 
 	public Long getId() {
@@ -137,18 +154,18 @@ public class Sector implements Comparable<Sector> {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-//	public User getUser() {
-//		return user;
-//	}
-//	public void setUser(User user) {
-//		this.user = user;
-//	}
-	
-	
-	
 
-	
+	//	public User getUser() {
+	//		return user;
+	//	}
+	//	public void setUser(User user) {
+	//		this.user = user;
+	//	}
+
+
+
+
+
 	@Override
 	@Transactional
 	public String toString() {
@@ -156,12 +173,12 @@ public class Sector implements Comparable<Sector> {
 		String result = "";
 		result += " ID: " + this.getId();
 		result += " Name: " + this.getName();
-//		User sector_user = this.getUser();
-//		if(sector_user != null){
-//			result += " Sector user: " + sector_user.toString();
-//		}else{
-//			result += " Sector user: null";
-//		}
+		//		User sector_user = this.getUser();
+		//		if(sector_user != null){
+		//			result += " Sector user: " + sector_user.toString();
+		//		}else{
+		//			result += " Sector user: null";
+		//		}
 		/*
 		Set<User> users = this.getUsers();
 		if(users != null){
@@ -171,11 +188,11 @@ public class Sector implements Comparable<Sector> {
 		}else{
 			result += " Users: null";
 		}*/
-		
+
 		/*
 		 * NOT USING ATM:
 		Set<Sector> child_sectors = this.getChild_sectors();
-		
+
 		// fetch = FetchType.EAGER to use this, atm using lazy
 		if(child_sectors != null){
 			for (Sector child_sector : child_sectors) {
@@ -184,8 +201,8 @@ public class Sector implements Comparable<Sector> {
 		}else{
 			result += " (No child sectors)";
 		}
-		*/
-		
+		 */
+
 		/*
 		Sector parent_sector = this.getParentSector();
 		if(parent_sector != null){
@@ -193,66 +210,77 @@ public class Sector implements Comparable<Sector> {
 		}else{
 			result += " Parent sector: null";
 		}
-		*/
-		 // recursively goes through
-		  
+		 */
+		// recursively goes through
+
 		return result;
 	}
 
-//	public Set<User> getUsers() {
-//		return users;
-//	}
-//
-//	public void setUsers(Set<User> users) {
-//		this.users = users;
-//	}
+	//	public Set<User> getUsers() {
+	//		return users;
+	//	}
+	//
+	//	public void setUsers(Set<User> users) {
+	//		this.users = users;
+	//	}
 
- 
-    
-//	public int getParent_sector_id() {
-//		return parent_sector_id;
-//	}
-//	public void setParent_sector_id(int parent_sector_id) {
-//		this.parent_sector_id = parent_sector_id;
-//	}
-	
-//	@Temporal(TemporalType.TIMESTAMP)
-//	@Column(name = "EVENT_DATE")
-//	public Date getDate() {
-//	    return date;
-//	}
-	
+
+
+	//	public int getParent_sector_id() {
+	//		return parent_sector_id;
+	//	}
+	//	public void setParent_sector_id(int parent_sector_id) {
+	//		this.parent_sector_id = parent_sector_id;
+	//	}
+
+	//	@Temporal(TemporalType.TIMESTAMP)
+	//	@Column(name = "EVENT_DATE")
+	//	public Date getDate() {
+	//	    return date;
+	//	}
+
 	@Override
-    public int compareTo(Sector o) {
+	public int compareTo(Sector o) {
 		System.out.println("[Sector][compareTo] this name: " + this.name + " comparing to " + o.getName());
-        return this.name.compareTo( o.getName() );
-    }
-	
-//    @Override
-//    public int compareTo(Phone o) {
-//        return number.compareTo( o.getNumber() );
-//    }
-//
-//    @Override
-//    public boolean equals(Object o) {
-//        if ( this == o ) {
-//            return true;
-//        }
-//        if ( o == null || getClass() != o.getClass() ) {
-//            return false;
-//        }
-//        Phone phone = (Phone) o;
-//        return Objects.equals( number, phone.number );
-//    }
+		return this.name.compareTo( o.getName() );
+	}
 
-	
-//	public static class WhateverComparator implements Comparator<Sector> {
-//	    @Override
-//	    public int compare(Sector o1, Sector o2) {
-//	        return o2.compareTo( o1 );
-//	    }
-//	}
+	//    @Override
+	//    public int compareTo(Phone o) {
+	//        return number.compareTo( o.getNumber() );
+	//    }
+	//
+	//    @Override
+	//    public boolean equals(Object o) {
+	//        if ( this == o ) {
+	//            return true;
+	//        }
+	//        if ( o == null || getClass() != o.getClass() ) {
+	//            return false;
+	//        }
+	//        Phone phone = (Phone) o;
+	//        return Objects.equals( number, phone.number );
+	//    }
+
+
+	//	public static class WhateverComparator implements Comparator<Sector> {
+	//	    @Override
+	//	    public int compare(Sector o1, Sector o2) {
+	//	        return o2.compareTo( o1 );
+	//	    }
+	//	}
 
 
 }
 
+
+
+
+
+/*
+//@ManyToOne
+@OneToMany // changed, haven't used this yet // (fetch=FetchType.EAGER)
+@JoinColumn(name = "user_id")
+private Set<User> users;
+    //private User user;
+ */

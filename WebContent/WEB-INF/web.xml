@@ -9,6 +9,10 @@
 		<welcome-file>jsp/index.jsp</welcome-file>
 	</welcome-file-list>
 
+	<listener>
+		<listener-class>listener.InitDatabaseListener</listener-class>
+	</listener>
+
 	<servlet>
 		<display-name>Default</display-name>
 		<servlet-name>Default</servlet-name>
@@ -18,25 +22,14 @@
 		<servlet-name>Default</servlet-name>
 		<url-pattern>/Default</url-pattern>
 	</servlet-mapping>
+</web-app>
 
-	<listener>
-		<listener-class>listener.InitDatabaseListener</listener-class>
-	</listener>
 	<!-- 
 	applicationContext.xml 
 	<listener>
     	<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 	 -->
-</web-app>
-
-
-
-
-
-
-
-
 
 	<!-- http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/orm/hibernate4/support/OpenSessionInViewFilter.html -->
 	<!--

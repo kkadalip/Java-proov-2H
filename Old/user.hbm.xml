@@ -7,10 +7,13 @@
 		<meta attribute="class-description">
 			This class contains the user detail.
 		</meta>
+		
 		<id name="id" type="long" column="id">
 			<generator class="native" />
 		</id>
+		
 		<property name="name" column="name" type="string" />
+		
 		<property name="agreedToTerms" column="agreedToTerms" type="java.lang.Boolean" />
       	<!-- 
       	<property name="lastName" column="last_name" type="string"/>      

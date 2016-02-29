@@ -18,3 +18,4 @@ CAN USE WITH FETCHTYPE EAGER BUT THAT LOADS THEM AND HAS PERFOMANCE HIT
 	</c:forEach>
 </c:if>
 
+<!--<c:if test="${not empty item.child_sectors}"></c:if>-->

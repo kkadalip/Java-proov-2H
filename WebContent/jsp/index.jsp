@@ -121,10 +121,14 @@ console.log("wtf");
 
 		<br /> Sectors: <select required name="selectSectors" multiple="multiple" size="15">
 			<c:forEach items="${sessionScope['displayedSectors']}" var="item" varStatus="outerLoop">
-				<option id="option_${item.id}" value="${item.id}"><!-- [${outerLoop.index}]] --><c:out value="${item.name}"/></option>
 				
-				<myTags:sectorGroups level="0" outerIndex="${outerLoop.index}" list="${item.child_sectors}"/> <!--  pass outerLoop.index !!! -->
-
+				
+				<option id="option_${item.id}" value="${item.id}"><!-- [${outerLoop.index}]] --><c:out value="${item.name}"/></option>
+				<!--  pass outerLoop.index !!! -->
+				<!-- 
+				<myTags:sectorGroups level="0" outerIndex="${outerLoop.index}" list="${item.child_sectors}"/> 
+				 -->
+				
 			</c:forEach>
 		</select>
 		
