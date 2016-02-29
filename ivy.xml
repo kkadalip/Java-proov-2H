@@ -29,11 +29,12 @@
 		<dependency org="org.springframework" name="spring-jdbc" rev="4.2.5.RELEASE"/>
 		<dependency org="org.springframework" name="spring-orm" rev="4.2.5.RELEASE"/>
 		<dependency org="org.springframework" name="spring-webmvc" rev="4.2.5.RELEASE"/>
-
+		
+		<!--
 		<dependency org="org.springframework.security" name="spring-security-core" rev="4.0.4.RELEASE"/>
 		<dependency org="org.springframework.security" name="spring-security-taglibs" rev="4.0.4.RELEASE"/>
 		<dependency org="org.springframework.security" name="spring-security-config" rev="4.0.4.RELEASE"/>
 		<dependency org="org.springframework.security" name="spring-security-web" rev="4.0.4.RELEASE"/>
-
+ 		-->
 	</dependencies>
 </ivy-module>
