@@ -59,7 +59,8 @@ console.log("wtf");
 </head>
 <body>
 	<!-- < %@ include file="menu.jsp"%> -->
-	<form method="post" action="Default">
+	<!-- action="Default" -->
+	<form action="" method="POST">
 	 	Please enter your name and pick the Sectors you are currently involved in.
 		<br>
 		<br>

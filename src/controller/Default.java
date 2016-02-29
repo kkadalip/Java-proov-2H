@@ -165,7 +165,8 @@ public class Default extends HttpServlet {
         	}
             
             //response.sendRedirect("Success");
-        	response.sendRedirect("Default");
+        	//response.sendRedirect("Default");
+        	response.sendRedirect("");
         } catch (Exception e) {
             e.printStackTrace();
         }
