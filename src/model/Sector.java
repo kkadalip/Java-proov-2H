@@ -38,7 +38,7 @@ import com.sun.istack.internal.Nullable;
 
 
 @Entity
-@Table(name = "sector")
+@Table(name="sector")
 //public class Sector {
 // static class??
 public class Sector implements Comparable<Sector> {
@@ -53,12 +53,12 @@ public class Sector implements Comparable<Sector> {
 	private Long id;
 
 	//@Type(type = "string")
-	@Column(name="sector_name")
+	@Column(name="name") // sector_name
 	private String name;
 
 	@ManyToMany //@ManyToOne // (cascade={CascadeType.ALL}) // @OneToMany(fetch = FetchType.LAZY, mappedBy = "user???")
-	@Cascade(value = { CascadeType.ALL })
-	@JoinColumn(name = "user_id") // <key column="user_id"
+	@Cascade(value={CascadeType.ALL})
+	@JoinColumn(name="user_id") // <key column="user_id"
 	@Nullable
 	private Set<User> sector_users = new HashSet<>();
 
@@ -71,11 +71,11 @@ public class Sector implements Comparable<Sector> {
 	//@JoinColumn(name = "sector_id")
 	//@JoinColumn(name = "parent_sector", referencedColumnName = "sector_id")
 	// org.hibernate.HibernateException: org.hibernate.AnnotationException: Associations marked as mappedBy must not define database mappings like @JoinTable or @JoinColumn: model.Sector.child_sectors
-	@OneToMany(fetch = FetchType.EAGER) //, mappedBy="sector") //cascade = CascadeType.ALL, (fetch=FetchType.EAGER) //@ManyToOne // (cascade={CascadeType.ALL})
-	@Cascade(value = { CascadeType.ALL })
+	@OneToMany(fetch=FetchType.EAGER) //, mappedBy="") //cascade = CascadeType.ALL, (fetch=FetchType.EAGER) //@ManyToOne // (cascade={CascadeType.ALL})
+	@Cascade(value={CascadeType.ALL})
 	@OrderBy(value="name")
 	@SortNatural
-	@JoinColumn(name = "sector_id") // <key column="sector_id"
+	@JoinColumn(name="fk_sector_id") // <key column="sector_id"
 	@Nullable
 	private SortedSet<Sector> child_sectors = new TreeSet<>(); // TreeSet is only appropriate if you need the Set sorted, either by the Object's implementation of Comparable or by a custom Comparator passed to the TreeSet's constructor.
 

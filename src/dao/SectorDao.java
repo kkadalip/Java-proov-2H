@@ -91,8 +91,10 @@ public class SectorDao {
 		
 		// GETS EVERY SECTOR AND THEIR CHILD SECTORS, BAD 
 //		List<Sector> queryResult = session.createQuery("FROM Sector S LEFT JOIN FETCH S.child_sectors WHERE sector_id IS NULL").list();
-		List<Sector> queryResult = session.createQuery("FROM Sector S WHERE sector_id IS NULL").list(); // 
 		
+		//List<Sector> queryResult = session.createQuery("FROM Sector S WHERE sector_id IS NULL").list();
+		List<Sector> queryResult = session.createQuery("FROM Sector S WHERE fk_sector_id IS NULL").list();
+//		List<Sector> queryResult = session.createQuery("FROM Sector").list();
 		
 		//List queryResult = session.createQuery("FROM Sector ORDER BY name").list(); // SORTS BY NAME
 		for (Iterator<Sector> iterator = queryResult.iterator(); iterator.hasNext();){
