@@ -98,6 +98,9 @@ public class UserDao { // extends AbstractDao {
 
 
 
+
+
+
 // List<User> list = sessionFactory.getCurrentSession().createQuery("from User where id = 1").list();
 // return (list.isEmpty() ? null : list.get(0));
 /*

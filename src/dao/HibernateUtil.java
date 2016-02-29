@@ -25,7 +25,10 @@ public class HibernateUtil {
 			//            return metadata.getSessionFactoryBuilder().build();
 			System.out.println("hibernateutil");
 			// 1. Configure hibernate
+			// https://docs.jboss.org/hibernate/orm/3.3/reference/en-US/html/session-configuration.html
+			// http://stackoverflow.com/questions/25684785/how-to-read-database-configuration-parameter-using-properties-file-in-hibernate
 			Configuration configuration = new Configuration().configure();
+			
 			// 2.  Create SessionFactory (from hibernate.cfg.xml)
 			SessionFactory sessionFactory = configuration.buildSessionFactory();
 			System.out.println("hibernateutil sessionfactory is " + sessionFactory);
