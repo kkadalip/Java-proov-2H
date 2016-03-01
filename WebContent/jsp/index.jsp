@@ -3,9 +3,9 @@
 <%@ page import="java.util.LinkedHashMap"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<%@ taglib tagdir="/WEB-INF/tags" prefix="myTags" %>
+<%@ taglib tagdir="/WEB-INF/tags" prefix="myTags"%>
 
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!-- 
 <c:url value="/" var="base" />
  -->
@@ -24,7 +24,8 @@
 
 <title>Helmes proov</title>
 
-<meta http-equiv="Content-Security-Policy" content="
+<meta http-equiv="Content-Security-Policy"
+	content="
     default-src 'self';
     script-src 'self' 'unsafe-inline' https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js;
     connect-src 'self';
@@ -61,46 +62,17 @@ console.log("wtf");
 	<!-- < %@ include file="menu.jsp"%> -->
 	<!-- action="Default" -->
 	<form action="" method="POST">
-	 	Please enter your name and pick the Sectors you are currently involved in.
-		<br>
-		<br>
+		Please enter your name and pick the Sectors you are currently involved
+		in. <br> <br>
 		<!-- <c:out value="SESSION NAME: ${requestScope['SESSIONuserName']}"/> -->
 		<!-- userNameDefault -->
-		Name: <input required type="text" name="userName" value="<c:out value="${sessionScope['userName']}"/>">
-	<!-- <input type="submit" value="Save">  -->
+		Name: <input required type="text" name="userName"
+			value="<c:out value="${sessionScope['userName']}"/>">
+		<!-- <input type="submit" value="Save">  -->
 		<!--  
 		<input name="searchString" id="searchStringBox" value="" /> <input
 			type="submit" id="filterButton" value="Filtreeri" /> <br /> <br />
 	-->
-		<table class="listTable" id="listTable">
-			<thead>
-				<tr>
-					<th scope="col">[User ID]</th>
-					<th scope="col">[User name]</th>
-					<th scope="col">[Agreed to terms]</th>
-					<th scope="col">[Date added]</th>
-					<th scope="col">[User sectors]</th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach items="${sessionScope['displayedUsers']}" var="item">
-					<tr>
-						<td>
-							<div id="row_"<c:out value="${item.id}"/>>ID: <c:out value="${item.id}"/></div>
-						</td>
-						<td>
-							<div>Name: <c:out value="${item.name}"/></div>
-						</td>
-						<td>
-							<div>Agreed: <c:out value="${item.agreedToTerms}"/></div>
-						</td>
-						<td>
-							<div>Date: <c:out value="${item.dateAdded}"/></div>
-						</td>
-					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
 
 
 		<!-- 
@@ -124,40 +96,85 @@ console.log("wtf");
 			</tbody>
 		</table>
  -->
+ 		<br />
+		<br /> Sectors: <select required name="selectSectors"
+			multiple="multiple" size="15">
+			<c:forEach items="${sessionScope['displayedSectors']}" var="item"
+				varStatus="outerLoop">
 
-		<br /> Sectors: <select required name="selectSectors" multiple="multiple" size="15">
-			<c:forEach items="${sessionScope['displayedSectors']}" var="item" varStatus="outerLoop">
-				
-				
-				<option id="option_${item.id}" value="${item.id}"><!-- [${outerLoop.index}]] --><c:out value="${item.name}"/></option>
+
+				<option id="option_${item.id}" value="${item.id}"><!-- [${outerLoop.index}]] --><c:out
+						value="${item.name}" /></option>
 				<!--  pass outerLoop.index !!! -->
 				<!-- 
 				<myTags:sectorGroups level="0" outerIndex="${outerLoop.index}" list="${item.child_sectors}"/> 
 				 -->
-				
+
 			</c:forEach>
 		</select>
-		
-		<br />
-		${fn:length(sessionScope['selectedSectors'])} length
-		
-		<c:forEach items="${sessionScope['selectedSectors']}" var="item">
-			<c:out value="${item}" />
-			<script>
-				selectOption('${item}');
-			</script>
-		</c:forEach>
-
 		<!-- <c:out value="${requestScope['SESSIONselectedSectors']}" /> -->
 
-		
-	<br />
-	<br />
-	<input required id="id_accept_terms" type="checkbox" name="accept_terms" <c:if test="${sessionScope['checkbox_checked'] eq true}">checked</c:if> > Agree to terms
-	<br />
-	<br />
-	<input type="submit" value="Save">
+
+		<br /> <br /> <input required id="id_accept_terms" type="checkbox"
+			name="accept_terms"
+			<c:if test="${sessionScope['checkbox_checked'] eq true}">checked</c:if>>
+		Agree to terms <br /> <br /> <input type="submit" value="Save">
 	</form>
 
+	<br />
+
+	<table class="listTable" id="listTable">
+		<thead>
+			<tr>
+				<th>Debug info:</th>
+			</tr>
+			<tr>
+				<th scope="col">[User ID]</th>
+				<th scope="col">[User name]</th>
+				<th scope="col">[Agreed to terms]</th>
+				<th scope="col">[Date added]</th>
+			</tr>
+		</thead>
+		<tbody>
+			<c:forEach items="${sessionScope['displayedUsers']}" var="item">
+				<tr>
+					<td>
+						<div id="row_" <c:out value="${item.id}"/>>
+							ID:
+							<c:out value="${item.id}" />
+						</div>
+					</td>
+					<td>
+						<div>
+							Name:
+							<c:out value="${item.name}" />
+						</div>
+					</td>
+					<td>
+						<div>
+							Agreed:
+							<c:out value="${item.agreedToTerms}" />
+						</div>
+					</td>
+					<td>
+						<div>
+							Date:
+							<c:out value="${item.dateAdded}" />
+						</div>
+					</td>
+				</tr>
+			</c:forEach>
+		</tbody>
+	</table>
+
+	<br /> Selected ${fn:length(sessionScope['selectedSectors'])} sector(s): 
+
+	<c:forEach items="${sessionScope['selectedSectors']}" var="item">
+		<c:out value="[id:${item}]" />
+		<script>
+				selectOption('${item}');
+			</script>
+	</c:forEach>
+	
 </body>
 </html>
