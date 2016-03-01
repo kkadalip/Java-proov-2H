@@ -11,15 +11,18 @@ import org.hibernate.SessionFactory;
 //import org.hibernate.Transaction;
 //import org.hibernate.cfg.Configuration;
 //import org.springframework.transaction.annotation.Transactional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import model.Sector; // bean
 //import model.User;
 //import model.User;
 
 public class SectorDao {
+	Logger log = LoggerFactory.getLogger(SectorDao.class); // info trace debug warn error
 	
 	public Sector getSectorById(Long id){
-		System.out.print("[SectorDao][findSectorById] ID: " + id);
+		log.info("[getSectorById] ID: {}", id);
 		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 		Session session = sessionFactory.openSession();
 		Sector resultSector = session.get(Sector.class, id);
@@ -56,9 +59,9 @@ public class SectorDao {
 //		return sectors;
 //	}
 
-	// FIND ALL ROOT SECTORS
+	// FIND ALL ROOT SECTORS (find all level 0 aka root)
 	public List<Sector> getAllRootSectors() {
-		System.out.print("[SectorDao][findAllLevel0] START");
+		log.info("[getAllRootSectors] START");
 		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 		Session session = sessionFactory.openSession();
 		//Transaction transaction = session.beginTransaction();
@@ -102,12 +105,13 @@ public class SectorDao {
 			//System.out.print("[SectorDao][findAll] Sector ID: " + sector.getId() + " Sector Name: " + sector.getName() + " Sector parent sector: " + sector.getParentSector().getName());
 			
 			// java.lang.ClassCastException: java.io.ObjectStreamClass cannot be cast to java.lang.String
-			System.out.print("[SectorDao][findAllLevel0] ADDING SECTOR");
+			log.debug("[getAllRootSectors] ADDING SECTOR");
 			//System.out.print("[SectorDao][findAllLevel0] Sector: " + sector.toString() ); //+ " Parent sector: " + sector.getParentSector().toString());
 			sectors.add(sector);
 		}
 		//transaction.commit(); // nothing to commit here
 		session.close();
+		log.info("[getAllRootSectors] END");
 		return sectors;
 	}
 

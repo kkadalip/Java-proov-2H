@@ -16,13 +16,17 @@ import org.hibernate.Transaction;
 //import org.hibernate.boot.registry.StandardServiceRegistry;
 //import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 //import org.hibernate.cfg.Configuration;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import model.Sector;
 import model.User;
 
 public class SetupDao { // extends AbstractDaoHibernate {
-
+	Logger log = LoggerFactory.getLogger(SetupDao.class); // info trace debug warn error
+	
 	public void insertSampleDataUsers(){
+		log.info("[insertSampleDataUsers] START");
 		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 		Session session = sessionFactory.openSession();
 		Transaction transaction = session.beginTransaction();
@@ -31,26 +35,27 @@ public class SetupDao { // extends AbstractDaoHibernate {
 		session.save(new User("Random Blandom"));
 		transaction.commit(); // session.getTransaction().commit();
 		session.close();
-		System.out.println("\n\n Details Added \n");
+		log.info("[insertSampleDataUsers] END");
 	}
 
 	public void insertSampleDataSectors(){
+		log.info("[insertSampleDataSectors] START");
 		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 		Session session = sessionFactory.openSession();
 		Transaction transaction = session.beginTransaction();
 		
 		// ATM LEVEL 0 and LEVEL 1 added
-		System.out.println("adding manufacturing");
+		//System.out.println("adding manufacturing");
 		Sector s_lvl0_0 = new Sector("Manufacturing");
 		//session.save(s_lvl0_0);
 		
-		System.out.println("adding Construction mat");
+		//System.out.println("adding Construction mat");
 		Sector s_lvl1_group0_0 = new Sector("Construction materials");
-		System.out.println("adding Electronics and opt");
+		//System.out.println("adding Electronics and opt");
 		Sector s_lvl1_group0_1 = new Sector("Electronics and Optics");
-		System.out.println("adding food and beverages");
+		//System.out.println("adding food and beverages");
 		Sector s_lvl1_group0_2 = new Sector("Food and Beverage");
-		System.out.println("adding Furniture");
+		//System.out.println("adding Furniture");
 		Sector s_lvl1_group0_3 = new Sector("Furniture");
 		Sector s_lvl1_group0_4 = new Sector("Machinery");
 		Sector s_lvl1_group0_5 = new Sector("Metalworking");
@@ -293,8 +298,15 @@ public class SetupDao { // extends AbstractDaoHibernate {
 		
 		transaction.commit(); // session.getTransaction().commit();
 		session.close();
+		log.info("[insertSampleDataSectors] END");
 	}
 }
+
+
+
+
+
+
 
 
 
