@@ -65,7 +65,8 @@ console.log("wtf");
 		<br>
 		<br>
 		<!-- <c:out value="SESSION NAME: ${requestScope['SESSIONuserName']}"/> -->
-		Name: <input required type="text" name="userNameDefault" value="<c:out value="${sessionScope['userName']}"/>">
+		<!-- userNameDefault -->
+		Name: <input required type="text" name="userName" value="<c:out value="${sessionScope['userName']}"/>">
 	<!-- <input type="submit" value="Save">  -->
 		<!--  
 		<input name="searchString" id="searchStringBox" value="" /> <input

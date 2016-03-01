@@ -43,13 +43,11 @@ import org.slf4j.LoggerFactory;
 
 public class Default extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	Logger log = LoggerFactory.getLogger(Default.class); // info trace debug warn error
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("[controller][Default][doGet] START");
-		
-		Logger logger = LoggerFactory.getLogger(Default.class);
-	    logger.info("Hello World");
-		
+		log.info("[doGet] START");
+	
 		HttpSession httpSession = request.getSession(true);
 		
 		List<User> displayedUsers = new ArrayList<User>();
@@ -63,104 +61,92 @@ public class Default extends HttpServlet {
 		httpSession.setAttribute("displayedSectors", new ArrayList<Sector>(displayedSectors));
 		
 		String userName = (String) httpSession.getAttribute("userName");
-		//log.debug("Entering printDocument(doc={}, mode={})", doc, mode);
-
-		System.out.println("[controller][Default][doGet] userName: " + userName);
+		log.debug("[doGet] userName: {}", userName);
 		
 		Boolean checkbox_checked = (Boolean) httpSession.getAttribute("checkbox_checked");
-		System.out.println("[controller][Default][doGet] checkbox_checked" + checkbox_checked);
+		log.debug("[doGet] checkbox_checked: {}", checkbox_checked);
 		
 		String[] selectedSectors = (String[]) httpSession.getAttribute("selectedSectors");
 		if(selectedSectors != null){
 			for(String selectedSector : selectedSectors){
-				System.out.println("[controller][Default][doGet] sector: " + selectedSector.toString());
+				log.debug("[doGet] sector: {}", selectedSector.toString());
 			}
 		}else{
-			System.out.println("[controller][Default][doGet] selectedSectors: null");
+			log.debug("[doGet] selectedSectors: null");
 		}
 				
 		request.getRequestDispatcher("jsp/index.jsp").forward(request, response);
-		System.out.println("[controller][Default][doGet] END");
+		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		log.info("[doPost] START");
 		HttpSession httpSession = request.getSession(true);
 		
-		System.out.println("[controller][Default][doPost] START");
-		
-		String userName = (String) request.getParameter("userNameDefault").toString();
+		String userName = (String) request.getParameter("userName").toString(); // userNameDefault
 		httpSession.setAttribute("userName", userName);
-		System.out.println("[controller][Default][doPost] username is: " + userName);
+		log.debug("[doPost] userName: {}", userName);
 		
 		Boolean checkbox_checked = request.getParameter("accept_terms") != null;
 		httpSession.setAttribute("checkbox_checked", checkbox_checked);
-		System.out.println("[controller][Default][doPost] checkbox_checked: " + checkbox_checked); 
+		log.debug("[doPost] checkbox_checked: {}", checkbox_checked); 
 		
 		String[] selectedSectors = request.getParameterValues("selectSectors"); // http://docs.oracle.com/javaee/6/api/javax/servlet/ServletRequest.html#getParameterValues%28java.lang.String%29
 		httpSession.setAttribute("selectedSectors", selectedSectors); // PUTTING SELECTED SECTOR ID-S TO SESSION
 		
 		Set<Sector> userSectors = new HashSet<>();
 		if(selectedSectors != null){
-			System.out.println("Chosen sector amount: " + selectedSectors.length);			
+			log.debug("[doPost] Chosen sectors amount: {}", selectedSectors.length);		
 			for(String sector : selectedSectors){
-				System.out.println("sector in selectedSectors: " + sector.toString());
-				
+				log.debug("[doPost] sector in selectedSectors: {}",sector.toString());
 				SectorDao sDao = new SectorDao();
 				Sector foundSector = sDao.getSectorById(Long.parseLong(sector));
 				if(foundSector != null){
-					System.out.println("[Default][Post] Foundsector: " + foundSector.toString());
+					log.debug("[doPost] Foundsector: {}", foundSector.toString());
 					userSectors.add(foundSector);
 				}else{
-					System.out.println("[Default][Post] Foundsector: null!!!!");
+					log.debug("[doPost] Foundsector: null");
 				}
 			}
 			//System.out.println("[Default][doPost] selectedSectors: " + selectedSectors);
-			//response.sendRedirect("Default");
-			
-			//response.sendRedirect("Search");
 		}else{
-			System.out.println("No sectors selected for user!");
+			log.debug("[doPost] No sectors selected for user!");
 		}
 		
         try {
         	Long saved_user_id = (Long) httpSession.getAttribute("saved_user_id");
         	UserDao userDAO = new UserDao();
         	if(saved_user_id == null){	
-        		System.out.println("[Default][Post] saved user id NULL, CREATING NEW USER");
+        		log.debug("[doPost] saved user id NULL, CREATING NEW USER");
 	            //userDAO.addUserDetails(userName); //, password, email, phone, city);
 	            User newUser = new User();
 	            newUser.setName(userName);
 	            newUser.setUser_sectors(userSectors);
 	            newUser.setAgreedToTerms(checkbox_checked);
 	            LocalDateTime date = LocalDateTime.now();
-	            System.out.println("[Default][Post] going to save date:");
+	            log.debug("[doPost] going to save date: {}", date);
 	            newUser.setDateAdded(date); // http://stackoverflow.com/questions/2305973/java-util-date-vs-java-sql-date
 	            userDAO.addUser(newUser); // TODO in there fix one thing
-	            System.out.println("[Default][Post] erm saved user id is: " + newUser.getId());
+	            log.debug("[doPost] saved user id: {}", newUser.getId());
 	            httpSession.setAttribute("saved_user_id", newUser.getId());
         	}else{
-        		System.out.println("[Default][Post] saved user id NOT NULL: "+ saved_user_id +" , UPDATING EXISTING");
+        		log.debug("[doPost] saved user id NOT NULL: {}, UPDATING EXISTING" + saved_user_id);
         		User existingUser = userDAO.getUserById(saved_user_id);
         		if(existingUser != null){
-        			System.out.println("[Default][Post] existinguser NOT NULL, existing user name: " + existingUser.getName());
-            		//System.out.println("[Default][Post] old username: " + existingUser.getName().toString());
-            		System.out.println("[Default][Post] new username: " + userName);
+        			log.debug("[doPost] existinguser NOT NULL, existing user name: {}, new username: {}", existingUser.getName(), userName);
             		existingUser.setName(userName); //(String) session.getAttribute("userName"));
             		userDAO.updateUser(existingUser);
         		}else{
-        			System.out.println("[Default][Post] existinguser null!!!");
+        			log.debug("[doPost] existinguser null!!!");
         		}
         	}
-            
-            //response.sendRedirect("Success");
-        	//response.sendRedirect("Default");
-        	response.sendRedirect("");
+        	// redirect here?
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+        response.sendRedirect(""); // Success
+        log.info("[doPost] END");
 	}
-		
 }
 
 
