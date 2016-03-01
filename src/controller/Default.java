@@ -56,7 +56,7 @@ public class Default extends HttpServlet {
 		// TODO FIX using (String) case sometimes java.lang.ClassCastException: java.io.ObjectStreamClass cannot be cast to java.lang.String
 		String userName = "";
 		if(httpSession.getAttribute("userName") != null){
-			userName = httpSession.getAttribute("userName").toString();
+			userName = (String) httpSession.getAttribute("userName"); //.toString();
 			System.out.println("[Default][doGet] Session has attribute userName: " + userName);
 		}else{
 			System.out.println("[Default][doGet] no userName ");
