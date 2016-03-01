@@ -38,11 +38,18 @@ import dao.UserDao;
 import model.Sector;
 import model.User;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class Default extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("Controller [Default][doGet] START");
+		System.out.println("[controller][Default][doGet] START");
+		
+		Logger logger = LoggerFactory.getLogger(Default.class);
+	    logger.info("Hello World");
+		
 		HttpSession httpSession = request.getSession(true);
 		
 		List<User> displayedUsers = new ArrayList<User>();
@@ -52,42 +59,42 @@ public class Default extends HttpServlet {
 		
 		List<Sector> displayedSectors = new ArrayList<Sector>();
 		dao.SectorDao sectorDao = new dao.SectorDao();
-		displayedSectors = sectorDao.findAllLevel0();
+		displayedSectors = sectorDao.getAllRootSectors();
 		httpSession.setAttribute("displayedSectors", new ArrayList<Sector>(displayedSectors));
 		
 		String userName = (String) httpSession.getAttribute("userName");
-		System.out.println("[Default][doGet] userName: " + userName);
+		//log.debug("Entering printDocument(doc={}, mode={})", doc, mode);
+
+		System.out.println("[controller][Default][doGet] userName: " + userName);
 		
 		Boolean checkbox_checked = (Boolean) httpSession.getAttribute("checkbox_checked");
-		System.out.println("Default GET checkbox_checked" + checkbox_checked);
+		System.out.println("[controller][Default][doGet] checkbox_checked" + checkbox_checked);
 		
 		String[] selectedSectors = (String[]) httpSession.getAttribute("selectedSectors");
 		if(selectedSectors != null){
 			for(String selectedSector : selectedSectors){
-				System.out.println("DEFAULT GET sector: " + selectedSector.toString());
+				System.out.println("[controller][Default][doGet] sector: " + selectedSector.toString());
 			}
-			//System.out.println("Default GET selectedSectors: " + selectedSectors);
 		}else{
-			System.out.println("Default GET selectedSectors: null");
+			System.out.println("[controller][Default][doGet] selectedSectors: null");
 		}
-		
-		// The client won't get the request back		
+				
 		request.getRequestDispatcher("jsp/index.jsp").forward(request, response);
-		System.out.println("[Default][GET] END");
+		System.out.println("[controller][Default][doGet] END");
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession httpSession = request.getSession(true);
 		
-		System.out.println("Controller [Default][doPost]");
+		System.out.println("[controller][Default][doPost] START");
 		
 		String userName = (String) request.getParameter("userNameDefault").toString();
 		httpSession.setAttribute("userName", userName);
-		System.out.println("[Default][doPost] username is: " + userName);
+		System.out.println("[controller][Default][doPost] username is: " + userName);
 		
 		Boolean checkbox_checked = request.getParameter("accept_terms") != null;
 		httpSession.setAttribute("checkbox_checked", checkbox_checked);
-		System.out.println("[Default][doPost] checkbox_checked: " + checkbox_checked); 
+		System.out.println("[controller][Default][doPost] checkbox_checked: " + checkbox_checked); 
 		
 		String[] selectedSectors = request.getParameterValues("selectSectors"); // http://docs.oracle.com/javaee/6/api/javax/servlet/ServletRequest.html#getParameterValues%28java.lang.String%29
 		httpSession.setAttribute("selectedSectors", selectedSectors); // PUTTING SELECTED SECTOR ID-S TO SESSION
@@ -170,7 +177,7 @@ public class Default extends HttpServlet {
 
 
 
-
+//private static final boolean ON = true;
 
 // POST:
 //String checkbox_checked = request.getParameter("accept_terms");	
@@ -264,7 +271,7 @@ private List<Sector> getAllSectors(){ //(HttpServletRequest request){
 //request.getRequestDispatcher("WEB-INF/index.jsp").forward(request, response);
 // WAS HERE request.getRequestDispatcher("index.jsp").forward(request, response);
 
-
+// The client won't get the request back
 //request.setAttribute("SESSIONuserName", userName);
 //request.setAttribute("SESSIONcheckbox_checked", checkbox_checked);
 //request.setAttribute("SESSIONselectedSectors", selectedSectors);

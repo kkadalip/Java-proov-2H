@@ -57,7 +57,7 @@ public class SectorDao {
 //	}
 
 	// FIND ALL ROOT SECTORS
-	public List<Sector> findAllLevel0() {
+	public List<Sector> getAllRootSectors() {
 		System.out.print("[SectorDao][findAllLevel0] START");
 		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 		Session session = sessionFactory.openSession();
