@@ -18,12 +18,12 @@ import org.slf4j.LoggerFactory;
 
 public class HibernateUtil {
 	// http://stackoverflow.com/questions/32405031/hibernate-5-org-hibernate-mappingexception-unknown-entity
+	private static final Logger log = LoggerFactory.getLogger(HibernateUtil.class); // info trace debug warn error
 	private static final SessionFactory sessionFactory = buildSessionFactory();
-	static Logger log = LoggerFactory.getLogger(HibernateUtil.class); // info trace debug warn error
-	
+
 	private static SessionFactory buildSessionFactory() {
+		log.info("[buildSessionFactory]");
 		try {
-			log.info("[buildSessionFactory]");
 			// 1. Configure hibernate
 			// https://docs.jboss.org/hibernate/orm/3.3/reference/en-US/html/session-configuration.html
 			// http://stackoverflow.com/questions/25684785/how-to-read-database-configuration-parameter-using-properties-file-in-hibernate
