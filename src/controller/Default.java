@@ -42,9 +42,10 @@ public class Default extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("Controller [Default][doGet] START");
 		HttpSession httpSession = request.getSession(true);
 		
-		System.out.println("Controller [Default][doGet]");
+
 //		doStuff(request);
 		doStuff(httpSession);
 		doStuffSectors(httpSession);
@@ -80,16 +81,12 @@ public class Default extends HttpServlet {
 //		request.setAttribute("SESSIONuserName", userName);
 //		request.setAttribute("SESSIONcheckbox_checked", checkbox_checked);
 //		request.setAttribute("SESSIONselectedSectors", selectedSectors); // TODO
-//		
-//		request.getRequestDispatcher("jsp/index.jsp").forward(request, response);
-		
 		httpSession.setAttribute("SESSIONuserName", userName);
 		httpSession.setAttribute("SESSIONcheckbox_checked", checkbox_checked);
 		httpSession.setAttribute("SESSIONselectedSectors", selectedSectors); // TODO
-		
-		System.out.println("[Default][GET] END");
-		
+				
 		request.getRequestDispatcher("jsp/index.jsp").forward(request, response);
+		System.out.println("[Default][GET] END");
 	}
 
 	

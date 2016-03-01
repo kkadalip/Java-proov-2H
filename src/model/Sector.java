@@ -216,23 +216,6 @@ public class Sector implements Comparable<Sector> {
 		return result;
 	}
 
-	//	public Set<User> getUsers() {
-	//		return users;
-	//	}
-	//
-	//	public void setUsers(Set<User> users) {
-	//		this.users = users;
-	//	}
-
-
-
-	//	public int getParent_sector_id() {
-	//		return parent_sector_id;
-	//	}
-	//	public void setParent_sector_id(int parent_sector_id) {
-	//		this.parent_sector_id = parent_sector_id;
-	//	}
-
 	//	@Temporal(TemporalType.TIMESTAMP)
 	//	@Column(name = "EVENT_DATE")
 	//	public Date getDate() {
@@ -244,34 +227,19 @@ public class Sector implements Comparable<Sector> {
 		System.out.println("[Sector][compareTo] this name: " + this.name + " comparing to " + o.getName());
 		return this.name.compareTo( o.getName() );
 	}
-
-	//    @Override
-	//    public int compareTo(Phone o) {
-	//        return number.compareTo( o.getNumber() );
-	//    }
-	//
-	//    @Override
-	//    public boolean equals(Object o) {
-	//        if ( this == o ) {
-	//            return true;
-	//        }
-	//        if ( o == null || getClass() != o.getClass() ) {
-	//            return false;
-	//        }
-	//        Phone phone = (Phone) o;
-	//        return Objects.equals( number, phone.number );
-	//    }
-
-
-	//	public static class WhateverComparator implements Comparator<Sector> {
-	//	    @Override
-	//	    public int compare(Sector o1, Sector o2) {
-	//	        return o2.compareTo( o1 );
-	//	    }
-	//	}
-
-
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -284,3 +252,21 @@ public class Sector implements Comparable<Sector> {
 private Set<User> users;
     //private User user;
  */
+
+
+//    @Override
+//    public int compareTo(Phone o) {
+//        return number.compareTo( o.getNumber() );
+//    }
+//
+//    @Override
+//    public boolean equals(Object o) {
+//        if ( this == o ) {
+//            return true;
+//        }
+//        if ( o == null || getClass() != o.getClass() ) {
+//            return false;
+//        }
+//        Phone phone = (Phone) o;
+//        return Objects.equals( number, phone.number );
+//    }
