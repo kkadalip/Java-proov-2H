@@ -84,7 +84,7 @@ public class Default extends HttpServlet {
 		log.info("[doPost] START");
 		HttpSession httpSession = request.getSession(true);
 
-		String userName = (String) request.getParameter("userName").toString(); // userNameDefault
+		String userName = (String) request.getParameter("userName"); //.toString(); // userNameDefault
 		httpSession.setAttribute("userName", userName);
 		log.debug("[doPost] userName: {}", userName);
 
@@ -115,32 +115,51 @@ public class Default extends HttpServlet {
 		}
 
 		try {
+			// TODO FIX BAD LOGIC
 			Long saved_user_id = (Long) httpSession.getAttribute("saved_user_id");
 			UserDao userDAO = new UserDao();
 			log.debug("[doPost] saved_user_id is: {}", saved_user_id); // null or 83 etc
-			if(saved_user_id == null){	// ???
-				log.debug("[doPost] saved user id NULL, CREATING NEW USER");
-				User newUser = new User();
-				newUser.setName(userName);
-				newUser.setUser_sectors(userSectors);
-				newUser.setAgreedToTerms(checkbox_checked);
-				LocalDateTime date = LocalDateTime.now();
-				log.debug("[doPost] going to save date: {}", date);
-				newUser.setDateAdded(date);
-				userDAO.addUser(newUser); // TODO ERROR org.hibernate.NonUniqueObjectException: A different object with the same identifier value was already associated with the session : [model.Sector#41]
-				log.debug("[doPost] saved user id: {}", newUser.getId());
-				httpSession.setAttribute("saved_user_id", newUser.getId());
-			}else{ // ???
+			User newUser = new User();
+			if(saved_user_id != null){
 				log.debug("[doPost] saved user id NOT NULL: {}, UPDATING EXISTING", saved_user_id);
-				User existingUser = userDAO.getUserById(saved_user_id);
-				if(existingUser != null){
-					log.debug("[doPost] existinguser NOT NULL, existing user name: {}, new username: {}", existingUser.getName(), userName);
-					existingUser.setName(userName); //(String) session.getAttribute("userName"));
-					userDAO.updateUser(existingUser);
-				}else{
-					log.debug("[doPost] existinguser null!!!");
-				}
+				newUser = userDAO.getUserById(saved_user_id);
+			}else{
+				log.debug("[doPost] existinguser null!!!");
 			}
+			newUser.setName(userName);
+			newUser.setUser_sectors(userSectors);
+			newUser.setAgreedToTerms(checkbox_checked);
+			LocalDateTime date = LocalDateTime.now();
+			log.debug("[doPost] going to save date: {}", date);
+			newUser.setDateAdded(date);
+			userDAO.updateUser(newUser); //addUser(newUser); // TODO ERROR org.hibernate.NonUniqueObjectException: A different object with the same identifier value was already associated with the session : [model.Sector#41]
+			log.debug("[doPost] saved user id: {}", newUser.getId());
+			httpSession.setAttribute("saved_user_id", newUser.getId());
+			
+//			if(saved_user_id == null){	// ???
+//				log.debug("[doPost] saved user id NULL, CREATING NEW USER");
+//				User newUser = new User();
+//				newUser.setName(userName);
+//				newUser.setUser_sectors(userSectors);
+//				newUser.setAgreedToTerms(checkbox_checked);
+//				LocalDateTime date = LocalDateTime.now();
+//				log.debug("[doPost] going to save date: {}", date);
+//				newUser.setDateAdded(date);
+//				userDAO.addUser(newUser); // TODO ERROR org.hibernate.NonUniqueObjectException: A different object with the same identifier value was already associated with the session : [model.Sector#41]
+//				log.debug("[doPost] saved user id: {}", newUser.getId());
+//				httpSession.setAttribute("saved_user_id", newUser.getId());
+//			}else{ // ???
+//				log.debug("[doPost] saved user id NOT NULL: {}, UPDATING EXISTING", saved_user_id);
+//				User existingUser = userDAO.getUserById(saved_user_id);
+//				if(existingUser != null){
+//					log.debug("[doPost] existinguser NOT NULL, existing user name: {}, new username: {}", existingUser.getName(), userName);
+//					existingUser.setName(userName); //(String) session.getAttribute("userName"));
+//					userDAO.updateUser(existingUser);
+//				}else{
+//					log.debug("[doPost] existinguser null!!!");
+//				}
+//			}
+			
 			// redirect here?
 		}catch (Exception e) {
 			log.error("Error adding or updating user", e); //should add e.printStackTrace(); automatically

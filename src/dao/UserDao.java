@@ -87,7 +87,7 @@ public class UserDao { // extends AbstractDao {
 		Transaction transaction = null;
 		try {
 			transaction = session.beginTransaction();
-			session.saveOrUpdate(user); //.update(user);
+			session.saveOrUpdate(user); //.update(user); // org.hibernate.NonUniqueObjectException: A different object with the same identifier value was already associated with the session : [model.Sector#39]
 			transaction.commit(); // session.getTransaction().commit();
 			return true;
 		} catch (HibernateException e) {
