@@ -53,6 +53,7 @@ public class Default extends HttpServlet {
 		List<User> displayedUsers = new ArrayList<User>();
 		dao.UserDao userDao = new dao.UserDao();
 		displayedUsers = userDao.getAllUsers();
+		log.info("[doGet] NOW I HAVE LIKE {} DISPLAYED USERS",displayedUsers.size());
 		httpSession.setAttribute("displayedUsers", displayedUsers);
 
 		List<Sector> displayedSectors = new ArrayList<Sector>();
@@ -116,7 +117,8 @@ public class Default extends HttpServlet {
 		try {
 			Long saved_user_id = (Long) httpSession.getAttribute("saved_user_id");
 			UserDao userDAO = new UserDao();
-			if(saved_user_id == null){	
+			log.debug("[doPost] saved_user_id is: {}", saved_user_id); // null or 83 etc
+			if(saved_user_id == null){	// ???
 				log.debug("[doPost] saved user id NULL, CREATING NEW USER");
 				User newUser = new User();
 				newUser.setName(userName);
@@ -125,11 +127,11 @@ public class Default extends HttpServlet {
 				LocalDateTime date = LocalDateTime.now();
 				log.debug("[doPost] going to save date: {}", date);
 				newUser.setDateAdded(date);
-				userDAO.addUser(newUser);
+				userDAO.addUser(newUser); // TODO ERROR org.hibernate.NonUniqueObjectException: A different object with the same identifier value was already associated with the session : [model.Sector#41]
 				log.debug("[doPost] saved user id: {}", newUser.getId());
 				httpSession.setAttribute("saved_user_id", newUser.getId());
-			}else{
-				log.debug("[doPost] saved user id NOT NULL: {}, UPDATING EXISTING" + saved_user_id);
+			}else{ // ???
+				log.debug("[doPost] saved user id NOT NULL: {}, UPDATING EXISTING", saved_user_id);
 				User existingUser = userDAO.getUserById(saved_user_id);
 				if(existingUser != null){
 					log.debug("[doPost] existinguser NOT NULL, existing user name: {}, new username: {}", existingUser.getName(), userName);

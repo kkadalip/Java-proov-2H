@@ -224,7 +224,7 @@ public class Sector implements Comparable<Sector> {
 
 	@Override
 	public int compareTo(Sector o) {
-		System.out.println("[Sector][compareTo] this name: " + this.name + " comparing to " + o.getName());
+		//System.out.println("[Sector][compareTo] this name: " + this.name + " comparing to " + o.getName());
 		return this.name.compareTo( o.getName() );
 	}
 }

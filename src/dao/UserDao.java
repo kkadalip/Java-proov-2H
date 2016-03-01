@@ -9,7 +9,7 @@ import java.util.List;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
+//import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 //import org.hibernate.cfg.Configuration;
 import org.slf4j.Logger;
@@ -25,67 +25,77 @@ public class UserDao { // extends AbstractDao {
 	
 	// READ THIS http://www.coderanch.com/t/434465/Servlets/java/request-Response-object-web-application
 	public boolean addUser(User user) { // TODO FIX?
+		// (1. configuring hibernate & 2. create sessionfactory) 3. Get Session object
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Transaction transaction = null;
 		log.info("[addUser]");
 		try {
-			// (1. configuring hibernate &) 2. create sessionfactory
-			SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-			// 3. Get Session object
-			Session session = sessionFactory.openSession();
 			// 4. Starting Transaction
-			Transaction transaction = session.beginTransaction();
+			transaction = session.beginTransaction();
 			session.save(user); // TODO FIX UserDao][addUser] error 1 A different object with the same identifier value was already associated with the session : [model.Sector#39]
 			transaction.commit(); // session.getTransaction().commit();
-			session.close();
-			log.debug("[addUser] NEW USER DETAILS ADDED");
+			log.debug("[addUser] NEW USER DETAILS ADDED SUCCESSFULLY!");
 			return true;
 		} catch (HibernateException e) {
 			log.error("[addUser] adding user failed", e); //e.printStackTrace(); // System.out.println("[UserDao][addUser] error 1 " + e.getMessage());
+			transaction.rollback();
 			return false;
-		}
+		} finally {
+            session.close();
+        }
 	}
 	
 	public User getUserById(Long id){
 		log.info("[getUserById] ID: {}", id);
-		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-		Session session = sessionFactory.openSession(); //sessionFactory.getCurrentSession();
-		session.beginTransaction();
-		User resultUser = session.get(User.class, id); // http://www.mkyong.com/hibernate/different-between-session-get-and-session-load/
-		session.close();
-		return resultUser;
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		try {
+			session.beginTransaction();
+			User resultUser = session.get(User.class, id); // http://www.mkyong.com/hibernate/different-between-session-get-and-session-load/
+			return resultUser;
+		} catch (HibernateException e) {
+			log.error("[getUserById] getting user by ID failed!", e);
+			return null;
+		} finally {
+			session.close();
+		}
 	}
 	
 	public List<User> getAllUsers(){
 		log.info("[getAllUsers]");
-		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-		Session session = sessionFactory.openSession();
-		@SuppressWarnings("unchecked")
-		List<User> users = session.createCriteria(User.class).list(); // .addOrder(Order.asc("name")).list(); 
-		//List queryResult = session.createQuery("FROM User").list(); 
-//		for (Iterator iterator = queryResult.iterator(); iterator.hasNext();){
-//			User user = (User) iterator.next(); 
-//			System.out.print("[UserDao][findAll] " + user.toString() ); // User ID: + user.getId() + " Name: " + user.getName());
-//			users.add(user);
-//		}
-		//users = session.createCriteria(User.class).list();
-		session.close();
-		return users;
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		try {
+			@SuppressWarnings("unchecked")
+			List<User> users = session.createCriteria(User.class).list(); // .addOrder(Order.asc("name")).list(); 
+			//List queryResult = session.createQuery("FROM User").list(); 
+			//for (Iterator iterator = queryResult.iterator(); iterator.hasNext();){
+			//	User user = (User) iterator.next(); 
+			//	System.out.print("[UserDao][findAll] " + user.toString() ); // User ID: + user.getId() + " Name: " + user.getName());
+			//	users.add(user);
+			//}
+			//users = session.createCriteria(User.class).list();
+			return users;
+		} catch (HibernateException e) {
+			log.error("[getAllUsers] getting all users failed!", e);
+			return null;
+		} finally {
+			session.close();
+		}
 	}
 
-	public void updateUser(User user) { //, String password, String email, String phone, String city) {
+	public boolean updateUser(User user) { //, String password, String email, String phone, String city) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Transaction transaction = null;
 		try {
-			log.info("[updateUser]");
-			SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-			// 3. Get Session object
-			Session session = sessionFactory.openSession();
-			// 4. Starting Transaction
-			Transaction transaction = session.beginTransaction();
+			transaction = session.beginTransaction();
 			session.saveOrUpdate(user); //.update(user);
 			transaction.commit(); // session.getTransaction().commit();
-			session.close();
-			log.debug("[updateUser] NEW USER DETAILS ADDED");
+			return true;
 		} catch (HibernateException e) {
-			log.error("[updateUser] error updating (or saving) user", e);
-		}
+			log.error("[updateUser] updating user failed!", e);
+			return false;
+		} finally {
+			session.close();
+		}	
 	}
 }
 
@@ -103,9 +113,10 @@ public class UserDao { // extends AbstractDao {
 
 
 
+//sessionFactory.getCurrentSession();
 
-
-
+//(1. configuring hibernate &) 2. create sessionfactory
+//SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 
 // List<User> list = sessionFactory.getCurrentSession().createQuery("from User where id = 1").list();
 // return (list.isEmpty() ? null : list.get(0));
