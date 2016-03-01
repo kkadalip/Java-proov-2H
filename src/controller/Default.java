@@ -140,9 +140,8 @@ public class Default extends HttpServlet {
 				}
 			}
 			// redirect here?
-		} catch (Exception e) {
-			log.error("Error adding or updating user", e); 
-			//e.printStackTrace();
+		}catch (Exception e) {
+			log.error("Error adding or updating user", e); //should add e.printStackTrace(); automatically
 		}
 		response.sendRedirect(""); // Success
 		log.info("[doPost] END");

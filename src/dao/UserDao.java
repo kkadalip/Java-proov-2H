@@ -12,17 +12,21 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 //import org.hibernate.cfg.Configuration;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import controller.Default;
 //import model.Sector;
 //import dao.AbstractDao;
 import model.User; // bean
 
 public class UserDao { // extends AbstractDao {
-
+	Logger log = LoggerFactory.getLogger(UserDao.class); // info trace debug warn error
+	
 	// READ THIS http://www.coderanch.com/t/434465/Servlets/java/request-Response-object-web-application
 	public boolean addUser(User user) { // TODO FIX?
+		log.info("[addUser]");
 		try {
-			System.out.println("[UserDao][addUser]");
 			// (1. configuring hibernate &) 2. create sessionfactory
 			SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 			// 3. Get Session object
@@ -32,17 +36,16 @@ public class UserDao { // extends AbstractDao {
 			session.save(user); // TODO FIX UserDao][addUser] error 1 A different object with the same identifier value was already associated with the session : [model.Sector#39]
 			transaction.commit(); // session.getTransaction().commit();
 			session.close();
-			System.out.println("\n\n [UserDao][addUser] NEW USER DETAILS ADDED \n");
+			log.debug("[addUser] NEW USER DETAILS ADDED");
 			return true;
 		} catch (HibernateException e) {
-			System.out.println("[UserDao][addUser] error 1 " + e.getMessage());
-			e.printStackTrace();
+			log.error("[addUser] adding user failed", e); //e.printStackTrace(); // System.out.println("[UserDao][addUser] error 1 " + e.getMessage());
 			return false;
 		}
 	}
 	
 	public User getUserById(Long id){
-		System.out.print("[UserDao][findUserById] ID: " + id);
+		log.info("[getUserById] ID: {}", id);
 		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 		Session session = sessionFactory.openSession(); //sessionFactory.getCurrentSession();
 		session.beginTransaction();
@@ -52,6 +55,7 @@ public class UserDao { // extends AbstractDao {
 	}
 	
 	public List<User> getAllUsers(){
+		log.info("[getAllUsers]");
 		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 		Session session = sessionFactory.openSession();
 		@SuppressWarnings("unchecked")
@@ -69,7 +73,7 @@ public class UserDao { // extends AbstractDao {
 
 	public void updateUser(User user) { //, String password, String email, String phone, String city) {
 		try {
-			System.out.println("[UserDao][addUser]");
+			log.info("[updateUser]");
 			SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 			// 3. Get Session object
 			Session session = sessionFactory.openSession();
@@ -78,16 +82,18 @@ public class UserDao { // extends AbstractDao {
 			session.saveOrUpdate(user); //.update(user);
 			transaction.commit(); // session.getTransaction().commit();
 			session.close();
-			System.out.println("\n\n [UserDao][addUser] NEW USER DETAILS ADDED \n");
-
+			log.debug("[updateUser] NEW USER DETAILS ADDED");
 		} catch (HibernateException e) {
-			System.out.println(e.getMessage());
-			System.out.println("[UserDao] error2");
+			log.error("[updateUser] error updating (or saving) user", e);
 		}
 	}
-
-
 }
+
+
+
+
+
+
 
 
 

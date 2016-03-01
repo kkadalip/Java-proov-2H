@@ -20,9 +20,6 @@ public class HibernateUtil {
 
 	private static SessionFactory buildSessionFactory() {
 		try {
-			//            StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder() .configure("hibernate.cfg.xml").build();
-			//            Metadata metadata = new MetadataSources(standardRegistry).getMetadataBuilder().build();
-			//            return metadata.getSessionFactoryBuilder().build();
 			System.out.println("hibernateutil");
 			// 1. Configure hibernate
 			// https://docs.jboss.org/hibernate/orm/3.3/reference/en-US/html/session-configuration.html
@@ -47,6 +44,19 @@ public class HibernateUtil {
 	}
 
 }
+
+
+
+
+
+
+
+
+
+
+//StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder() .configure("hibernate.cfg.xml").build();
+//Metadata metadata = new MetadataSources(standardRegistry).getMetadataBuilder().build();
+//return metadata.getSessionFactoryBuilder().build();
 
 //Configuration conf = new Configuration();  
 //conf.configure(); // conf.configure("/resources/hibernate.cfg.xml");
