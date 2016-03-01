@@ -65,7 +65,7 @@ console.log("wtf");
 		<br>
 		<br>
 		<!-- <c:out value="SESSION NAME: ${requestScope['SESSIONuserName']}"/> -->
-		Name: <input required type="text" name="userNameDefault" value="<c:out value="${sessionScope['SESSIONuserName']}"/>">
+		Name: <input required type="text" name="userNameDefault" value="<c:out value="${sessionScope['userName']}"/>">
 	<!-- <input type="submit" value="Save">  -->
 		<!--  
 		<input name="searchString" id="searchStringBox" value="" /> <input
@@ -138,9 +138,9 @@ console.log("wtf");
 		</select>
 		
 		<br />
-		${fn:length(sessionScope['SESSIONselectedSectors'])} length
+		${fn:length(sessionScope['selectedSectors'])} length
 		
-		<c:forEach items="${sessionScope['SESSIONselectedSectors']}" var="item">
+		<c:forEach items="${sessionScope['selectedSectors']}" var="item">
 			<c:out value="${item}" />
 			<script>
 				selectOption('${item}');
@@ -152,7 +152,7 @@ console.log("wtf");
 		
 	<br />
 	<br />
-	<input required id="id_accept_terms" type="checkbox" name="accept_terms" <c:if test="${sessionScope['SESSIONcheckbox_checked'] eq true}">checked</c:if> > Agree to terms
+	<input required id="id_accept_terms" type="checkbox" name="accept_terms" <c:if test="${sessionScope['checkbox_checked'] eq true}">checked</c:if> > Agree to terms
 	<br />
 	<br />
 	<input type="submit" value="Save">

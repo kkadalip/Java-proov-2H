@@ -45,13 +45,13 @@ public class Default extends HttpServlet {
 		System.out.println("Controller [Default][doGet] START");
 		HttpSession httpSession = request.getSession(true);
 		
-
-//		doStuff(request);
-		doStuff(httpSession);
-		doStuffSectors(httpSession);
-//		doStuffSectors(request, session);
-		//request.getRequestDispatcher("WEB-INF/index.jsp").forward(request, response);
-		// WAS HERE request.getRequestDispatcher("index.jsp").forward(request, response);
+		List<User> displayedUsers = new ArrayList<User>();
+		displayedUsers = getAllUsers();
+		httpSession.setAttribute("displayedUsers", displayedUsers);
+		
+		List<Sector> displayedSectors = new ArrayList<Sector>();
+		displayedSectors = getAllSectorsLevel0();
+		httpSession.setAttribute("displayedSectors", new ArrayList<Sector>(displayedSectors));
 		
 		// TODO FIX using (String) case sometimes java.lang.ClassCastException: java.io.ObjectStreamClass cannot be cast to java.lang.String
 		String userName = "";
@@ -76,15 +76,7 @@ public class Default extends HttpServlet {
 			System.out.println("Default GET selectedSectors: null");
 		}
 		
-		// The client won't get the request back
-		
-//		request.setAttribute("SESSIONuserName", userName);
-//		request.setAttribute("SESSIONcheckbox_checked", checkbox_checked);
-//		request.setAttribute("SESSIONselectedSectors", selectedSectors); // TODO
-		httpSession.setAttribute("SESSIONuserName", userName);
-		httpSession.setAttribute("SESSIONcheckbox_checked", checkbox_checked);
-		httpSession.setAttribute("SESSIONselectedSectors", selectedSectors); // TODO
-				
+		// The client won't get the request back		
 		request.getRequestDispatcher("jsp/index.jsp").forward(request, response);
 		System.out.println("[Default][GET] END");
 	}
@@ -176,51 +168,6 @@ public class Default extends HttpServlet {
         
 	}
 	
-	// users
-//	private void doStuff(HttpServletRequest request){
-	private void doStuff(HttpSession session){
-		//String behaviour = request.getParameter("do");
-		//String searchString = request.getParameter("searchString");
-		List<User> displayedUsers = new ArrayList<User>();
-		/*
-		if("delete".equals(behaviour)){
-			UserDAO userDao = new UserDAO();
-			try {
-				//System.out.println("Deleting item that has id " + request.getParameter("id"));
-				userDao.deleteByID(Integer.parseInt(request.getParameter("id")));
-			} catch (NumberFormatException e) {
-				e.printStackTrace();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		if(searchString == null){
-			displayedUnits = getAllUnits(request);
-		}else{
-			displayedUnits = searchUnits(request);
-		}
-		*/
-//		displayedUsers = getAllUsers(request);
-		displayedUsers = getAllUsers();
-//		request.setAttribute("displayedUsers", displayedUsers);
-		session.setAttribute("displayedUsers", displayedUsers);
-	}
-	
-	// private void doStuffSectors(HttpServletRequest request, HttpSession session){
-	private void doStuffSectors(HttpSession session){
-		List<Sector> displayedSectors = new ArrayList<Sector>();
-		//displayedSectors = getAllSectors(request);
-//		displayedSectors = getAllSectorsLevel0(request);
-		displayedSectors = getAllSectorsLevel0();
-//		request.setAttribute("displayedSectors", displayedSectors);
-		
-		// Cannot serialize session attribute displayedUsers for session EF876FDBDE448EE29D4F0051B72B35FE
-		// TODO FIX java.io.NotSerializableException: model.User
-		// java.io.NotSerializableException: model.Sector and model.User
-		//session.setAttribute("displayedSectors", displayedSectors);
-		session.setAttribute("displayedSectors", new ArrayList<Sector>(displayedSectors));
-	}
-	
 	private List<User> getAllUsers(){ //(HttpServletRequest request){
 		List<User> allUsers = new ArrayList<User>();
 		dao.UserDao userDao = new dao.UserDao();
@@ -258,3 +205,78 @@ public class Default extends HttpServlet {
 	
 	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//used in doGET: doStuff(httpSession); //doStuff(request);	
+//	private void doStuff(HttpSession session){ //private void doStuff(HttpServletRequest request){
+//		//String behaviour = request.getParameter("do");
+//		//String searchString = request.getParameter("searchString");
+//		List<User> displayedUsers = new ArrayList<User>();
+//		/*
+//		if("delete".equals(behaviour)){
+//			UserDAO userDao = new UserDAO();
+//			try {
+//				//System.out.println("Deleting item that has id " + request.getParameter("id"));
+//				userDao.deleteByID(Integer.parseInt(request.getParameter("id")));
+//			} catch (NumberFormatException e) {
+//				e.printStackTrace();
+//			} catch (SQLException e) {
+//				e.printStackTrace();
+//			}
+//		}
+//		if(searchString == null){
+//			displayedUnits = getAllUnits(request);
+//		}else{
+//			displayedUnits = searchUnits(request);
+//		}
+//		*/
+////		displayedUsers = getAllUsers(request);
+//		displayedUsers = getAllUsers();
+////		request.setAttribute("displayedUsers", displayedUsers);
+//		session.setAttribute("displayedUsers", displayedUsers);
+//	}
+
+//doStuffSectors(httpSession); //doStuffSectors(request, session);
+//// private void doStuffSectors(HttpServletRequest request, HttpSession session){
+//private void doStuffSectors(HttpSession session){
+//	List<Sector> displayedSectors = new ArrayList<Sector>();
+//	//displayedSectors = getAllSectors(request);
+////	displayedSectors = getAllSectorsLevel0(request);
+//	displayedSectors = getAllSectorsLevel0();
+////	request.setAttribute("displayedSectors", displayedSectors);
+//	
+//	// Cannot serialize session attribute displayedUsers for session EF876FDBDE448EE29D4F0051B72B35FE
+//	// TODO FIX java.io.NotSerializableException: model.User
+//	// java.io.NotSerializableException: model.Sector and model.User
+//	//session.setAttribute("displayedSectors", displayedSectors);
+//	session.setAttribute("displayedSectors", new ArrayList<Sector>(displayedSectors));
+//}
+	
+//request.getRequestDispatcher("WEB-INF/index.jsp").forward(request, response);
+// WAS HERE request.getRequestDispatcher("index.jsp").forward(request, response);
+
+
+//request.setAttribute("SESSIONuserName", userName);
+//request.setAttribute("SESSIONcheckbox_checked", checkbox_checked);
+//request.setAttribute("SESSIONselectedSectors", selectedSectors);
+
+//httpSession.setAttribute("SESSIONuserName", userName);
+//httpSession.setAttribute("SESSIONcheckbox_checked", checkbox_checked);
+//httpSession.setAttribute("SESSIONselectedSectors", selectedSectors);
