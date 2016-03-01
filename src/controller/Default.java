@@ -53,10 +53,16 @@ public class Default extends HttpServlet {
 		// WAS HERE request.getRequestDispatcher("index.jsp").forward(request, response);
 		
 		// TODO FIX using (String) case sometimes java.lang.ClassCastException: java.io.ObjectStreamClass cannot be cast to java.lang.String
-		String userName = (String) httpSession.getAttribute("userName"); //session.getAttribute("userName").toString(); // http://stackoverflow.com/questions/3521026/java-io-objectstreamclass-cannot-be-cast-to-java-lang-string
-		System.out.println("[Default][GET] session username is: " + userName);
-		
-		System.out.println("Default GET username: " + userName);
+		String userName = "";
+		if(httpSession.getAttribute("userName") != null){
+			userName = httpSession.getAttribute("userName").toString();
+			System.out.println("[Default][doGet] Session has attribute userName: " + userName);
+		}else{
+			System.out.println("[Default][doGet] no userName ");
+		}
+		//String userName = (String) httpSession.getAttribute("userName").toString(); //session.getAttribute("userName").toString(); // http://stackoverflow.com/questions/3521026/java-io-objectstreamclass-cannot-be-cast-to-java-lang-string
+		//System.out.println("[Default][GET] session username is: " + userName);
+
 		Boolean checkbox_checked = (Boolean) httpSession.getAttribute("checkbox_checked");
 		System.out.println("Default GET checkbox_checked" + checkbox_checked);
 		String[] selectedSectors = (String[]) httpSession.getAttribute("selectedSectors");
@@ -81,7 +87,7 @@ public class Default extends HttpServlet {
 		httpSession.setAttribute("SESSIONcheckbox_checked", checkbox_checked);
 		httpSession.setAttribute("SESSIONselectedSectors", selectedSectors); // TODO
 		
-		System.out.println("IT WILL BREAK HERE NOW");
+		System.out.println("[Default][GET] END");
 		
 		request.getRequestDispatcher("jsp/index.jsp").forward(request, response);
 	}
@@ -93,7 +99,7 @@ public class Default extends HttpServlet {
 		
 		System.out.println("Controller [Default][doPost]");
 		
-		String userName = request.getParameter("userNameDefault").toString();
+		String userName = (String) request.getParameter("userNameDefault").toString();
 		httpSession.setAttribute("userName", userName);
 		System.out.println("[Default][doPost] username is: " + userName);
 		
@@ -210,7 +216,12 @@ public class Default extends HttpServlet {
 //		displayedSectors = getAllSectorsLevel0(request);
 		displayedSectors = getAllSectorsLevel0();
 //		request.setAttribute("displayedSectors", displayedSectors);
-		session.setAttribute("displayedSectors", displayedSectors);
+		
+		// Cannot serialize session attribute displayedUsers for session EF876FDBDE448EE29D4F0051B72B35FE
+		// TODO FIX java.io.NotSerializableException: model.User
+		// java.io.NotSerializableException: model.Sector and model.User
+		//session.setAttribute("displayedSectors", displayedSectors);
+		session.setAttribute("displayedSectors", new ArrayList<Sector>(displayedSectors));
 	}
 	
 	private List<User> getAllUsers(){ //(HttpServletRequest request){
