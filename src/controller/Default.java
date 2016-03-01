@@ -44,28 +44,28 @@ import org.slf4j.LoggerFactory;
 public class Default extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	Logger log = LoggerFactory.getLogger(Default.class); // info trace debug warn error
-	
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		log.info("[doGet] START");
-	
+
 		HttpSession httpSession = request.getSession(true);
-		
+
 		List<User> displayedUsers = new ArrayList<User>();
 		dao.UserDao userDao = new dao.UserDao();
 		displayedUsers = userDao.getAllUsers();
 		httpSession.setAttribute("displayedUsers", displayedUsers);
-		
+
 		List<Sector> displayedSectors = new ArrayList<Sector>();
 		dao.SectorDao sectorDao = new dao.SectorDao();
 		displayedSectors = sectorDao.getAllRootSectors();
 		httpSession.setAttribute("displayedSectors", new ArrayList<Sector>(displayedSectors));
-		
+
 		String userName = (String) httpSession.getAttribute("userName");
 		log.debug("[doGet] userName: {}", userName);
-		
+
 		Boolean checkbox_checked = (Boolean) httpSession.getAttribute("checkbox_checked");
 		log.debug("[doGet] checkbox_checked: {}", checkbox_checked);
-		
+
 		String[] selectedSectors = (String[]) httpSession.getAttribute("selectedSectors");
 		if(selectedSectors != null){
 			for(String selectedSector : selectedSectors){
@@ -74,26 +74,26 @@ public class Default extends HttpServlet {
 		}else{
 			log.debug("[doGet] selectedSectors: null");
 		}
-				
+
 		request.getRequestDispatcher("jsp/index.jsp").forward(request, response);
-		
+
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		log.info("[doPost] START");
 		HttpSession httpSession = request.getSession(true);
-		
+
 		String userName = (String) request.getParameter("userName").toString(); // userNameDefault
 		httpSession.setAttribute("userName", userName);
 		log.debug("[doPost] userName: {}", userName);
-		
+
 		Boolean checkbox_checked = request.getParameter("accept_terms") != null;
 		httpSession.setAttribute("checkbox_checked", checkbox_checked);
 		log.debug("[doPost] checkbox_checked: {}", checkbox_checked); 
-		
+
 		String[] selectedSectors = request.getParameterValues("selectSectors"); // http://docs.oracle.com/javaee/6/api/javax/servlet/ServletRequest.html#getParameterValues%28java.lang.String%29
 		httpSession.setAttribute("selectedSectors", selectedSectors); // PUTTING SELECTED SECTOR ID-S TO SESSION
-		
+
 		Set<Sector> userSectors = new HashSet<>();
 		if(selectedSectors != null){
 			log.debug("[doPost] Chosen sectors amount: {}", selectedSectors.length);		
@@ -112,40 +112,40 @@ public class Default extends HttpServlet {
 		}else{
 			log.debug("[doPost] No sectors selected for user!");
 		}
-		
-        try {
-        	Long saved_user_id = (Long) httpSession.getAttribute("saved_user_id");
-        	UserDao userDAO = new UserDao();
-        	if(saved_user_id == null){	
-        		log.debug("[doPost] saved user id NULL, CREATING NEW USER");
-	            //userDAO.addUserDetails(userName); //, password, email, phone, city);
-	            User newUser = new User();
-	            newUser.setName(userName);
-	            newUser.setUser_sectors(userSectors);
-	            newUser.setAgreedToTerms(checkbox_checked);
-	            LocalDateTime date = LocalDateTime.now();
-	            log.debug("[doPost] going to save date: {}", date);
-	            newUser.setDateAdded(date); // http://stackoverflow.com/questions/2305973/java-util-date-vs-java-sql-date
-	            userDAO.addUser(newUser); // TODO in there fix one thing
-	            log.debug("[doPost] saved user id: {}", newUser.getId());
-	            httpSession.setAttribute("saved_user_id", newUser.getId());
-        	}else{
-        		log.debug("[doPost] saved user id NOT NULL: {}, UPDATING EXISTING" + saved_user_id);
-        		User existingUser = userDAO.getUserById(saved_user_id);
-        		if(existingUser != null){
-        			log.debug("[doPost] existinguser NOT NULL, existing user name: {}, new username: {}", existingUser.getName(), userName);
-            		existingUser.setName(userName); //(String) session.getAttribute("userName"));
-            		userDAO.updateUser(existingUser);
-        		}else{
-        			log.debug("[doPost] existinguser null!!!");
-        		}
-        	}
-        	// redirect here?
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        response.sendRedirect(""); // Success
-        log.info("[doPost] END");
+
+		try {
+			Long saved_user_id = (Long) httpSession.getAttribute("saved_user_id");
+			UserDao userDAO = new UserDao();
+			if(saved_user_id == null){	
+				log.debug("[doPost] saved user id NULL, CREATING NEW USER");
+				User newUser = new User();
+				newUser.setName(userName);
+				newUser.setUser_sectors(userSectors);
+				newUser.setAgreedToTerms(checkbox_checked);
+				LocalDateTime date = LocalDateTime.now();
+				log.debug("[doPost] going to save date: {}", date);
+				newUser.setDateAdded(date);
+				userDAO.addUser(newUser);
+				log.debug("[doPost] saved user id: {}", newUser.getId());
+				httpSession.setAttribute("saved_user_id", newUser.getId());
+			}else{
+				log.debug("[doPost] saved user id NOT NULL: {}, UPDATING EXISTING" + saved_user_id);
+				User existingUser = userDAO.getUserById(saved_user_id);
+				if(existingUser != null){
+					log.debug("[doPost] existinguser NOT NULL, existing user name: {}, new username: {}", existingUser.getName(), userName);
+					existingUser.setName(userName); //(String) session.getAttribute("userName"));
+					userDAO.updateUser(existingUser);
+				}else{
+					log.debug("[doPost] existinguser null!!!");
+				}
+			}
+			// redirect here?
+		} catch (Exception e) {
+			log.error("Error adding or updating user", e); 
+			//e.printStackTrace();
+		}
+		response.sendRedirect(""); // Success
+		log.info("[doPost] END");
 	}
 }
 
@@ -161,7 +161,7 @@ public class Default extends HttpServlet {
 
 
 
-
+//userDAO.addUserDetails(userName); //, password, email, phone, city);
 
 //private static final boolean ON = true;
 
@@ -207,7 +207,7 @@ private List<Sector> getAllSectors(){ //(HttpServletRequest request){
 	//}
 	return allSectors;
 }
-*/
+ */
 
 //used in doGET: doStuff(httpSession); //doStuff(request);	
 //	private void doStuff(HttpSession session){ //private void doStuff(HttpServletRequest request){
@@ -253,7 +253,7 @@ private List<Sector> getAllSectors(){ //(HttpServletRequest request){
 //	//session.setAttribute("displayedSectors", displayedSectors);
 //	session.setAttribute("displayedSectors", new ArrayList<Sector>(displayedSectors));
 //}
-	
+
 //request.getRequestDispatcher("WEB-INF/index.jsp").forward(request, response);
 // WAS HERE request.getRequestDispatcher("index.jsp").forward(request, response);
 

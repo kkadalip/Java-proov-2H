@@ -20,7 +20,7 @@ import model.User; // bean
 public class UserDao { // extends AbstractDao {
 
 	// READ THIS http://www.coderanch.com/t/434465/Servlets/java/request-Response-object-web-application
-	public boolean addUser(User user) {
+	public boolean addUser(User user) { // TODO FIX?
 		try {
 			System.out.println("[UserDao][addUser]");
 			// (1. configuring hibernate &) 2. create sessionfactory
