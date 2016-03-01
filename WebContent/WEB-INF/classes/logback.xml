@@ -11,7 +11,7 @@
 	<logger name="org.hibernate.type" level="INFO" /> <!-- ALL -->
 	<logger name="org.hibernate" level="INFO" /> <!-- TRACE DEBUG INFO WARN ERROR OFF -->
 
-	<root level="INFO"> <!-- DEBUG -->
+	<root level="DEBUG"> <!-- DEBUG -->
 		<!-- To log into a file: -->
 		<!--<appender-ref ref="FILE" /> -->
 		<appender-ref ref="STDOUT" />
