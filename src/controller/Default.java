@@ -46,26 +46,21 @@ public class Default extends HttpServlet {
 		HttpSession httpSession = request.getSession(true);
 		
 		List<User> displayedUsers = new ArrayList<User>();
-		displayedUsers = getAllUsers();
+		dao.UserDao userDao = new dao.UserDao();
+		displayedUsers = userDao.getAllUsers();
 		httpSession.setAttribute("displayedUsers", displayedUsers);
 		
 		List<Sector> displayedSectors = new ArrayList<Sector>();
-		displayedSectors = getAllSectorsLevel0();
+		dao.SectorDao sectorDao = new dao.SectorDao();
+		displayedSectors = sectorDao.findAllLevel0();
 		httpSession.setAttribute("displayedSectors", new ArrayList<Sector>(displayedSectors));
 		
-		// TODO FIX using (String) case sometimes java.lang.ClassCastException: java.io.ObjectStreamClass cannot be cast to java.lang.String
-		String userName = "";
-		if(httpSession.getAttribute("userName") != null){
-			userName = (String) httpSession.getAttribute("userName"); //.toString();
-			System.out.println("[Default][doGet] Session has attribute userName: " + userName);
-		}else{
-			System.out.println("[Default][doGet] no userName ");
-		}
-		//String userName = (String) httpSession.getAttribute("userName").toString(); //session.getAttribute("userName").toString(); // http://stackoverflow.com/questions/3521026/java-io-objectstreamclass-cannot-be-cast-to-java-lang-string
-		//System.out.println("[Default][GET] session username is: " + userName);
-
+		String userName = (String) httpSession.getAttribute("userName");
+		System.out.println("[Default][doGet] userName: " + userName);
+		
 		Boolean checkbox_checked = (Boolean) httpSession.getAttribute("checkbox_checked");
 		System.out.println("Default GET checkbox_checked" + checkbox_checked);
+		
 		String[] selectedSectors = (String[]) httpSession.getAttribute("selectedSectors");
 		if(selectedSectors != null){
 			for(String selectedSector : selectedSectors){
@@ -81,8 +76,6 @@ public class Default extends HttpServlet {
 		System.out.println("[Default][GET] END");
 	}
 
-	
-	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession httpSession = request.getSession(true);
 		
@@ -92,16 +85,9 @@ public class Default extends HttpServlet {
 		httpSession.setAttribute("userName", userName);
 		System.out.println("[Default][doPost] username is: " + userName);
 		
-		//String checkbox_checked = request.getParameter("accept_terms");
 		Boolean checkbox_checked = request.getParameter("accept_terms") != null;
 		httpSession.setAttribute("checkbox_checked", checkbox_checked);
 		System.out.println("[Default][doPost] checkbox_checked: " + checkbox_checked); 
-		
-//		if(checkbox_checked == null){
-//			System.out.println("checkbox NOT checked");
-//		}else{
-//			System.out.println("checkbox IS checked");
-//		}
 		
 		String[] selectedSectors = request.getParameterValues("selectSectors"); // http://docs.oracle.com/javaee/6/api/javax/servlet/ServletRequest.html#getParameterValues%28java.lang.String%29
 		httpSession.setAttribute("selectedSectors", selectedSectors); // PUTTING SELECTED SECTOR ID-S TO SESSION
@@ -167,43 +153,7 @@ public class Default extends HttpServlet {
         }
         
 	}
-	
-	private List<User> getAllUsers(){ //(HttpServletRequest request){
-		List<User> allUsers = new ArrayList<User>();
-		dao.UserDao userDao = new dao.UserDao();
-		//try {
-			allUsers = userDao.getAllUsers();
-		//} catch (SQLException e) {
-		//	e.printStackTrace();
-		//}
-		return allUsers;
-	}
-	
-	// LITERALLY GETS ALL (regardless of level/group)
-	/*
-	private List<Sector> getAllSectors(){ //(HttpServletRequest request){	
-		System.out.println("[Default][getAllSectors]");
-		List<Sector> allSectors = new ArrayList<Sector>();
-		dao.SectorDao sectorDao = new dao.SectorDao();
-		//try {
-			allSectors = sectorDao.getAllSectors();
-		//} catch (SQLException e) {
-		//	e.printStackTrace();
-		//}
-		return allSectors;
-	}
-	*/
-	
-//	private List<Sector> getAllSectorsLevel0(HttpServletRequest request){
-	private List<Sector> getAllSectorsLevel0(){	
-		System.out.println("[Default][getAllSectorsLevel0]");
-		List<Sector> allSectors = new ArrayList<Sector>();
-		dao.SectorDao sectorDao = new dao.SectorDao();
-		allSectors = sectorDao.findAllLevel0();
-		return allSectors;
-	}
-	
-	
+		
 }
 
 
@@ -222,7 +172,49 @@ public class Default extends HttpServlet {
 
 
 
+// POST:
+//String checkbox_checked = request.getParameter("accept_terms");	
+//if(checkbox_checked == null){
+//	System.out.println("checkbox NOT checked");
+//}else{
+//	System.out.println("checkbox IS checked");
+//}
 
+// GET:
+//private List<User> getAllUsers(){ //(HttpServletRequest request){
+//List<User> allUsers = new ArrayList<User>();
+//dao.UserDao userDao = new dao.UserDao();
+////try {
+//	allUsers = userDao.getAllUsers();
+////} catch (SQLException e) {
+////	e.printStackTrace();
+////}
+//return allUsers;
+//}	
+
+//private List<Sector> getAllSectorsLevel0(HttpServletRequest request){
+//private List<Sector> getAllSectorsLevel0(){	
+//	System.out.println("[Default][getAllSectorsLevel0]");
+//	List<Sector> allSectors = new ArrayList<Sector>();
+//	dao.SectorDao sectorDao = new dao.SectorDao();
+//	allSectors = sectorDao.findAllLevel0();
+//	return allSectors;
+//}
+
+// LITERALLY GETS ALL (regardless of level/group)
+/*
+private List<Sector> getAllSectors(){ //(HttpServletRequest request){	
+	System.out.println("[Default][getAllSectors]");
+	List<Sector> allSectors = new ArrayList<Sector>();
+	dao.SectorDao sectorDao = new dao.SectorDao();
+	//try {
+		allSectors = sectorDao.getAllSectors();
+	//} catch (SQLException e) {
+	//	e.printStackTrace();
+	//}
+	return allSectors;
+}
+*/
 
 //used in doGET: doStuff(httpSession); //doStuff(request);	
 //	private void doStuff(HttpSession session){ //private void doStuff(HttpServletRequest request){
@@ -280,3 +272,15 @@ public class Default extends HttpServlet {
 //httpSession.setAttribute("SESSIONuserName", userName);
 //httpSession.setAttribute("SESSIONcheckbox_checked", checkbox_checked);
 //httpSession.setAttribute("SESSIONselectedSectors", selectedSectors);
+
+// FIX using (String) case sometimes java.lang.ClassCastException: java.io.ObjectStreamClass cannot be cast to java.lang.String
+//String userName = (String) httpSession.getAttribute("userName"); // Breaks it if not assigned -> .toString(); //session.getAttribute("userName").toString(); // http://stackoverflow.com/questions/3521026/java-io-objectstreamclass-cannot-be-cast-to-java-lang-string
+
+
+//String userName = "";
+//if(httpSession.getAttribute("userName") != null){
+//	userName = (String) httpSession.getAttribute("userName"); //.toString();
+//	System.out.println("[Default][doGet] Session has attribute userName: " + userName);
+//}else{
+//	System.out.println("[Default][doGet] no userName ");
+//}
