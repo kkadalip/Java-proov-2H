@@ -11,10 +11,14 @@
 		<!--<dependency org="org.hsqldb" name="hsqldb" rev="2.3.3" />-->
 		<dependency org="com.h2database" name="h2" rev="1.4.191" />
 		
-		<!-- http://hibernate.org/orm/downloads/ for JPA, use hibernate-entitymanager instead of hibernate-core -->
+		<!-- http://hibernate.org/orm/downloads/ -->
+		<!-- NB! for JPA, use hibernate-entitymanager instead of hibernate-core-->
 		<dependency org="org.hibernate" name="hibernate-entitymanager" rev="5.1.0.Final"/>
 		<!-- http://hibernate.org/validator/ -->
 		<dependency org="org.hibernate" name="hibernate-validator" rev="5.2.4.Final" />
+
+		<!-- C3P0 connection pool  -->
+		<dependency org="org.hibernate" name="hibernate-c3p0" rev="5.1.0.Final"/>
 
 		<!-- <dependency org="org.eclipse.persistence" name="javax.persistence" rev="2.1.1"/> -->
 		<dependency org="javax.servlet" name="javax.servlet-api" rev="3.1.0"/>

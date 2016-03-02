@@ -119,20 +119,27 @@ public class Default extends HttpServlet {
 			Long saved_user_id = (Long) httpSession.getAttribute("saved_user_id");
 			UserDao userDAO = new UserDao();
 			log.debug("[doPost] saved_user_id is: {}", saved_user_id); // null or 83 etc
-			User newUser = new User();
+			User newUser = new User();  //  = new User();
 			if(saved_user_id != null){
 				log.debug("[doPost] saved user id NOT NULL: {}, UPDATING EXISTING", saved_user_id);
-				newUser = userDAO.getUserById(saved_user_id);
+				User findUser = userDAO.getUserById(saved_user_id);
+				if(findUser != null){
+					log.debug("[doPost] ACTUALLY FOUND A USER: {}", findUser);
+					newUser = findUser;
+				}else{
+					log.debug("[doPost] DID NOT FIND A USER BY ID!");
+				}
 			}else{
 				log.debug("[doPost] existinguser null!!!");
 			}
+			log.debug("[doPost] going to set username to: " + userName);
 			newUser.setName(userName);
 			newUser.setUser_sectors(userSectors);
 			newUser.setAgreedToTerms(checkbox_checked);
 			LocalDateTime date = LocalDateTime.now();
 			log.debug("[doPost] going to save date: {}", date);
 			newUser.setDateAdded(date);
-			userDAO.updateUser(newUser); //addUser(newUser); // TODO ERROR org.hibernate.NonUniqueObjectException: A different object with the same identifier value was already associated with the session : [model.Sector#41]
+			userDAO.addOrUpdateUser(newUser); //addUser(newUser); // TODO ERROR org.hibernate.NonUniqueObjectException: A different object with the same identifier value was already associated with the session : [model.Sector#41]
 			log.debug("[doPost] saved user id: {}", newUser.getId());
 			httpSession.setAttribute("saved_user_id", newUser.getId());
 			

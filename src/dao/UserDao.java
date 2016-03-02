@@ -50,7 +50,8 @@ public class UserDao { // extends AbstractDao {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		try {
 			session.beginTransaction();
-			User resultUser = session.get(User.class, id); // http://www.mkyong.com/hibernate/different-between-session-get-and-session-load/
+			User resultUser = session.get(User.class, new Long(id)); // http://www.mkyong.com/hibernate/different-between-session-get-and-session-load/
+			log.debug("[getUserById] FOUND RESULT USER (can be null if not found): {}", resultUser);
 			return resultUser;
 		} catch (HibernateException e) {
 			log.error("[getUserById] getting user by ID failed!", e);
@@ -82,12 +83,15 @@ public class UserDao { // extends AbstractDao {
 		}
 	}
 
-	public boolean updateUser(User user) { //, String password, String email, String phone, String city) {
+	public boolean addOrUpdateUser(User user) { //, String password, String email, String phone, String city) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		Transaction transaction = null;
 		try {
 			transaction = session.beginTransaction();
-			session.saveOrUpdate(user); //.update(user); // org.hibernate.NonUniqueObjectException: A different object with the same identifier value was already associated with the session : [model.Sector#39]
+			// http://www.stevideter.com/2008/12/07/saveorupdate-versus-merge-in-hibernate/
+			// saveupdate org.hibernate.NonUniqueObjectException: A different object with the same identifier value was already associated with the session : [model.Sector#39]
+			// merge java.lang.IllegalStateException: Multiple representations of the same entity [model.Sector#40] are being merged. Detached: [ ID: 40 Name: Beverages]; Detached: [ ID: 40 Name: Beverages]
+			session.saveOrUpdate(user); //.update(user); //.saveOrUpdate(user); 
 			transaction.commit(); // session.getTransaction().commit();
 			return true;
 		} catch (HibernateException e) {

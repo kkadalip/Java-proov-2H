@@ -132,7 +132,7 @@ console.log("wtf");
 				<th scope="col">[User ID]</th>
 				<th scope="col">[User name]</th>
 				<th scope="col">[Agreed to terms]</th>
-				<th scope="col">[Date added]</th>
+				<th scope="col">[Date added/updated]</th>
 			</tr>
 		</thead>
 		<tbody>
