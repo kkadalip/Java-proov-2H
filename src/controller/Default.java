@@ -23,6 +23,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 //import javax.swing.plaf.synth.SynthSeparatorUI;
 
+import dao.HibernateUtil;
+
 //import org.hibernate.Session;
 //import org.hibernate.SessionFactory;
 //
@@ -38,6 +40,9 @@ import dao.UserDao;
 import model.Sector;
 import model.User;
 
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -128,13 +133,17 @@ public class Default extends HttpServlet {
 		String[] selectedSectors = request.getParameterValues("selectSectors"); // http://docs.oracle.com/javaee/6/api/javax/servlet/ServletRequest.html#getParameterValues%28java.lang.String%29
 //		httpSession.setAttribute("selectedSectors", selectedSectors); // PUTTING SELECTED SECTOR ID-S TO SESSION
 
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Transaction transaction = null;
+		
 		Set<Sector> userSectors = new HashSet<>();
 		if(selectedSectors != null){
 			log.debug("[doPost] Chosen sectors amount: {}", selectedSectors.length);		
 			for(String sector : selectedSectors){
 				log.debug("[doPost] sector in selectedSectors: {}",sector.toString());
-				SectorDao sDao = new SectorDao();
-				Sector foundSector = sDao.getSectorById(Long.parseLong(sector));
+				//SectorDao sDao = new SectorDao();
+				Sector foundSector = session.get(Sector.class, Long.parseLong(sector));
+				//Sector foundSector = sDao.getSectorById(Long.parseLong(sector)); // DIFFERENT SESSION!!!!!!!!!
 				if(foundSector != null){
 					log.debug("[doPost] Foundsector: {}", foundSector.toString());
 					userSectors.add(foundSector);
@@ -147,45 +156,85 @@ public class Default extends HttpServlet {
 			log.debug("[doPost] No sectors selected for user!");
 		}
 
-		Long newUserID = null;
-		
 		try {
-			// TODO FIX BAD LOGIC
-			// USE ONE SESSION INSTEAD OF TWO SEPARATE (getById AND THEN saveOrUpdate)
+			transaction = session.beginTransaction();
 			Long saved_user_id = (Long) httpSession.getAttribute("saved_user_id");
-			UserDao userDAO = new UserDao();
-			log.debug("[doPost] saved_user_id is: {}", saved_user_id); // null or 83 etc
-			User newUser = new User();  //  = new User();
-			log.debug("[doPost] going to set username to: " + userName);
-			newUser.setName(userName);
-			newUser.setUser_sectors(userSectors);
-			newUser.setAgreedToTerms(checkbox_checked);
-			LocalDateTime date = LocalDateTime.now();
-			log.debug("[doPost] going to save date: {}", date);
-			newUser.setDateAdded(date);
-			
+			User resultUser = null; //new User();
 			if(saved_user_id != null){
-				log.debug("[doPost] saved_user_id NOT NULL: {}, UPDATING EXISTING", saved_user_id);
-				
-				newUserID = userDAO.addOrUpdateUser2(saved_user_id,newUser);
-				
-				//User findUser = userDAO.getUserById(saved_user_id);
-				//if(findUser != null){
-					//log.debug("[doPost] ACTUALLY FOUND A USER: {}", findUser);
-					//newUser = findUser;
-				//}else{
-					//log.debug("[doPost] DID NOT FIND A USER BY ID!");
-				//}
-			}else{
-				log.debug("[doPost] saved_user_id null!!! so saving new");
-				newUserID = userDAO.addUser(newUser);
+				log.error("[updateUser] saved_user_id NOT NULL, finding user");
+				resultUser = session.get(User.class, new Long(saved_user_id));
 			}
-			log.debug("[doPost] SAVING SESSION ATTRIBUTE saved user id: {}", newUserID); //, newUser.getId());
-			httpSession.setAttribute("saved_user_id", newUserID); //newUser.getId());
-			// redirect here?
-		}catch (Exception e) {
-			log.error("Error adding or updating user", e); //should add e.printStackTrace(); automatically
+			else{
+				log.error("[updateUser] saved_user_id NULL, resultUser = new User()");
+				resultUser = new User();
+			}
+			log.debug("[doPost] saved_user_id is: {}", saved_user_id); // null or 83 etc
+			log.debug("[doPost] going to set username to: " + userName);
+			resultUser.setName(userName);
+			resultUser.setUser_sectors(userSectors);
+			resultUser.setAgreedToTerms(checkbox_checked);
+			LocalDateTime date = LocalDateTime.now();
+			resultUser.setDateAdded(date);
+			log.debug("[doPost] going to save date: {}", date);
+			session.save(resultUser); // saveOrUpdate merge update
+			transaction.commit();
+			Long savedUserID = resultUser.getId();
+			log.debug("[doPost] SAVING SESSION ATTRIBUTE saved user id: {}", savedUserID);
+			httpSession.setAttribute("saved_user_id", savedUserID);
+		} catch (HibernateException e) {
+			log.error("[updateUser] saveOrUpdate FAILED", e);
+		} finally {
+			session.close();
 		}
+		response.sendRedirect(""); // Success
+		log.info("[doPost] END");
+	}
+}
+
+
+
+
+
+
+//		Long newUserID = null;
+//		
+//		try {
+//			// TODO FIX BAD LOGIC
+//			// USE ONE SESSION INSTEAD OF TWO SEPARATE (getById AND THEN saveOrUpdate)
+//			Long saved_user_id = (Long) httpSession.getAttribute("saved_user_id");
+//			UserDao userDAO = new UserDao();
+//			log.debug("[doPost] saved_user_id is: {}", saved_user_id); // null or 83 etc
+//			User newUser = new User();  //  = new User();
+//			log.debug("[doPost] going to set username to: " + userName);
+//			newUser.setName(userName);
+//			newUser.setUser_sectors(userSectors);
+//			newUser.setAgreedToTerms(checkbox_checked);
+//			LocalDateTime date = LocalDateTime.now();
+//			log.debug("[doPost] going to save date: {}", date);
+//			newUser.setDateAdded(date);
+//			
+//			if(saved_user_id != null){
+//				log.debug("[doPost] saved_user_id NOT NULL: {}, UPDATING EXISTING", saved_user_id);
+//				
+//				newUserID = userDAO.addOrUpdateUser2(saved_user_id,newUser);
+//				
+//				//User findUser = userDAO.getUserById(saved_user_id);
+//				//if(findUser != null){
+//					//log.debug("[doPost] ACTUALLY FOUND A USER: {}", findUser);
+//					//newUser = findUser;
+//				//}else{
+//					//log.debug("[doPost] DID NOT FIND A USER BY ID!");
+//				//}
+//			}else{
+//				log.debug("[doPost] saved_user_id null!!! so saving new");
+//				newUserID = userDAO.addUser(newUser);
+//			}
+//			log.debug("[doPost] SAVING SESSION ATTRIBUTE saved user id: {}", newUserID); //, newUser.getId());
+//			httpSession.setAttribute("saved_user_id", newUserID); //newUser.getId());
+//			// redirect here?
+//		}catch (Exception e) {
+//			log.error("Error adding or updating user", e); //should add e.printStackTrace(); automatically
+//		}
 
 		
 //		try {
@@ -226,11 +275,7 @@ public class Default extends HttpServlet {
 //			log.error("Error adding or updating user", e); //should add e.printStackTrace(); automatically
 //		}
 		
-		
-		response.sendRedirect(""); // Success
-		log.info("[doPost] END");
-	}
-}
+	
 
 
 
