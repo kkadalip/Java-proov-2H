@@ -15,6 +15,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 //import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
@@ -62,6 +63,12 @@ public class Sector implements Comparable<Sector> {
 	@Nullable
 	private Set<User> sector_users = new HashSet<>();
 
+	@Column(name="parent_id")
+    private Integer parentId;
+     
+    @ManyToOne//(mappedBy="parent")
+    private Sector parentSector;
+	
 	//@SortComparator(WhateverComparator.class) // http://docs.jboss.org/hibernate/orm/5.1/userguide/html_single/Hibernate_User_Guide.html#collections-sorted-set
 	//another way @Sort(type=SortType.COMPARATOR, comparator=TimeComparator.class)
 	//@OrderBy("name")
@@ -71,20 +78,36 @@ public class Sector implements Comparable<Sector> {
 	//@JoinColumn(name = "sector_id")
 	//@JoinColumn(name = "parent_sector", referencedColumnName = "sector_id")
 	// org.hibernate.HibernateException: org.hibernate.AnnotationException: Associations marked as mappedBy must not define database mappings like @JoinTable or @JoinColumn: model.Sector.child_sectors
-	@OneToMany(fetch=FetchType.EAGER) //, mappedBy="") //cascade = CascadeType.ALL, (fetch=FetchType.EAGER) //@ManyToOne // (cascade={CascadeType.ALL})
-	@Cascade(value={CascadeType.ALL})
+	//@OneToMany(fetch=FetchType.LAZY) // EAGER //, mappedBy="") //cascade = CascadeType.ALL, (fetch=FetchType.EAGER) //@ManyToOne // (cascade={CascadeType.ALL})
+    @OneToMany(fetch=FetchType.LAZY) 
+    @Cascade(value={CascadeType.ALL}) // save them to the database when saving their parent.
 	@OrderBy(value="name")
 	@SortNatural
-	@JoinColumn(name="fk_sector_id") // <key column="sector_id"
+	@JoinColumn(name="parent_id") //, insertable = false, updatable = false)
+	//@JoinColumn(name="fk_sector_id") // <key column="sector_id"
 	@Nullable
 	private SortedSet<Sector> child_sectors = new TreeSet<>(); // TreeSet is only appropriate if you need the Set sorted, either by the Object's implementation of Comparable or by a custom Comparator passed to the TreeSet's constructor.
-
-
-
-
-	/*   @OneToMany //@ManyToOne // (cascade={CascadeType.ALL})
+	
+    /*   @OneToMany //@ManyToOne // (cascade={CascadeType.ALL})
     @JoinColumn(name = "sector_id") // not parent_sector duh
     private Set<Sector> child_sectors; */
+
+    
+    
+	public Integer getParentId() {
+		return parentId;
+	}
+	public void setParentId(Integer parentId) {
+		this.parentId = parentId;
+	}
+	public Sector getParentSector() {
+		return parentSector;
+	}
+	public void setParentSector(Sector parentSector) {
+		this.parentSector = parentSector;
+	}
+    
+    
 
 	public Set<User> getSector_users() {
 		return sector_users;

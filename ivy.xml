@@ -46,5 +46,14 @@
 		<dependency org="org.springframework.security" name="spring-security-config" rev="4.0.4.RELEASE"/>
 		<dependency org="org.springframework.security" name="spring-security-web" rev="4.0.4.RELEASE"/>
  		-->
+ 		
+ 		<!-- automaattestid ehk UI testid Selenide (Watir in Ruby) -->
+ 		<!-- http://selenide.org/ -->
+ 		<dependency org="com.codeborne" name="selenide" rev="3.3"/>
+ 		
+ 		<!-- komponenttestid ehk UNIT TESTS JUNIT or TestNG -->
+ 		<!-- <dependency org="junit" name="junit" rev="4.12"/>  -->
+ 		<dependency org="org.testng" name="testng" rev="6.9.10"/>
+ 		
 	</dependencies>
 </ivy-module>

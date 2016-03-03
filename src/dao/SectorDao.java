@@ -8,6 +8,7 @@ import java.util.List;
 //import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 //import org.hibernate.Transaction;
 //import org.hibernate.cfg.Configuration;
 //import org.springframework.transaction.annotation.Transactional;
@@ -96,10 +97,17 @@ public class SectorDao {
 //		List<Sector> queryResult = session.createQuery("FROM Sector S LEFT JOIN FETCH S.child_sectors WHERE sector_id IS NULL").list();
 		
 		//List<Sector> queryResult = session.createQuery("FROM Sector S WHERE sector_id IS NULL").list();
-		List<Sector> queryResult = session.createQuery("FROM Sector S WHERE fk_sector_id IS NULL").list();
+
 		//List<Sector> queryResult = session.createQuery("FROM Sector").list();
 		
 		//List queryResult = session.createQuery("FROM Sector ORDER BY name").list(); // SORTS BY NAME
+
+		// GOOD WITH LAZY: ??? TODO FIX
+		//List<Sector> queryResult = session.createQuery("FROM Sector S JOIN FETCH S.child_sectors WHERE S.parentId IS NULL").list(); // LEFT JOIN FETCH
+		List<Sector> queryResult = session.createQuery("FROM Sector S JOIN FETCH S.child_sectors WHERE S.parentId IS NULL").list();
+		// GOOD WITH EAGER:
+		//List<Sector> queryResult = session.createQuery("FROM Sector S WHERE fk_sector_id IS NULL").list();
+
 		for (Iterator<Sector> iterator = queryResult.iterator(); iterator.hasNext();){
 			Sector sector = (Sector) iterator.next();
 			//System.out.print("[SectorDao][findAll] Sector ID: " + sector.getId() + " Sector Name: " + sector.getName() + " Sector parent sector: " + sector.getParentSector().getName());

@@ -97,16 +97,6 @@ public class User {
 	public Set<Sector> getUser_sectors() {
 		return user_sectors;
 	}
-//	public String[] getUser_sectors_stringArray() {
-//		// LAZY INIT ERROR! (Need to load with separate method or EAGER)
-//		List<String> selectedSectors = new ArrayList<String>();
-//		for(Sector sector : user_sectors){
-//			selectedSectors.add(sector.getId().toString());
-//		}
-//		String[] selectedSectors_stringArray = new String[selectedSectors.size()];
-//		selectedSectors.toArray(selectedSectors_stringArray);
-//		return selectedSectors_stringArray;
-//	}
 	public void setUser_sectors(Set<Sector> user_sectors) {
 		this.user_sectors = user_sectors;
 	}
@@ -129,3 +119,21 @@ public class User {
 	}
 	
 }
+
+
+
+
+
+
+
+// IF EAGER LOADING IS ENABLED, OTHERWISE LAZY INIT ERROR! (Need to load with separate method or use EAGER)
+//	public String[] getUser_sectors_stringArray() {
+//		
+//		List<String> selectedSectors = new ArrayList<String>();
+//		for(Sector sector : user_sectors){
+//			selectedSectors.add(sector.getId().toString());
+//		}
+//		String[] selectedSectors_stringArray = new String[selectedSectors.size()];
+//		selectedSectors.toArray(selectedSectors_stringArray);
+//		return selectedSectors_stringArray;
+//	}
