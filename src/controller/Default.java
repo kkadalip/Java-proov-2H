@@ -60,7 +60,40 @@ public class Default extends HttpServlet {
 		dao.SectorDao sectorDao = new dao.SectorDao();
 		displayedSectors = sectorDao.getAllRootSectors();
 		httpSession.setAttribute("displayedSectors", new ArrayList<Sector>(displayedSectors));
+		
+		//httpSession.setAttribute("saved_user_id", newUser.getId());
+		Long saved_user_id = (Long) httpSession.getAttribute("saved_user_id");
+		if(saved_user_id != null){
+			log.debug("[doGet] saved_user_id NOT NULL!");
+			User showingUser = userDao.getUserById(saved_user_id);
+			if(showingUser != null){
+				log.debug("[doGet] showingUser NOT NULL!");
+//				String userName = (String) request.getParameter("userName"); //.toString(); // userNameDefault
+				String userName = showingUser.getName();
+				httpSession.setAttribute("userName", userName);
+				log.debug("[doPost] userName: {}", userName);
 
+//				Boolean checkbox_checked = request.getParameter("accept_terms") != null;
+				Boolean checkbox_checked = showingUser.getAgreedToTerms();
+				httpSession.setAttribute("checkbox_checked", checkbox_checked);
+				log.debug("[doPost] checkbox_checked: {}", checkbox_checked);
+				
+				String[] selectedSectors = showingUser.getUser_sectors_stringArray();
+				log.debug("[doPost] NB!!! selectedSectors: {}", String.join(",", selectedSectors));
+				httpSession.setAttribute("selectedSectors", selectedSectors); // PUTTING SELECTED SECTOR ID-S TO SESSION
+			}else{
+				log.debug("[doGet] showingUser NULL (session had saved user id but no user found)! REMOVING ATTRIBUTES!");
+				httpSession.removeAttribute("saved_user_id");
+				httpSession.removeAttribute("userName");
+				httpSession.removeAttribute("selectedSectors");
+				httpSession.removeAttribute("checkbox_checked");
+// destroy/invalidate session? bad idea...				
+//				httpSession.invalidate();
+//				response.sendRedirect("");
+//				return;
+			}
+		}
+		// TODO don't get from session, I can get from variable
 		String userName = (String) httpSession.getAttribute("userName");
 		log.debug("[doGet] userName: {}", userName);
 
@@ -85,15 +118,15 @@ public class Default extends HttpServlet {
 		HttpSession httpSession = request.getSession(true);
 
 		String userName = (String) request.getParameter("userName"); //.toString(); // userNameDefault
-		httpSession.setAttribute("userName", userName);
-		log.debug("[doPost] userName: {}", userName);
-
+//		httpSession.setAttribute("userName", userName);
+//		log.debug("[doPost] userName: {}", userName);
+//
 		Boolean checkbox_checked = request.getParameter("accept_terms") != null;
-		httpSession.setAttribute("checkbox_checked", checkbox_checked);
-		log.debug("[doPost] checkbox_checked: {}", checkbox_checked); 
+//		httpSession.setAttribute("checkbox_checked", checkbox_checked);
+//		log.debug("[doPost] checkbox_checked: {}", checkbox_checked); 
 
 		String[] selectedSectors = request.getParameterValues("selectSectors"); // http://docs.oracle.com/javaee/6/api/javax/servlet/ServletRequest.html#getParameterValues%28java.lang.String%29
-		httpSession.setAttribute("selectedSectors", selectedSectors); // PUTTING SELECTED SECTOR ID-S TO SESSION
+//		httpSession.setAttribute("selectedSectors", selectedSectors); // PUTTING SELECTED SECTOR ID-S TO SESSION
 
 		Set<Sector> userSectors = new HashSet<>();
 		if(selectedSectors != null){
@@ -114,24 +147,15 @@ public class Default extends HttpServlet {
 			log.debug("[doPost] No sectors selected for user!");
 		}
 
+		Long newUserID = null;
+		
 		try {
 			// TODO FIX BAD LOGIC
+			// USE ONE SESSION INSTEAD OF TWO SEPARATE (getById AND THEN saveOrUpdate)
 			Long saved_user_id = (Long) httpSession.getAttribute("saved_user_id");
 			UserDao userDAO = new UserDao();
 			log.debug("[doPost] saved_user_id is: {}", saved_user_id); // null or 83 etc
 			User newUser = new User();  //  = new User();
-			if(saved_user_id != null){
-				log.debug("[doPost] saved user id NOT NULL: {}, UPDATING EXISTING", saved_user_id);
-				User findUser = userDAO.getUserById(saved_user_id);
-				if(findUser != null){
-					log.debug("[doPost] ACTUALLY FOUND A USER: {}", findUser);
-					newUser = findUser;
-				}else{
-					log.debug("[doPost] DID NOT FIND A USER BY ID!");
-				}
-			}else{
-				log.debug("[doPost] existinguser null!!!");
-			}
 			log.debug("[doPost] going to set username to: " + userName);
 			newUser.setName(userName);
 			newUser.setUser_sectors(userSectors);
@@ -139,38 +163,70 @@ public class Default extends HttpServlet {
 			LocalDateTime date = LocalDateTime.now();
 			log.debug("[doPost] going to save date: {}", date);
 			newUser.setDateAdded(date);
-			userDAO.addOrUpdateUser(newUser); //addUser(newUser); // TODO ERROR org.hibernate.NonUniqueObjectException: A different object with the same identifier value was already associated with the session : [model.Sector#41]
-			log.debug("[doPost] saved user id: {}", newUser.getId());
-			httpSession.setAttribute("saved_user_id", newUser.getId());
 			
-//			if(saved_user_id == null){	// ???
-//				log.debug("[doPost] saved user id NULL, CREATING NEW USER");
-//				User newUser = new User();
-//				newUser.setName(userName);
-//				newUser.setUser_sectors(userSectors);
-//				newUser.setAgreedToTerms(checkbox_checked);
-//				LocalDateTime date = LocalDateTime.now();
-//				log.debug("[doPost] going to save date: {}", date);
-//				newUser.setDateAdded(date);
-//				userDAO.addUser(newUser); // TODO ERROR org.hibernate.NonUniqueObjectException: A different object with the same identifier value was already associated with the session : [model.Sector#41]
-//				log.debug("[doPost] saved user id: {}", newUser.getId());
-//				httpSession.setAttribute("saved_user_id", newUser.getId());
-//			}else{ // ???
-//				log.debug("[doPost] saved user id NOT NULL: {}, UPDATING EXISTING", saved_user_id);
-//				User existingUser = userDAO.getUserById(saved_user_id);
-//				if(existingUser != null){
-//					log.debug("[doPost] existinguser NOT NULL, existing user name: {}, new username: {}", existingUser.getName(), userName);
-//					existingUser.setName(userName); //(String) session.getAttribute("userName"));
-//					userDAO.updateUser(existingUser);
-//				}else{
-//					log.debug("[doPost] existinguser null!!!");
-//				}
-//			}
-			
+			if(saved_user_id != null){
+				log.debug("[doPost] saved_user_id NOT NULL: {}, UPDATING EXISTING", saved_user_id);
+				
+				newUserID = userDAO.addOrUpdateUser2(saved_user_id,newUser);
+				
+				//User findUser = userDAO.getUserById(saved_user_id);
+				//if(findUser != null){
+					//log.debug("[doPost] ACTUALLY FOUND A USER: {}", findUser);
+					//newUser = findUser;
+				//}else{
+					//log.debug("[doPost] DID NOT FIND A USER BY ID!");
+				//}
+			}else{
+				log.debug("[doPost] saved_user_id null!!! so saving new");
+				newUserID = userDAO.addUser(newUser);
+			}
+			log.debug("[doPost] SAVING SESSION ATTRIBUTE saved user id: {}", newUserID); //, newUser.getId());
+			httpSession.setAttribute("saved_user_id", newUserID); //newUser.getId());
 			// redirect here?
 		}catch (Exception e) {
 			log.error("Error adding or updating user", e); //should add e.printStackTrace(); automatically
 		}
+
+		
+//		try {
+//			// TODO FIX BAD LOGIC
+//			// USE ONE SESSION INSTEAD OF TWO SEPARATE (getById AND THEN saveOrUpdate)
+//			
+//			Long saved_user_id = (Long) httpSession.getAttribute("saved_user_id");
+//			UserDao userDAO = new UserDao();
+//			log.debug("[doPost] saved_user_id is: {}", saved_user_id); // null or 83 etc
+//			User newUser = new User();  //  = new User();
+//			if(saved_user_id != null){
+//				log.debug("[doPost] saved user id NOT NULL: {}, UPDATING EXISTING", saved_user_id);
+//				User findUser = userDAO.getUserById(saved_user_id);
+//				if(findUser != null){
+//					log.debug("[doPost] ACTUALLY FOUND A USER: {}", findUser);
+//					newUser = findUser;
+//				}else{
+//					log.debug("[doPost] DID NOT FIND A USER BY ID!");
+//				}
+//			}else{
+//				log.debug("[doPost] existinguser null!!!");
+//			}
+//			log.debug("[doPost] going to set username to: " + userName);
+//			newUser.setName(userName);
+//			newUser.setUser_sectors(userSectors);
+//			newUser.setAgreedToTerms(checkbox_checked);
+//			LocalDateTime date = LocalDateTime.now();
+//			log.debug("[doPost] going to save date: {}", date);
+//			newUser.setDateAdded(date);
+//			userDAO.addOrUpdateUser(newUser); //addUser(newUser); // TODO ERROR org.hibernate.NonUniqueObjectException: A different object with the same identifier value was already associated with the session : [model.Sector#41]
+//			log.debug("[doPost] saved user id: {}", newUser.getId());
+//			httpSession.setAttribute("saved_user_id", newUser.getId());
+//			
+//
+//			
+//			// redirect here?
+//		}catch (Exception e) {
+//			log.error("Error adding or updating user", e); //should add e.printStackTrace(); automatically
+//		}
+		
+		
 		response.sendRedirect(""); // Success
 		log.info("[doPost] END");
 	}
@@ -186,6 +242,44 @@ public class Default extends HttpServlet {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// OLD NON WORKING:
+//if(saved_user_id == null){	// ???
+//log.debug("[doPost] saved user id NULL, CREATING NEW USER");
+//User newUser = new User();
+//newUser.setName(userName);
+//newUser.setUser_sectors(userSectors);
+//newUser.setAgreedToTerms(checkbox_checked);
+//LocalDateTime date = LocalDateTime.now();
+//log.debug("[doPost] going to save date: {}", date);
+//newUser.setDateAdded(date);
+//userDAO.addUser(newUser); // TODO ERROR org.hibernate.NonUniqueObjectException: A different object with the same identifier value was already associated with the session : [model.Sector#41]
+//log.debug("[doPost] saved user id: {}", newUser.getId());
+//httpSession.setAttribute("saved_user_id", newUser.getId());
+//}else{ // ???
+//log.debug("[doPost] saved user id NOT NULL: {}, UPDATING EXISTING", saved_user_id);
+//User existingUser = userDAO.getUserById(saved_user_id);
+//if(existingUser != null){
+//	log.debug("[doPost] existinguser NOT NULL, existing user name: {}, new username: {}", existingUser.getName(), userName);
+//	existingUser.setName(userName); //(String) session.getAttribute("userName"));
+//	userDAO.updateUser(existingUser);
+//}else{
+//	log.debug("[doPost] existinguser null!!!");
+//}
+//}
 
 
 //userDAO.addUserDetails(userName); //, password, email, phone, city);

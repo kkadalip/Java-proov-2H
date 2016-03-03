@@ -24,7 +24,7 @@ public class UserDao { // extends AbstractDao {
 	Logger log = LoggerFactory.getLogger(UserDao.class); // info trace debug warn error
 	
 	// READ THIS http://www.coderanch.com/t/434465/Servlets/java/request-Response-object-web-application
-	public boolean addUser(User user) { // TODO FIX?
+	public Long addUser(User user) { // TODO FIX?
 		// (1. configuring hibernate & 2. create sessionfactory) 3. Get Session object
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		Transaction transaction = null;
@@ -35,11 +35,13 @@ public class UserDao { // extends AbstractDao {
 			session.save(user); // TODO FIX UserDao][addUser] error 1 A different object with the same identifier value was already associated with the session : [model.Sector#39]
 			transaction.commit(); // session.getTransaction().commit();
 			log.debug("[addUser] NEW USER DETAILS ADDED SUCCESSFULLY!");
-			return true;
+			//return true;
+			return user.getId();
 		} catch (HibernateException e) {
 			log.error("[addUser] adding user failed", e); //e.printStackTrace(); // System.out.println("[UserDao][addUser] error 1 " + e.getMessage());
 			transaction.rollback();
-			return false;
+			//return false;
+			return null;
 		} finally {
             session.close();
         }
@@ -101,6 +103,45 @@ public class UserDao { // extends AbstractDao {
 			session.close();
 		}	
 	}
+	
+	public Long addOrUpdateUser2(Long oldUserId, User user) { //, String password, String email, String phone, String city) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Transaction transaction = null;
+		try {
+			transaction = session.beginTransaction();
+			User resultUser = session.get(User.class, new Long(oldUserId));
+			// http://www.stevideter.com/2008/12/07/saveorupdate-versus-merge-in-hibernate/
+			// saveupdate org.hibernate.NonUniqueObjectException: A different object with the same identifier value was already associated with the session : [model.Sector#39]
+			// merge java.lang.IllegalStateException: Multiple representations of the same entity [model.Sector#40] are being merged. Detached: [ ID: 40 Name: Beverages]; Detached: [ ID: 40 Name: Beverages]
+			Long returnID = null;
+			if(resultUser == null){
+				// DID NOT FIND ANY EXISTING BY ID (ID must have only existed in session but the item had been deleted from db)
+				log.error("[updateUser] resultUser == null, session.save(user)");
+				session.save(user);
+				returnID = user.getId();
+			}else{
+				log.error("[updateUser] resultUser != null, session.update(user)"); // TODO update?? saveOrUpdate??
+				resultUser = user;
+				session.save(resultUser); // saveOrUpdate
+				returnID = resultUser.getId();
+			}
+			//session.saveOrUpdate(user); //.update(user); //.saveOrUpdate(user); 
+			transaction.commit(); // session.getTransaction().commit();
+			//return true;
+			return returnID;
+		} catch (HibernateException e) {
+			log.error("[updateUser] updating user failed!", e);
+			//return false;
+			return null;
+		} finally {
+			session.close();
+		}	
+	}
+
+	
+	
+	
+	
 }
 
 

@@ -1,14 +1,17 @@
 package model;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 //import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 //import java.util.SortedSet;
 //import java.util.TreeSet;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 //import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -54,7 +57,7 @@ public class User {
 
     // http://stackoverflow.com/questions/11746499/solve-failed-to-lazily-initialize-a-collection-of-role-exception
     @Column(name="user_sectors")
-    @ManyToMany //(fetch = FetchType.EAGER) //@ManyToOne // (cascade={CascadeType.ALL}) // @OneToMany(fetch = FetchType.LAZY, mappedBy = "user???")
+    @ManyToMany(fetch = FetchType.EAGER) // TODO IMPROVE with a separate method in DAO? //@ManyToOne // (cascade={CascadeType.ALL}) // @OneToMany(fetch = FetchType.LAZY, mappedBy = "user???")
     @Cascade(value = { CascadeType.ALL })
     @JoinColumn(name = "sector_id") // not parent_sector duh // <key column="sector_id"
     @Nullable
@@ -93,6 +96,16 @@ public class User {
  
 	public Set<Sector> getUser_sectors() {
 		return user_sectors;
+	}
+	public String[] getUser_sectors_stringArray() {
+		// LAZY INIT ERROR! (Need to load with separate method or EAGER)
+		List<String> selectedSectors = new ArrayList<String>();
+		for(Sector sector : user_sectors){
+			selectedSectors.add(sector.getId().toString());
+		}
+		String[] selectedSectors_stringArray = new String[selectedSectors.size()];
+		selectedSectors.toArray(selectedSectors_stringArray);
+		return selectedSectors_stringArray;
 	}
 	public void setUser_sectors(Set<Sector> user_sectors) {
 		this.user_sectors = user_sectors;

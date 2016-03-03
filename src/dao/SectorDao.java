@@ -105,7 +105,7 @@ public class SectorDao {
 			//System.out.print("[SectorDao][findAll] Sector ID: " + sector.getId() + " Sector Name: " + sector.getName() + " Sector parent sector: " + sector.getParentSector().getName());
 			
 			// java.lang.ClassCastException: java.io.ObjectStreamClass cannot be cast to java.lang.String
-			log.debug("[getAllRootSectors] ADDING SECTOR");
+			log.debug("[getAllRootSectors] ADDING ROOTSECTOR");
 			//System.out.print("[SectorDao][findAllLevel0] Sector: " + sector.toString() ); //+ " Parent sector: " + sector.getParentSector().toString());
 			sectors.add(sector);
 		}
