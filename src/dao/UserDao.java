@@ -1,13 +1,17 @@
 package dao;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 //import java.sql.SQLException;
 //import java.util.ArrayList;
 //import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 //import javax.persistence.Query;
 
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 //import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -15,6 +19,7 @@ import org.hibernate.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import model.Sector;
 //import controller.Default;
 //import model.Sector;
 //import dao.AbstractDao;
@@ -138,9 +143,46 @@ public class UserDao { // extends AbstractDao {
 		}	
 	}
 
-	
-	
-	
+	public String[] getUser_sectors_stringArray(Long user_id) { // User user
+		log.info("[getUser_sectors_stringArray] START");
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		try {
+			session.beginTransaction();
+			
+			//Long userID = user.getId();
+			
+			//List<Sector> userSectors = session.createQuery("FROM User U LEFT JOIN FETCH U.user_sectors WHERE U.id IS " + user_id).list();
+			//String hql = "FROM Employee E WHERE E.id = :employee_id";
+			String hql = "FROM User U LEFT JOIN FETCH U.user_sectors WHERE U.id IS :user_id"; 
+			Query query = session.createQuery(hql);
+			query.setParameter("user_id",user_id);
+			@SuppressWarnings("unchecked")
+			List<User> queryResult = query.list();
+			Set<Sector> userSectors = new HashSet<Sector>();
+			if(!queryResult.isEmpty()){
+				User resultUser = (User) queryResult.get(0);
+				userSectors = resultUser.getUser_sectors();
+			}
+//				resultSector = (Sector) queryResult.get(0);
+//				System.out.println("[SectorDao][findSectorById] FOUND SECTOR, returning: " + resultSector.toString());
+//			}
+			
+			
+			List<String> selectedSectors = new ArrayList<String>();
+			for(Sector sector : userSectors){
+				selectedSectors.add(sector.getId().toString());
+			}
+			String[] selectedSectors_stringArray = new String[selectedSectors.size()];
+			selectedSectors.toArray(selectedSectors_stringArray);
+			log.info("[getUser_sectors_stringArray] SUCCESSFUL?");
+			return selectedSectors_stringArray;
+		} catch (HibernateException e) {
+			log.error("[getUser_sectors_stringArray] FAILED!", e);
+			return null;
+		} finally {
+			session.close();
+		}
+	}
 	
 }
 

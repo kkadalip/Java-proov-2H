@@ -35,7 +35,7 @@ import dao.HibernateUtil;
 //import org.hibernate.SessionFactory;
 
 //import dao.HibernateUtil;
-import dao.SectorDao;
+//import dao.SectorDao;
 import dao.UserDao;
 import model.Sector;
 import model.User;
@@ -56,7 +56,7 @@ public class Default extends HttpServlet {
 		HttpSession httpSession = request.getSession(true);
 
 		List<User> displayedUsers = new ArrayList<User>();
-		dao.UserDao userDao = new dao.UserDao();
+		UserDao userDao = new UserDao();
 		displayedUsers = userDao.getAllUsers();
 		log.info("[doGet] NOW I HAVE LIKE {} DISPLAYED USERS",displayedUsers.size());
 		httpSession.setAttribute("displayedUsers", displayedUsers);
@@ -83,7 +83,8 @@ public class Default extends HttpServlet {
 				httpSession.setAttribute("checkbox_checked", checkbox_checked);
 				log.debug("[doPost] checkbox_checked: {}", checkbox_checked);
 				
-				String[] selectedSectors = showingUser.getUser_sectors_stringArray();
+				//String[] selectedSectors = showingUser.getUser_sectors_stringArray(); // LAZY LOAD ISSUE!
+				String[] selectedSectors = userDao.getUser_sectors_stringArray(saved_user_id); // showingUser
 				log.debug("[doPost] NB!!! selectedSectors: {}", String.join(",", selectedSectors));
 				httpSession.setAttribute("selectedSectors", selectedSectors); // PUTTING SELECTED SECTOR ID-S TO SESSION
 			}else{
