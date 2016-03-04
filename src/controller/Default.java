@@ -52,20 +52,20 @@ public class Default extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		log.info("[doGet] START");
-
 		HttpSession httpSession = request.getSession(true);
 
+		// DISPLAYING ALL USERS FOR DEBUGGING REASONS:
 		List<User> displayedUsers = new ArrayList<User>();
 		UserDao userDao = new UserDao();
 		displayedUsers = userDao.getAllUsers();
-		log.info("[doGet] NOW I HAVE LIKE {} DISPLAYED USERS",displayedUsers.size());
+		log.info("[doGet] NOW I HAVE {} DISPLAYED USERS",displayedUsers.size());
 		httpSession.setAttribute("displayedUsers", displayedUsers);
 
+		// DISPLAYING ROOT SECTORS AND THEIR CHILDREN, CHILDRENS CHILDREN etc
 		List<Sector> displayedSectors = new ArrayList<Sector>();
 		SectorDao sectorDao = new SectorDao();
 		displayedSectors = sectorDao.getAllRootSectors();
-//		httpSession.setAttribute("displayedSectors", new ArrayList<Sector>(displayedSectors));
-		httpSession.setAttribute("displayedSectors", displayedSectors);
+		httpSession.setAttribute("displayedSectors", displayedSectors); // new ArrayList<Sector>(displayedSectors)
 		
 		//httpSession.setAttribute("saved_user_id", newUser.getId());
 		Long saved_user_id = (Long) httpSession.getAttribute("saved_user_id");
