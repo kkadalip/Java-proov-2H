@@ -120,6 +120,12 @@ public class SectorDao {
 				log.debug("[getAllRootSectors] CHILD: "+ childSector);
 				log.debug("[getAllRootSectors] CHILDS CHILDREN: " + childSector.getChild_sectors());
 				//sectors.add(childSector);
+				for (Iterator<Sector> iterator3 = childSector.getChild_sectors().iterator(); iterator3.hasNext();){
+					Sector childSector2 = (Sector) iterator3.next();
+					log.debug("[getAllRootSectors] CHILD CHILD: "+ childSector2);
+					log.debug("[getAllRootSectors] CHILDS CHILDRENS CHILDREN: " + childSector2.getChild_sectors());
+					//sectors.add(childSector);
+				}
 			}
 			//transaction.commit(); // nothing to commit here
 			//return sectors;
