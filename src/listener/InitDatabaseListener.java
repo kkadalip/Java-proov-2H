@@ -13,7 +13,7 @@ public class InitDatabaseListener implements ServletContextListener { // class n
 		SetupDao setupDao = new SetupDao();
 		// setupDao.destroy();
 		// setupDao.createSchema();
-		setupDao.insertSampleDataUsers();
+		//setupDao.insertSampleDataUsers(); // WORKS! Not using anymore. Inserts sample users into database.
 		setupDao.insertSampleDataSectors();
 		//setupDaoHibernate.initFactory();
 		System.out.println("[InitDatabaseListener] contextInitialized");

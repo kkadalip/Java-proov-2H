@@ -31,8 +31,7 @@ public class SetupDao { // extends AbstractDaoHibernate {
 		Session session = sessionFactory.openSession();
 		Transaction transaction = session.beginTransaction();
 		session.save(new User("John Smith"));
-		session.save(new User("Karl Kadalipp"));
-		session.save(new User("Random Blandom"));
+		session.save(new User("Jane Doe"));
 		transaction.commit(); // session.getTransaction().commit();
 		session.close();
 		log.info("[insertSampleDataUsers] END");

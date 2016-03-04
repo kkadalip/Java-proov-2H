@@ -198,10 +198,40 @@ public class Default extends HttpServlet {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //		Long newUserID = null;
 //		
 //		try {
-//			// TODO FIX BAD LOGIC
+//			// TO DO FIX BAD LOGIC
 //			// USE ONE SESSION INSTEAD OF TWO SEPARATE (getById AND THEN saveOrUpdate)
 //			Long saved_user_id = (Long) httpSession.getAttribute("saved_user_id");
 //			UserDao userDAO = new UserDao();
@@ -240,7 +270,7 @@ public class Default extends HttpServlet {
 
 		
 //		try {
-//			// TODO FIX BAD LOGIC
+//			// TO DO FIX BAD LOGIC
 //			// USE ONE SESSION INSTEAD OF TWO SEPARATE (getById AND THEN saveOrUpdate)
 //			
 //			Long saved_user_id = (Long) httpSession.getAttribute("saved_user_id");
@@ -266,7 +296,7 @@ public class Default extends HttpServlet {
 //			LocalDateTime date = LocalDateTime.now();
 //			log.debug("[doPost] going to save date: {}", date);
 //			newUser.setDateAdded(date);
-//			userDAO.addOrUpdateUser(newUser); //addUser(newUser); // TODO ERROR org.hibernate.NonUniqueObjectException: A different object with the same identifier value was already associated with the session : [model.Sector#41]
+//			userDAO.addOrUpdateUser(newUser); //addUser(newUser); // TO DO ERROR org.hibernate.NonUniqueObjectException: A different object with the same identifier value was already associated with the session : [model.Sector#41]
 //			log.debug("[doPost] saved user id: {}", newUser.getId());
 //			httpSession.setAttribute("saved_user_id", newUser.getId());
 //			
@@ -279,30 +309,6 @@ public class Default extends HttpServlet {
 		
 	
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // OLD NON WORKING:
 //if(saved_user_id == null){	// ???
 //log.debug("[doPost] saved user id NULL, CREATING NEW USER");
@@ -313,7 +319,7 @@ public class Default extends HttpServlet {
 //LocalDateTime date = LocalDateTime.now();
 //log.debug("[doPost] going to save date: {}", date);
 //newUser.setDateAdded(date);
-//userDAO.addUser(newUser); // TODO ERROR org.hibernate.NonUniqueObjectException: A different object with the same identifier value was already associated with the session : [model.Sector#41]
+//userDAO.addUser(newUser); // TO DO ERROR org.hibernate.NonUniqueObjectException: A different object with the same identifier value was already associated with the session : [model.Sector#41]
 //log.debug("[doPost] saved user id: {}", newUser.getId());
 //httpSession.setAttribute("saved_user_id", newUser.getId());
 //}else{ // ???
@@ -416,7 +422,7 @@ private List<Sector> getAllSectors(){ //(HttpServletRequest request){
 ////	request.setAttribute("displayedSectors", displayedSectors);
 //	
 //	// Cannot serialize session attribute displayedUsers for session EF876FDBDE448EE29D4F0051B72B35FE
-//	// TODO FIX java.io.NotSerializableException: model.User
+//	// TO DO FIX java.io.NotSerializableException: model.User
 //	// java.io.NotSerializableException: model.Sector and model.User
 //	//session.setAttribute("displayedSectors", displayedSectors);
 //	session.setAttribute("displayedSectors", new ArrayList<Sector>(displayedSectors));

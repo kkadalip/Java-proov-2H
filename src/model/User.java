@@ -55,7 +55,6 @@ public class User {
     //@Type(type = "boolean") // (type="yes_no")
     private Boolean agreedToTerms;
 
-    // http://stackoverflow.com/questions/11746499/solve-failed-to-lazily-initialize-a-collection-of-role-exception
     @Column(name="user_sectors")
     @ManyToMany(fetch = FetchType.LAZY) // EAGER // TODO IMPROVE with a separate method in DAO? //@ManyToOne // (cascade={CascadeType.ALL}) // @OneToMany(fetch = FetchType.LAZY, mappedBy = "user???")
     @Cascade(value = { CascadeType.ALL })
