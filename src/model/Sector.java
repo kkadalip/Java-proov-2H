@@ -79,7 +79,7 @@ public class Sector implements Comparable<Sector> {
 	//@JoinColumn(name = "parent_sector", referencedColumnName = "sector_id")
 	// org.hibernate.HibernateException: org.hibernate.AnnotationException: Associations marked as mappedBy must not define database mappings like @JoinTable or @JoinColumn: model.Sector.child_sectors
 	//@OneToMany(fetch=FetchType.LAZY) // EAGER //, mappedBy="") //cascade = CascadeType.ALL, (fetch=FetchType.EAGER) //@ManyToOne // (cascade={CascadeType.ALL})
-    @OneToMany(fetch=FetchType.LAZY) 
+    @OneToMany(fetch=FetchType.EAGER) 
     @Cascade(value={CascadeType.ALL}) // save them to the database when saving their parent.
 	@OrderBy(value="name")
 	@SortNatural
