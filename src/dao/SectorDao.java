@@ -1,43 +1,43 @@
 package dao;
 
-//import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+//import java.util.ArrayList;
+//import java.sql.SQLException;
 
-import org.hibernate.FetchMode;
+//import org.hibernate.FetchMode;
+import org.hibernate.HibernateException;
 //import org.hibernate.Query;
 //import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 //import org.hibernate.Transaction;
-import org.hibernate.criterion.Restrictions;
-//import org.hibernate.Transaction;
+//import org.hibernate.criterion.Restrictions;
 //import org.hibernate.cfg.Configuration;
 //import org.springframework.transaction.annotation.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+//import model.User;
 import model.Sector; // bean
-//import model.User;
-//import model.User;
 
 public class SectorDao {
 	Logger log = LoggerFactory.getLogger(SectorDao.class); // info trace debug warn error
 
 	public Sector getSectorById(Long id){
 		log.info("[getSectorById] ID: {}", id);
-		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-		Session session = sessionFactory.openSession();
-		Sector resultSector = session.get(Sector.class, id);
-		//Sector resultSector = new Sector();
-		//List queryResult = session.createQuery("FROM Sector S WHERE S.id IS "+id).list(); 
-		//if(!queryResult.isEmpty()){
-		//	resultSector = (Sector) queryResult.get(0);
-		//	System.out.println("[SectorDao][findSectorById] FOUND SECTOR, returning: " + resultSector.toString());
-		//}
-		session.close();
-		return resultSector;
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		try {
+			session.beginTransaction();
+			Sector resultSector = session.get(Sector.class, new Long(id));
+			log.debug("[getSectorById] FOUND RESULT SECTOR (can be null if not found): {}", resultSector);
+			return resultSector;
+		} catch (HibernateException e) {
+			log.error("[getSectorById] getting sector by ID failed!", e);
+			return null;
+		} finally {
+			session.close();
+		}
 	}
 
 	// FIND ALL ROOT SECTORS (find all level 0 aka root)
@@ -189,3 +189,12 @@ public class SectorDao {
 //return sectors;
 //}
 
+//SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+//Session session = sessionFactory.openSession();
+
+//Sector resultSector = new Sector();
+//List queryResult = session.createQuery("FROM Sector S WHERE S.id IS "+id).list(); 
+//if(!queryResult.isEmpty()){
+//	resultSector = (Sector) queryResult.get(0);
+//	System.out.println("[SectorDao][findSectorById] FOUND SECTOR, returning: " + resultSector.toString());
+//}
