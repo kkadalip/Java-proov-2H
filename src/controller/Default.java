@@ -35,7 +35,7 @@ import dao.HibernateUtil;
 //import org.hibernate.SessionFactory;
 
 //import dao.HibernateUtil;
-//import dao.SectorDao;
+import dao.SectorDao;
 import dao.UserDao;
 import model.Sector;
 import model.User;
@@ -62,9 +62,10 @@ public class Default extends HttpServlet {
 		httpSession.setAttribute("displayedUsers", displayedUsers);
 
 		List<Sector> displayedSectors = new ArrayList<Sector>();
-		dao.SectorDao sectorDao = new dao.SectorDao();
+		SectorDao sectorDao = new SectorDao();
 		displayedSectors = sectorDao.getAllRootSectors();
-		httpSession.setAttribute("displayedSectors", new ArrayList<Sector>(displayedSectors));
+//		httpSession.setAttribute("displayedSectors", new ArrayList<Sector>(displayedSectors));
+		httpSession.setAttribute("displayedSectors", displayedSectors);
 		
 		//httpSession.setAttribute("saved_user_id", newUser.getId());
 		Long saved_user_id = (Long) httpSession.getAttribute("saved_user_id");

@@ -102,14 +102,13 @@ console.log("wtf");
 			<c:forEach items="${sessionScope['displayedSectors']}" var="item"
 				varStatus="outerLoop">
 
-
 				<option id="option_${item.id}" value="${item.id}"><!-- [${outerLoop.index}]] --><c:out
 						value="${item.name}" /></option>
 				<!--  pass outerLoop.index !!! -->
-				<!-- 
-				<myTags:sectorGroups level="0" outerIndex="${outerLoop.index}" list="${item.child_sectors}"/> 
-				 -->
-
+				<!-- LAZY LOAD ERROR: -->
+				<c:if test="${not empty item.child_sectors}">
+					<myTags:sectorGroups level="0" outerIndex="${outerLoop.index}" list="${item.child_sectors}"/>
+				</c:if>
 			</c:forEach>
 		</select>
 		<!-- <c:out value="${requestScope['SESSIONselectedSectors']}" /> -->

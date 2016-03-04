@@ -1,10 +1,10 @@
 package model;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
+//import java.util.ArrayList;
 //import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
+//import java.util.List;
 import java.util.Set;
 //import java.util.SortedSet;
 //import java.util.TreeSet;
@@ -27,11 +27,11 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 //import org.hibernate.annotations.Type;
 
-//import com.sun.istack.internal.NotNull;
-import com.sun.istack.internal.Nullable;
-
 //import org.hibernate.annotations.GenericGenerator;
 //import org.hibernate.annotations.SortNatural;
+
+//import com.sun.istack.internal.NotNull;
+import com.sun.istack.internal.Nullable;
 
 @Entity
 @Table(name="user")

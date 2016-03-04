@@ -18,7 +18,11 @@
 			<!--[${innerLoop.index}]${item.name}-->
 			<c:forEach begin="0" end="${lvl}" varStatus="loop">&nbsp;&nbsp;&nbsp;&nbsp;</c:forEach>${item.name}
 		</option>
-		<myTags:sectorGroups level="${lvl + 1}" outerIndex="${outerIndex}"
-			list="${item.child_sectors}" />
+		
+		<c:if test="${not empty item.child_sectors}">
+			<!-- BREAKS HERE: -->
+			<myTags:sectorGroups level="${lvl + 1}" outerIndex="${outerIndex}" list="${item.child_sectors}" />			
+		</c:if>
+		
 	</c:forEach>
 </c:if>
