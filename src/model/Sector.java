@@ -71,15 +71,13 @@ public class Sector implements Comparable<Sector> {
 	
 	//@SortComparator(WhateverComparator.class) // http://docs.jboss.org/hibernate/orm/5.1/userguide/html_single/Hibernate_User_Guide.html#collections-sorted-set
 	//another way @Sort(type=SortType.COMPARATOR, comparator=TimeComparator.class)
-	//@OrderBy("name")
 	//@OrderBy("name") // @OrderBy currently works only on collections having no association table. http://docs.jboss.org/ejb3/app-server/HibernateAnnotations/reference/en/html_single/index.html#entity-mapping-association-collections
 	//@OrderBy(clause = "name asc")
 	//private Set<Sector> child_sectors = new HashSet<>();
 	//@JoinColumn(name = "sector_id")
 	//@JoinColumn(name = "parent_sector", referencedColumnName = "sector_id")
 	// org.hibernate.HibernateException: org.hibernate.AnnotationException: Associations marked as mappedBy must not define database mappings like @JoinTable or @JoinColumn: model.Sector.child_sectors
-	//@OneToMany(fetch=FetchType.LAZY) // EAGER //, mappedBy="") //cascade = CascadeType.ALL, (fetch=FetchType.EAGER) //@ManyToOne // (cascade={CascadeType.ALL})
-    @OneToMany(fetch=FetchType.EAGER) 
+    @OneToMany(fetch=FetchType.EAGER) // LAZY // (cascade={CascadeType.ALL})
     @Cascade(value={CascadeType.ALL}) // save them to the database when saving their parent.
 	@OrderBy(value="name")
 	@SortNatural
