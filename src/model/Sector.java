@@ -35,8 +35,7 @@ import org.hibernate.annotations.CascadeType;
 //import org.springframework.beans.factory.annotation.Required;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.sun.istack.internal.Nullable;
-
+//import com.sun.istack.internal.Nullable;
 
 @Entity
 @Table(name="sector")
@@ -60,7 +59,7 @@ public class Sector implements Comparable<Sector> {
 	@ManyToMany //@ManyToOne // (cascade={CascadeType.ALL}) // @OneToMany(fetch = FetchType.LAZY, mappedBy = "user???")
 	@Cascade(value={CascadeType.ALL})
 	@JoinColumn(name="user_id") // <key column="user_id"
-	@Nullable
+	//fix? @Nullable
 	private Set<User> sector_users = new HashSet<>();
 
 	@Column(name="parent_id")
@@ -83,7 +82,7 @@ public class Sector implements Comparable<Sector> {
 	@SortNatural
 	@JoinColumn(name="parent_id") //, insertable = false, updatable = false)
 	//@JoinColumn(name="fk_sector_id") // <key column="sector_id"
-	@Nullable
+	//fix? @Nullable
 	private SortedSet<Sector> child_sectors = new TreeSet<>(); // TreeSet is only appropriate if you need the Set sorted, either by the Object's implementation of Comparable or by a custom Comparator passed to the TreeSet's constructor.
 	
     /*   @OneToMany //@ManyToOne // (cascade={CascadeType.ALL})

@@ -31,7 +31,7 @@ import org.hibernate.annotations.CascadeType;
 //import org.hibernate.annotations.SortNatural;
 
 //import com.sun.istack.internal.NotNull;
-import com.sun.istack.internal.Nullable;
+//import com.sun.istack.internal.Nullable;
 
 @Entity
 @Table(name="user")
@@ -59,7 +59,7 @@ public class User {
     @ManyToMany(fetch = FetchType.LAZY) // EAGER // TODO IMPROVE with a separate method in DAO? //@ManyToOne // (cascade={CascadeType.ALL}) // @OneToMany(fetch = FetchType.LAZY, mappedBy = "user???")
     @Cascade(value = { CascadeType.ALL })
     @JoinColumn(name = "sector_id") // not parent_sector duh // <key column="sector_id"
-    @Nullable
+    //fix? @Nullable
     private Set<Sector> user_sectors = new HashSet<>();
 
     @Column(name="dateAdded")
